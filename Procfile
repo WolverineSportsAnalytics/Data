@@ -1,1 +1,1 @@
-web: gunicorn wsadata.wsgi --log-file -
+web: gunicorn hello:app
