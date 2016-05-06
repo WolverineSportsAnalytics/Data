@@ -1,0 +1,1 @@
+web: gunicorn wsadata.wsgi --log-file -
