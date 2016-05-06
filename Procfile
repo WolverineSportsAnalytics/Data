@@ -1,1 +1,1 @@
-web: gunicorn wfsdata.wsgi --log-file -
+web: 
