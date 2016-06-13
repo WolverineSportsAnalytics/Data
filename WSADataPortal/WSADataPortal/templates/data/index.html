@@ -1,4 +1,4 @@
-<!doctype html ng-app="WSAData">
+<!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
@@ -27,14 +27,16 @@
         <script src="{% static 'js/vendor/modernizr-2.8.3-respond-1.4.2.min.js' %}"></script>
 
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.5.6/angular-sanitize.js"></script>
+
         <script src="{% static 'js/main.js' %}"></script>
     </head>
-    <body>
+    <body ng-app="WSAData">
       {% load staticfiles %}
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="mainController as wsa">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -46,9 +48,10 @@
           <a class="navbar-brand" href="">Wolverine Sports Analytics Data</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right" role="form">
-            <div class="form-group">           
-              <input type="password" placeholder="Password" class="form-control" ng-model="passwordData">
+          <form class="navbar-form navbar-right" role="form" ng-submit="wsa.validate(wsa.username, wsa.password)">
+            <div class="form-group"> 
+              <input type="text" placeholder="Username" class="form-control" ng-model="wsa.username">    
+              <input type="password" placeholder="Password" class="form-control" ng-model="wsa.password">
             </div>
             <button type="submit" class="btn btn-success">Enter the Data Realm</button>
           </form>
