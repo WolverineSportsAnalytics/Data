@@ -51,10 +51,10 @@
 
     <div class="container" id="logo" ng-controller="baseballController as wsa">
         <div class = "row">
-            <div class="col-md-5">
+            <div class="col-md-5 col-xs-12">
                 <h2> Rotowire Data </h2>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 col-xs-2">
                 <div class="dropdown buttonAlign">
                     <button class="btn btn-md btn-danger dropdown-toggle" type="button" data-toggle="dropdown"> Dates
                     <span class="caret"></span></button>
@@ -65,20 +65,20 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-5 col-xs-10">
                 <button type="button" class="btn btn-md btn-info btn pull-right buttonAlign" ng-click="wsa.rotowireHide()" ng-show="wsa.showRotowire"> Hide </button>
                 <button type="button" class="btn btn-md btn-success btn pull-right buttonAlign" ng-click="wsa.rotowireShow()" ng-show="!wsa.showRotowire"> Show </button>
                 <button type="button" class="btn btn-md btn-danger btn pull-right buttonAlign" ng-click="wsa.getRotowireData()" ><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Get Rotowire Data</button>
             </div>
         </div>
-        <div class="row">
+        <div class="row buttonAlign">
             <div ng-bind-html="wsa.rotowireHTML" class="table-responsive" ng-show="wsa.showRotowire"></div>
         </div>
         <div class = "row">
-            <div class="col-md-5">
+            <div class="col-md-5 col-xs-12">
                 <h2> Rotogrinders Batter Data </h2>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 col-xs-2">
                 <div class="dropdown buttonAlign">
                     <button class="btn btn-md btn-danger dropdown-toggle" type="button" data-toggle="dropdown"> Dates
                     <span class="caret"></span></button>
@@ -89,20 +89,20 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-5 col-xs-10">
                 <button type="button" class="btn btn-md btn-info btn pull-right buttonAlign" ng-click="wsa.rotogrindersBattersHide()" ng-show="wsa.showRotogrindersBatters"> Hide </button>
                 <button type="button" class="btn btn-md btn-success btn pull-right buttonAlign" ng-click="wsa.rotogrindersBattersShow()" ng-show="!wsa.showRotogrindersBatters"> Show </button>
-                <button type="button" class="btn btn-md btn-danger btn pull-right buttonAlign" ng-click="wsa.getRotogrindersBatterData()"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Get Rotogrinders Batter Data</button>
+                <button type="button" class="btn btn-md btn-danger btn pull-right buttonAlign" ng-click="wsa.getRotogrindersBatterData()"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Get Rotogrinders Batters</button>
             </div>
         </div>
-        <div class="row">
+        <div class="row buttonAlign">
             <div ng-bind-html="wsa.rotogrindersBattersHTML" class="table-responsive" ng-show="wsa.showRotogrindersBatters"></div>
         </div>
         <div class = "row">
-            <div class="col-md-5">
+            <div class="col-md-5 col-xs-12">
                 <h2> Rotogrinders Pitcher Data </h2>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 col-xs-2">
                 <div class="dropdown buttonAlign">
                     <button class="btn btn-md btn-danger dropdown-toggle" type="button" data-toggle="dropdown"> Dates
                     <span class="caret"></span></button>
@@ -113,20 +113,20 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-5 col-xs-10">
                 <button type="button" class="btn btn-md btn-info btn pull-right buttonAlign" ng-click="wsa.rotogrindersPitchersHide()" ng-show="wsa.showRotogrindersPitchers"> Hide </button>
                 <button type="button" class="btn btn-md btn-success btn pull-right buttonAlign" ng-click="wsa.rotogrindersPitchersShow()" ng-show="!wsa.showRotogrindersPitchers"> Show </button>
-                <button type="button" class="btn btn-md btn-danger btn pull-right buttonAlign" ng-click="wsa.getRotogrindersPitcherData()"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Get Rotogrinders Pitcher Data</button>
+                <button type="button" class="btn btn-md btn-danger btn pull-right buttonAlign" ng-click="wsa.getRotogrindersPitcherData()"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Get Rotogrinders Pitchers</button>
             </div>
         </div>
-        <div class="row">
+        <div class="row buttonAlign">
             <div ng-bind-html="wsa.rotogrindersPitchersHTML" class="table-responsive" ng-show="wsa.showRotogrindersPitchers"></div>
         </div>
         <div class = "row">
-            <div class="col-md-5">
+            <div class="col-md-5 col-xs-12">
                 <h2> Swish Analytics Batter Data </h2>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 col-xs-2">
                 <div class="dropdown buttonAlign">
                     <button class="btn btn-md btn-danger dropdown-toggle" type="button" data-toggle="dropdown"> Dates
                     <span class="caret"></span></button>
@@ -137,20 +137,20 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-5 col-xs-10">
                 <button type="button" class="btn btn-md btn-info btn pull-right buttonAlign" ng-click="wsa.swishAnalyticsBattersHide()" ng-show="wsa.showSwishAnalyticsBatterData"> Hide </button>
                 <button type="button" class="btn btn-md btn-success btn pull-right buttonAlign" ng-click="wsa.swishAnalyticsBattersShow()" ng-show="!wsa.showSwishAnalyticsBatterData"> Show </button>
-                <button type="button" class="btn btn-md btn-danger btn pull-right buttonAlign" ng-click="wsa.getSwishAnalyticsBatterData()"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Get Swish Analytics Batter Data</button>
+                <button type="button" class="btn btn-md btn-danger btn pull-right buttonAlign" ng-click="wsa.getSwishAnalyticsBatterData()"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Get Swish Analytics Batters</button>
             </div>
         </div>
-        <div class="row">
+        <div class="row buttonAlign">
             <div ng-bind-html="wsa.swishAnalyticsBattersHTML" class="table-responsive" ng-show="wsa.showSwishAnalyticsBatterData"></div>
         </div>
         <div class = "row">
-            <div class="col-md-5">
+            <div class="col-md-5 col-xs-12">
                 <h2> Swish Analytics Pitcher Data </h2>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 col-xs-2">
                 <div class="dropdown buttonAlign">
                     <button class="btn btn-md btn-danger dropdown-toggle" type="button" data-toggle="dropdown"> Dates
                     <span class="caret"></span></button>
@@ -161,13 +161,13 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-5 col-xs-10">
                 <button type="button" class="btn btn-md btn-info btn pull-right buttonAlign" ng-click="wsa.swishAnalyticsPitchersHide()" ng-show="wsa.showSwishAnalyticsPitcherData"> Hide </button>
                 <button type="button" class="btn btn-md btn-success btn pull-right buttonAlign" ng-click="wsa.swishAnalyticsPitchersShow()" ng-show="!wsa.showSwishAnalyticsPitcherData"> Show </button>
-                <button type="button" class="btn btn-md btn-danger btn pull-right buttonAlign" ng-click="wsa.getSwishAnalyticsPitcherData()"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Get Swish Analytics Pitcher Data</button>
+                <button type="button" class="btn btn-md btn-danger btn pull-right buttonAlign" ng-click="wsa.getSwishAnalyticsPitcherData()"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Get Swish Analytics Pitchers</button>
             </div>
         </div>
-        <div class="row">
+        <div class="row buttonAlign">
             <div ng-bind-html="wsa.swishAnalyticsPitchersHTML" class="table-responsive" ng-show="wsa.showSwishAnalyticsPitcherData"></div>
         </div>
     </div>
