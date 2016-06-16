@@ -35,7 +35,7 @@ def baseballRotowireData(request):
         page = urllib2.urlopen(url).read()
         soup = BeautifulSoup(page, "html.parser")
 
-        rotowireHeader = ['Name', 'Bats', 'Team', 'Pitcher Throws', 'Position', 'Order in LU', 'Opponent',
+        rotowireHeader = ['Name', 'Bats', 'Team', 'Position', 'Order in LU', 'Opponent',
                           'Opp Throws', 'Salary', 'Proj. Points', 'Ceiling', 'Floor', 'Value', 'M/L', 'O/U']
 
         rotoWireData = []
@@ -71,11 +71,6 @@ def baseballRotowireData(request):
             team = tds[2]['data-team']
             team = str(team.encode('utf-8'))
             playerData.append(team)
-
-            teamPitcherArm = tds[2].span
-            teamPitcherArm = teamPitcherArm.text
-            teamPitcherArm = str(teamPitcherArm.encode('utf-8'))
-            playerData.append(teamPitcherArm)
 
             position = tds[3].text
             position = str(position.encode('utf-8'))
