@@ -1,8 +1,11 @@
 var app = angular.module('WSAData', ['ngSanitize']);
 
-app.config(['$httpProvider', function($httpProvider) {
+app.config(['$httpProvider', '$interpolateProvider', function($httpProvider, $interpolateProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+
+	$interpolateProvider.startSymbol('{[{');
+	$interpolateProvider.endSymbol('}]}');
 }]);
 
 
@@ -35,6 +38,16 @@ app.controller("mainController", ['$scope', '$http', '$location', '$window', fun
 
 app.controller("baseballController", ['$scope', '$http', '$location', '$window', function($scope, $http, $location) {
 	var wsa = this;
+
+	var rotowireTimesGet = $http.get('/api/baseballRotowireTimes/');
+
+	rotowireTimesGet.success(function(response){
+		console.log("Success getting times");
+		wsa.rotowireTimes = response;
+	});
+	rotowireTimesGet.error(function(response){
+		console.log("Error: ", + response.toString())
+	});
 
 	wsa.showRotowire = true;
 
@@ -96,10 +109,19 @@ app.controller("baseballController", ['$scope', '$http', '$location', '$window',
 		wsa.showSwishAnalyticsPitcherData = true;
 	};
 
+	function findId(times) {
+		return times.scraped === wsa.rotowireSelectTime;
+	}
+
 	wsa.getRotowireData = function()
 	{
+		wsa.rotowireSelectedTimeObject = ""
+
+		if (wsa.rotowireSelectTime != "")
+			wsa.rotowireSelectedTimeObject = wsa.rotowireTimes.find(findId);
+
 		// send to database
-		var submit = $http.get('/api/baseballRotowireData/');
+		var submit = $http.post('/api/baseballRotowireData/', wsa.rotowireSelectedTimeObject);
 
 		submit.success(function(response){
 			console.log("Success");

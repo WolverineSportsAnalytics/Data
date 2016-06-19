@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models import User
+from api.models import User, TimeKeeper, Rotowire
 
 '''
 Serializing and deserializing objects into JSON to be sent 
@@ -24,3 +24,17 @@ class UserSerializer(serializers.ModelSerializer):
 		instance.save()
 		return instance
 '''
+
+class RotowireSerializer(serializers.ModelSerializer):
+
+	class Meta:
+		model = Rotowire
+		fields = ('name', 'bats', 'team', 'position', 'orderInLU', 'opponent', 'opponentThrows', 'salary', 'projPoints',
+				  'ceiling', 'floor', 'value', 'moneyLine', 'overUnder')
+
+
+class TimeKeeperSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = TimeKeeper
+		fields = ('id', 'name', 'scraped')
+

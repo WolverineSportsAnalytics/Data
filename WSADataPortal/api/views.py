@@ -3,11 +3,13 @@ from django.http import HttpResponseNotFound
 from rest_framework.decorators import api_view
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
-from api.serializers import UserSerializer
+from api.models import TimeKeeper, Rotowire
+from api.serializers import TimeKeeperSerializer, RotowireSerializer
 from bs4 import BeautifulSoup
 from string import whitespace
 import urllib2
 import demjson
+import json
 
 # Create your views here.
 
@@ -25,148 +27,194 @@ def login(request):
 # pull into database + then load?
 # scrollable/clickable links to get you to table
 
+@api_view(['GET'])
+def baseballRotowireTimes(request):
+    if request.method == 'GET':
+        rotowireTimes = TimeKeeper.objects.filter(name='Rotowire Data')
+        serializer = TimeKeeperSerializer(rotowireTimes, many=True)
+        return HttpResponse(json.dumps(serializer.data))
+
 
 @api_view(['POST', 'GET'])
 def baseballRotowireData(request):
-    if request.method == 'GET':
-        # Rotowire Data
-        url = "http://www.rotowire.com/daily/mlb/optimizer.htm?site=DraftKings&sport=MLB"
+    if request.method == 'POST':
+        if not request.data.items():
+            # Rotowire Data
+            url = "http://www.rotowire.com/daily/mlb/optimizer.htm?site=DraftKings&sport=MLB"
 
-        page = urllib2.urlopen(url).read()
-        soup = BeautifulSoup(page, "html.parser")
+            page = urllib2.urlopen(url).read()
+            soup = BeautifulSoup(page, "html.parser")
 
-        rotowireHeader = ['Name', 'Bats', 'Team', 'Position', 'Order in LU', 'Opponent',
-                          'Opp Throws', 'Salary', 'Proj. Points', 'Ceiling', 'Floor', 'Value', 'M/L', 'O/U']
+            rotowireHeader = ['Name', 'Bats', 'Team', 'Position', 'Order in LU', 'Opponent',
+                              'Opp Throws', 'Salary', 'Proj. Points', 'Ceiling', 'Floor', 'Value', 'M/L', 'O/U']
 
-        rotoWireData = []
+            rotoWireData = []
 
-        for tr in soup.find_all('tr')[4:]:
-            tds = tr.find_all('td')
+            RotowireEntry = TimeKeeper(name="Rotowire Data")
+            RotowireEntry.save()
 
-            playerData = []
+            for tr in soup.find_all('tr')[4:]:
+                tds = tr.find_all('td')
 
-            # name
-            playerInfo = tds[1]
+                playerData = []
 
-            playerName = playerInfo.a
-            playerName = playerName.text
-            playerName = str(playerName.encode('utf-8'))
-            playerData.append(playerName)
+                # name
+                playerInfo = tds[1]
 
-            playerStance = playerInfo.span
+                playerName = playerInfo.a
+                playerName = playerName.text
+                playerName = str(playerName.encode('utf-8'))
+                playerData.append(playerName)
 
-            if playerStance != None:
-                playerStance = playerStance.text
-                if playerStance == 'B':
-                    playerStance = 'S'
-                if playerStance == 'DTD':
+                playerStance = playerInfo.span
+
+                if playerStance != None:
+                    playerStance = playerStance.text
+                    if playerStance == 'B':
+                        playerStance = 'S'
+                    if playerStance == 'DTD':
+                        playerStance = "None"
+                    playerStance = str(playerStance.encode('utf-8'))
+                else:
                     playerStance = "None"
-                playerStance = str(playerStance.encode('utf-8'))
-            else:
-                playerStance = "None"
-                playerStance = str(playerStance.encode('utf-8'))
+                    playerStance = str(playerStance.encode('utf-8'))
 
-            playerData.append(playerStance)
+                playerData.append(playerStance)
 
-            team = tds[2]['data-team']
-            team = str(team.encode('utf-8'))
-            playerData.append(team)
+                team = tds[2]['data-team']
+                team = str(team.encode('utf-8'))
+                playerData.append(team)
 
-            position = tds[3].text
-            position = str(position.encode('utf-8'))
-            playerData.append(position)
+                position = tds[3].text
+                position = str(position.encode('utf-8'))
+                playerData.append(position)
 
-            battingOrder = tds[4]['data-slot']
-            battingOrder = str(battingOrder.encode('utf-8'))
-            playerData.append(battingOrder)
+                battingOrder = tds[4]['data-slot']
+                battingOrder = str(battingOrder.encode('utf-8'))
+                playerData.append(battingOrder)
 
-            tds2 = tr.find_all('td', recursive=False)
+                tds2 = tr.find_all('td', recursive=False)
 
-            opponent = tds2[5].text
-            opponent = opponent.replace('@', '')
-            opponent = opponent.encode('ascii', 'ignore')
-            opponent = opponent.translate(None, whitespace)
-            opponent = opponent.replace("(L)", "")
-            opponent = opponent.replace("(R)", "")
-            opponent = str(opponent.encode('utf-8'))
-            playerData.append(opponent)
+                opponent = tds2[5].text
+                opponent = opponent.replace('@', '')
+                opponent = opponent.encode('ascii', 'ignore')
+                opponent = opponent.translate(None, whitespace)
+                opponent = opponent.replace("(L)", "")
+                opponent = opponent.replace("(R)", "")
+                opponent = str(opponent.encode('utf-8'))
+                playerData.append(opponent)
 
-            opponentData = tds[5]
-            opponentThrowArm = opponentData.span
-            if opponentThrowArm != None:
-                opponentThrowArm = opponentThrowArm.text
-                opponentThrowArm = opponentThrowArm.lstrip()
-                opponentThrowArm = opponentThrowArm.rstrip()
-                opponentThrowArm = str(opponentThrowArm.encode('utf-8'))
-            else:
-                opponentThrowArm = "None"
-                opponentThrowArm = str(opponentThrowArm.encode('utf-8'))
-            playerData.append(opponentThrowArm)
+                opponentData = tds[5]
+                opponentThrowArm = opponentData.span
+                if opponentThrowArm != None:
+                    opponentThrowArm = opponentThrowArm.text
+                    opponentThrowArm = opponentThrowArm.lstrip()
+                    opponentThrowArm = opponentThrowArm.rstrip()
+                    opponentThrowArm = str(opponentThrowArm.encode('utf-8'))
+                else:
+                    opponentThrowArm = "None"
+                    opponentThrowArm = str(opponentThrowArm.encode('utf-8'))
+                playerData.append(opponentThrowArm)
 
-            salary = tds[6].text
-            salary = str(salary[1:])
-            salaries = salary.split(
-                ',')  # this must be created because some salaries are > 10,000 and some are 9,000 and below
-            salary = str(salaries[0]) + str(salaries[1])  # FIXME
-            playerData.append(salary)
+                salary = tds[6].text
+                salary = str(salary[1:])
+                salaries = salary.split(
+                    ',')  # this must be created because some salaries are > 10,000 and some are 9,000 and below
+                salary = str(salaries[0]) + str(salaries[1])  # FIXME
+                playerData.append(salary)
 
-            projpts = tds[7].text
-            projpts = projpts.lstrip()
-            projpts = projpts.rstrip()
-            projpts = str(projpts.encode('utf-8'))
-            if projpts == '':
-                projpts = tds[7]['data-points']
+                projpts = tds[7].text
                 projpts = projpts.lstrip()
                 projpts = projpts.rstrip()
                 projpts = str(projpts.encode('utf-8'))
-            playerData.append(projpts)
+                if projpts == '':
+                    projpts = tds[7]['data-points']
+                    projpts = projpts.lstrip()
+                    projpts = projpts.rstrip()
+                    projpts = str(projpts.encode('utf-8'))
+                playerData.append(projpts)
 
-            ceiling = tds[7]['data-ceiling']
-            ceiling = ceiling.lstrip()
-            ceiling = ceiling.rstrip()
-            ceiling = str(ceiling.encode('utf-8'))
-            playerData.append(ceiling)
+                ceiling = tds[7]['data-ceiling']
+                ceiling = ceiling.lstrip()
+                ceiling = ceiling.rstrip()
+                ceiling = str(ceiling.encode('utf-8'))
+                playerData.append(ceiling)
 
-            floor = tds[7]['data-floor']
-            floor = floor.lstrip()
-            floor = floor.rstrip()
-            floor = str(floor.encode('utf-8'))
-            playerData.append(floor)
+                floor = tds[7]['data-floor']
+                floor = floor.lstrip()
+                floor = floor.rstrip()
+                floor = str(floor.encode('utf-8'))
+                playerData.append(floor)
 
-            value = tds[8].text
-            value = value.lstrip()
-            value = value.rstrip()
-            value = str(value.encode('utf-8'))
-            playerData.append(value)
+                value = tds[8].text
+                value = value.lstrip()
+                value = value.rstrip()
+                value = str(value.encode('utf-8'))
+                playerData.append(value)
 
-            moneyLine = tds[9].text
-            moneyLine = str(moneyLine.encode('utf-8'))
-            playerData.append(moneyLine)
+                moneyLine = tds[9].text
+                moneyLine = str(moneyLine.encode('utf-8'))
+                playerData.append(moneyLine)
 
-            overUnder = tds[10].text
-            overUnder = str(overUnder.encode('utf-8'))
-            playerData.append(overUnder)
+                overUnder = tds[10].text
+                overUnder = str(overUnder.encode('utf-8'))
+                playerData.append(overUnder)
 
-            rotoWireData.append(playerData)
+                rotoWireData.append(playerData)
 
-        html = '<table class="table table-hover table-bordered table-striped">'
+                playerEntry = Rotowire(parent=RotowireEntry, name=playerName, bats=playerStance, team=team, orderInLU=battingOrder,
+                                       position=position, opponent=opponent, opponentThrows=opponentThrowArm,
+                                       salary=salary,
+                                       projPoints=projpts, ceiling=ceiling, floor=floor, value=value,
+                                       moneyLine=moneyLine,
+                                       overUnder=overUnder)
+                playerEntry.save()
 
-        for header in rotowireHeader:
-            html += '<th>'
-            html += header
-            html += '</th>'
+            html = '<table class="table table-hover table-bordered table-striped">'
 
-        for player in rotoWireData:
-            html += '<tr>'
-            for data in player:
-                html += '<td>'
-                html += data
-                html += '</td>'
-            html += '</tr>'
+            for header in rotowireHeader:
+                html += '<th>'
+                html += header
+                html += '</th>'
 
-        html += '</table>'
+            for player in rotoWireData:
+                html += '<tr>'
+                for data in player:
+                    html += '<td>'
+                    html += data
+                    html += '</td>'
+                html += '</tr>'
 
-        return HttpResponse(html)
+            html += '</table>'
+
+            return HttpResponse(html)
+
+        else:
+            rotoWireData = Rotowire.objects.filter(parent=request.data["id"])
+            serializer = RotowireSerializer(rotoWireData, many=True)
+            rotoWireSerializedData = serializer.data
+
+            rotowireHeader = ['Name', 'Bats', 'Team', 'Position', 'Order in LU', 'Opponent',
+                              'Opp Throws', 'Salary', 'Proj. Points', 'Ceiling', 'Floor', 'Value', 'M/L', 'O/U']
+
+            html = '<table class="table table-hover table-bordered table-striped">'
+
+            for header in rotowireHeader:
+                html += '<th>'
+                html += header
+                html += '</th>'
+
+            for player in rotoWireSerializedData:
+                html += '<tr>'
+                for i, (key , value) in enumerate(player.iteritems()):
+                    html += '<td>'
+                    html += value
+                    html += '</td>'
+                html += '</tr>'
+
+            html += '</table>'
+
+            return HttpResponse(html)
 
 
 @api_view(['POST', 'GET'])
