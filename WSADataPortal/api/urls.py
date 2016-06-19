@@ -19,5 +19,7 @@ urlpatterns = [
 	url(r'^baseballRotogrindersBattersTimes', views.baseballRotogrindersBattersTimes,
 		name='baseballRotogrindersBattersTimes'),
 	url(r'^baseballRotogrindersPitchersTimes', views.baseballRotogrindersPitchersTimes,
-		name='baseballRotogrindersPitchersTimes')
+		name='baseballRotogrindersPitchersTimes'),
+	url(r'^baseballSwishAnalyticsBattersTimes', views.baseballSwishAnalyticsBattersTimes,
+		name='baseballSwishAnalyticsBattersTimes')
 ]

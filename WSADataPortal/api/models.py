@@ -86,4 +86,28 @@ class RotogrindersPitchers(models.Model):
 	FBPercentage = models.CharField(max_length=7, blank=True, null=True)
 	IP = models.CharField(max_length=7, blank=True, null=True)
 
+class SwishAnalyticsBatters(models.Model):
+	parent = models.ForeignKey(TimeKeeper, related_name='SwishAnalyticsBatters')
+	name = models.CharField(max_length=250, blank=True, null=True)
+	salary = models.CharField(max_length=10, blank=True, null=True)
+	bats = models.CharField(max_length=5, blank=True, null=True)
+	position = models.CharField(max_length=5, blank=True, null=True)
+	team = models.CharField(max_length=250, blank=True, null=True)
+	opponent = models.CharField(max_length=250, blank=True, null=True)
+	projPoints = models.CharField(max_length=7, blank=True, null=True)
+	value = models.CharField(max_length=7, blank=True, null=True)
+	outs = models.CharField(max_length=7, blank=True, null=True)
+	AB = models.CharField(max_length=7, blank=True, null=True)
+	BB = models.CharField(max_length=7, blank=True, null=True)
+	HBP = models.CharField(max_length=7, blank=True, null=True)
+	singles = models.CharField(max_length=7, blank=True, null=True)
+	doubles = models.CharField(max_length=7, blank=True, null=True)
+	triples = models.CharField(max_length=7, blank=True, null=True)
+	HR = models.CharField(max_length=7, blank=True, null=True)
+	RBI = models.CharField(max_length=7, blank=True, null=True)
+	SB = models.CharField(max_length=7, blank=True, null=True)
+	CS = models.CharField(max_length=7, blank=True, null=True)
+	averageDKPoints = models.CharField(max_length=7, blank=True, null=True)
+
+
 

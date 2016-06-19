@@ -111,18 +111,13 @@
             <div class="col-md-5 col-xs-12">
                 <h2> Swish Analytics Batter Data </h2>
             </div>
-            <div class="col-md-2 col-xs-2">
-                <div class="dropdown buttonAlign">
-                    <button class="btn btn-md btn-danger dropdown-toggle" type="button" data-toggle="dropdown"> Dates
-                    <span class="caret"></span></button>
-                    <ul class="dropdown-menu ">
-                        <li><a href="#">Not</a></li>
-                        <li><a href="#">Implemented</a></li>
-                        <li><a href="#">Yet</a></li>
-                    </ul>
-                </div>
+            <div class="col-md-3 col-xs-2">
+                <select class="form-control buttonAlign" ng-model="wsa.swishAnalyticsBattersSelectedTime">
+                    <option></option>
+                    <option ng-repeat="time in wsa.swishAnalyticsBattersEntryTimes">{[{ time.scraped }]}</option>
+                </select>
             </div>
-            <div class="col-md-5 col-xs-10">
+            <div class="col-md-4 col-xs-10">
                 <button type="button" class="btn btn-md btn-info btn pull-right buttonAlign" ng-click="wsa.swishAnalyticsBattersHide()" ng-show="wsa.showSwishAnalyticsBatterData"> Hide </button>
                 <button type="button" class="btn btn-md btn-success btn pull-right buttonAlign" ng-click="wsa.swishAnalyticsBattersShow()" ng-show="!wsa.showSwishAnalyticsBatterData"> Show </button>
                 <button type="button" class="btn btn-md btn-danger btn pull-right buttonAlign" ng-click="wsa.getSwishAnalyticsBatterData()"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Get Swish Analytics Batters</button>

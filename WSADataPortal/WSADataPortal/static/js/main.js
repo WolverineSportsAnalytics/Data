@@ -68,6 +68,16 @@ app.controller("baseballController", ['$scope', '$http', '$location', '$window',
 	rotogrindersPitchersEntryTimesGet.error(function(response){
 		console.log("Error: ", + response.toString())
 	});
+	
+	var swishAnalyticsEntryTimesGet = $http.get('/api/baseballSwishAnalyticsBattersTimes');
+
+	swishAnalyticsEntryTimesGet.success(function(response){
+		console.log("Success getting Swish Analytics Batters times");
+		wsa.swishAnalyticsBattersEntryTimes = response;
+	});
+	swishAnalyticsEntryTimesGet.error(function(response){
+		console.log("Error: ", + response.toString())
+	});
 
 	wsa.showRotowire = true;
 
@@ -140,6 +150,10 @@ app.controller("baseballController", ['$scope', '$http', '$location', '$window',
 	function findRotogrindersPitchersId(time) {
 		return time.scraped === wsa.rotogrindersPitchersSelectedTime;
 	}
+	
+	function findSwishAnalyticsBattersId(time) {
+		return time.scraped === wsa.swishAnalyticsBattersSelectedTime;
+	}
 
 	wsa.getRotowireData = function()
 	{
@@ -203,8 +217,16 @@ app.controller("baseballController", ['$scope', '$http', '$location', '$window',
 
 	wsa.getSwishAnalyticsBatterData = function()
 	{
+		wsa.swishAnalyticsBattersSelectedTimeObject = "";
+		
+		if (wsa.swishAnalyticsBattersSelectedTime != "")
+		{
+			wsa.swishAnalyticsBattersSelectedTimeObject =
+				wsa.swishAnalyticsBattersEntryTimes.find(findSwishAnalyticsBattersId);
+		}
+		
 		// send to database
-		var submit = $http.get('/api/baseballSwishAnalyticsBatterData/');
+		var submit = $http.post('/api/baseballSwishAnalyticsBatterData/', wsa.swishAnalyticsBattersSelectedTimeObject);
 
 		submit.success(function(response){
 			console.log("Success");
