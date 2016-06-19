@@ -15,5 +15,7 @@ urlpatterns = [
 		name='baseballSwishAnalyticsBatterData'),
 	url(r'^baseballSwishAnalyticsPitcherData', views.baseballSwishAnalyticsPitcherData,
 		name='baseballSwishAnalyticsPitcherData'),
-	url(r'^baseballRotowireTimes', views.baseballRotowireTimes, name='baseballRotowireTimes')
+	url(r'^baseballRotowireTimes', views.baseballRotowireTimes, name='baseballRotowireTimes'),
+	url(r'^baseballRotogrindersBattersTimes', views.baseballRotogrindersBattersTimes,
+		name='baseballRotogrindersBattersTimes')
 ]

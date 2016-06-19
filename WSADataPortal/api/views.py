@@ -3,8 +3,8 @@ from django.http import HttpResponseNotFound
 from rest_framework.decorators import api_view
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
-from api.models import TimeKeeper, Rotowire
-from api.serializers import TimeKeeperSerializer, RotowireSerializer
+from api.models import TimeKeeper, Rotowire, RotogrindersBatters
+from api.serializers import TimeKeeperSerializer, RotowireSerializer, RotogrindersBattersSerializer
 from bs4 import BeautifulSoup
 from string import whitespace
 import urllib2
@@ -32,6 +32,13 @@ def baseballRotowireTimes(request):
     if request.method == 'GET':
         rotowireTimes = TimeKeeper.objects.filter(name='Rotowire Data')
         serializer = TimeKeeperSerializer(rotowireTimes, many=True)
+        return HttpResponse(json.dumps(serializer.data))
+
+@api_view(['GET'])
+def baseballRotogrindersBattersTimes(request):
+    if request.method == 'GET':
+        rotogrindersBattersTimes = TimeKeeper.objects.filter(name='Rotogrinders Batters Data')
+        serializer = TimeKeeperSerializer(rotogrindersBattersTimes, many=True)
         return HttpResponse(json.dumps(serializer.data))
 
 
@@ -216,133 +223,177 @@ def baseballRotowireData(request):
 
             return HttpResponse(html)
 
-
 @api_view(['POST', 'GET'])
 def baseballRotogrindersBatterData(request):
-    if request.method == 'GET':
-        #rotogrindersBatters
-        url = "https://rotogrinders.com/projected-stats/mlb-hitter?site=draftkings"
+    if request.method == 'POST':
+        if not request.data.items():
+            #rotogrindersBatters
+            url = "https://rotogrinders.com/projected-stats/mlb-hitter?site=draftkings"
 
-        page = urllib2.urlopen(url).read()
-        soup = BeautifulSoup(page, "html.parser")
+            page = urllib2.urlopen(url).read()
+            soup = BeautifulSoup(page, "html.parser")
 
-        rotogrinderProjectionsHeader = ['Player Name', 'Position', 'Sec. Position', 'Salary', 'Team', 'Opp', 'Bats',
-                                        'Ceiling', 'Floor', 'Projection', 'Value', 'Pitcher Name', 'Throws',
-                                        'Season AB', 'Season Avg', 'Season wOBA', 'Season ISO', 'Season OBP',
-                                        'Season BABIP', 'SLG %', 'K %', 'BB %', 'Season OPS']
+            rotogrinderProjectionsHeader = ['Player Name', 'Position', 'Sec. Position', 'Salary', 'Team', 'Opp', 'Bats',
+                                            'Ceiling', 'Floor', 'Projection', 'Value', 'Pitcher Name', 'Throws',
+                                            'Season AB', 'Season Avg', 'Season wOBA', 'Season ISO', 'Season OBP',
+                                            'Season BABIP', 'SLG %', 'K %', 'BB %', 'Season OPS']
 
-        # get object
-        script = soup.find_all("script")
-        script = script[8].text
+            # get object
+            script = soup.find_all("script")
+            script = script[8].text
 
-        # strip all junk
-        scriptJunk, rotoObject = script.split("=")
-        rotoObject, scriptJunk = rotoObject.split("projectedStats.init(data)")
-        rotoObject = rotoObject.lstrip()
-        rotoObject = rotoObject.rstrip()
-        rotoObject = rotoObject[:-1]
+            # strip all junk
+            scriptJunk, rotoObject = script.split("=")
+            rotoObject, scriptJunk = rotoObject.split("projectedStats.init(data)")
+            rotoObject = rotoObject.lstrip()
+            rotoObject = rotoObject.rstrip()
+            rotoObject = rotoObject[:-1]
 
-        rotoProj = demjson.decode(rotoObject)
+            rotoProj = demjson.decode(rotoObject)
 
-        rotogrindersData = []
+            RotogrindersBattersEntry = TimeKeeper(name='Rotogrinders Batters Data')
+            RotogrindersBattersEntry.save()
 
-        for line in rotoProj:
-            playerData = []
+            rotogrindersData = []
 
-            playerName = ((line['player_name']))
-            playerData.append(str(playerName))
+            for line in rotoProj:
+                playerData = []
 
-            position = ((line['position']))
+                playerName = ((line['player_name']))
+                playerData.append(str(playerName))
 
-            secondaryPosition = ""
-            if position.find('/') != -1:
-                position, secondaryPosition = position.split("/")
+                position = ((line['position']))
 
-            playerData.append(str(position))
-            playerData.append(str(secondaryPosition))
+                secondaryPosition = ""
+                if position.find('/') != -1:
+                    position, secondaryPosition = position.split("/")
 
-            salary = (line['salary'])
-            playerData.append(str(salary))
+                playerData.append(str(position))
+                playerData.append(str(secondaryPosition))
 
-            team = (line['team'])
-            playerData.append(str(team))
+                salary = (line['salary'])
+                playerData.append(str(salary))
 
-            opponent = (line['opp'])
-            playerData.append(str(opponent))
+                team = (line['team'])
+                playerData.append(str(team))
 
-            playerHand = (line['player']['hand'])
-            playerData.append(str(playerHand))
+                opponent = (line['opp'])
+                playerData.append(str(opponent))
 
-            ceil = (line['ceil'])
-            playerData.append(str(ceil))
+                playerHand = (line['player']['hand'])
+                playerData.append(str(playerHand))
 
-            floor = (line['floor'])
-            playerData.append(str(floor))
+                ceil = (line['ceil'])
+                playerData.append(str(ceil))
 
-            points = (line['points'])
-            playerData.append(str(points))
+                floor = (line['floor'])
+                playerData.append(str(floor))
 
-            value = "None"
-            playerData.append(str(value))
+                points = (line['points'])
+                playerData.append(str(points))
 
-            pFirstName = (line['pitcher']['first_name'])
-            pLastName = (line['pitcher']['last_name'])
-            pitcherName = pFirstName + " " + pLastName
-            playerData.append(str(pitcherName))
+                value = "None"
+                playerData.append(str(value))
 
-            pitcherHand = (line['pitcher']['hand'])
-            playerData.append(str(pitcherHand))
+                pFirstName = (line['pitcher']['first_name'])
+                pLastName = (line['pitcher']['last_name'])
+                pitcherName = pFirstName + " " + pLastName
+                playerData.append(str(pitcherName))
 
-            seasonAB = (line['ab'])
-            playerData.append(str(seasonAB))
+                pitcherHand = (line['pitcher']['hand'])
+                playerData.append(str(pitcherHand))
 
-            avg = (line['avg'])
-            playerData.append(str(avg))
+                seasonAB = (line['ab'])
+                playerData.append(str(seasonAB))
 
-            woba = (line['woba'])
-            playerData.append(str(woba))
+                avg = (line['avg'])
+                playerData.append(str(avg))
 
-            iso = (line['iso'])
-            playerData.append(str(iso))
+                woba = (line['woba'])
+                playerData.append(str(woba))
 
-            obp = (line['obp'])
-            playerData.append(str(obp))
+                iso = (line['iso'])
+                playerData.append(str(iso))
 
-            babip = (line['babip'])
-            playerData.append(str(babip))
+                obp = (line['obp'])
+                playerData.append(str(obp))
 
-            slg = (line['slg'])
-            playerData.append(str(slg))
+                babip = (line['babip'])
+                playerData.append(str(babip))
 
-            kPercentage = (line['k%'])
-            playerData.append(str(kPercentage))
+                slg = (line['slg'])
+                playerData.append(str(slg))
 
-            bb = (line['bb%'])
-            playerData.append(str(bb))
+                kPercentage = (line['k%'])
+                playerData.append(str(kPercentage))
 
-            ops = (line['ops'])
-            playerData.append(str(ops))
+                bb = (line['bb%'])
+                playerData.append(str(bb))
 
-            rotogrindersData.append(playerData)
+                ops = (line['ops'])
+                playerData.append(str(ops))
 
-        html = '<table class="table table-hover table-bordered table-striped">'
+                rotogrindersData.append(playerData)
 
-        for header in rotogrinderProjectionsHeader:
-            html += '<th>'
-            html += header
-            html += '</th>'
+                RotogrindersBattersPlayerData = RotogrindersBatters(parent=RotogrindersBattersEntry, name=playerName, position=position,
+                                                secondaryPosition=secondaryPosition, salary=salary, team=team, opponent=opponent,
+                                                bats=playerHand, ceiling=ceil, floor=floor, projPoints=points, value=value,
+                                                pitcherName=pitcherName, pitcherThrows=pitcherHand, seasonAB=seasonAB,
+                                                average=avg, wOBA=woba, ISO=iso, OBP=obp, BABIP=babip, SLG=slg,
+                                                kPercentage=kPercentage, BB=bb, OPS=ops)
 
-        for player in rotogrindersData:
-            html += '<tr>'
-            for data in player:
-                html += '<td>'
-                html += data
-                html += '</td>'
-            html += '</tr>'
+                RotogrindersBattersPlayerData.save()
 
-        html += '</table>'
+            html = '<table class="table table-hover table-bordered table-striped">'
 
-        return HttpResponse(html)
+            for header in rotogrinderProjectionsHeader:
+                html += '<th>'
+                html += header
+                html += '</th>'
+
+            for player in rotogrindersData:
+                html += '<tr>'
+                for data in player:
+                    html += '<td>'
+                    html += data
+                    html += '</td>'
+                html += '</tr>'
+
+            html += '</table>'
+
+            return HttpResponse(html)
+
+        else:
+            rotogrindersBattersData = RotogrindersBatters.objects.filter(parent=request.data["id"])
+            serializer = RotogrindersBattersSerializer(rotogrindersBattersData, many=True)
+            rotogrindersBattersSerializedData = serializer.data
+
+            rotogrinderProjectionsHeader = ['Player Name', 'Position', 'Sec. Position', 'Salary', 'Team', 'Opp', 'Bats',
+                                            'Ceiling', 'Floor', 'Projection', 'Value', 'Pitcher Name', 'Throws',
+                                            'Season AB', 'Season Avg', 'Season wOBA', 'Season ISO', 'Season OBP',
+                                            'Season BABIP', 'SLG %', 'K %', 'BB %', 'Season OPS']
+
+            html = '<table class="table table-hover table-bordered table-striped">'
+
+            for header in rotogrinderProjectionsHeader:
+                html += '<th>'
+                html += header
+                html += '</th>'
+
+            for player in rotogrindersBattersSerializedData:
+                html += '<tr>'
+                for i, (key , value) in enumerate(player.iteritems()):
+                    html += '<td>'
+                    if value is None:
+                        html += "N/A"
+                    else:
+                        html += value
+                    html += '</td>'
+                html += '</tr>'
+
+            html += '</table>'
+            return HttpResponse(html)
+
 
 @api_view(['POST', 'GET'])
 def baseballRotogrindersPitcherData(request):

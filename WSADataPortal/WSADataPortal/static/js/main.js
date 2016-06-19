@@ -42,10 +42,20 @@ app.controller("baseballController", ['$scope', '$http', '$location', '$window',
 	var rotowireTimesGet = $http.get('/api/baseballRotowireTimes/');
 
 	rotowireTimesGet.success(function(response){
-		console.log("Success getting times");
+		console.log("Success getting Rotowire times");
 		wsa.rotowireTimes = response;
 	});
 	rotowireTimesGet.error(function(response){
+		console.log("Error: ", + response.toString())
+	});
+
+	var rotogrindersBattersEntryTimesGet = $http.get('/api/baseballRotogrindersBattersTimes');
+
+	rotogrindersBattersEntryTimesGet.success(function(response){
+		console.log("Success getting Rotogrinders Batters times");
+		wsa.rotogrindersBattersEntryTimes = response;
+	});
+	rotogrindersBattersEntryTimesGet.error(function(response){
 		console.log("Error: ", + response.toString())
 	});
 
@@ -109,16 +119,20 @@ app.controller("baseballController", ['$scope', '$http', '$location', '$window',
 		wsa.showSwishAnalyticsPitcherData = true;
 	};
 
-	function findId(times) {
-		return times.scraped === wsa.rotowireSelectTime;
+	function findRotowireId(time) {
+		return time.scraped === wsa.rotowireSelectTime;
+	}
+
+	function findRotogrindersBattersId(time) {
+		return time.scraped === wsa.rotogrindersBattersSelectedTime;
 	}
 
 	wsa.getRotowireData = function()
 	{
-		wsa.rotowireSelectedTimeObject = ""
+		wsa.rotowireSelectedTimeObject = "";
 
 		if (wsa.rotowireSelectTime != "")
-			wsa.rotowireSelectedTimeObject = wsa.rotowireTimes.find(findId);
+			wsa.rotowireSelectedTimeObject = wsa.rotowireTimes.find(findRotowireId);
 
 		// send to database
 		var submit = $http.post('/api/baseballRotowireData/', wsa.rotowireSelectedTimeObject);
@@ -134,8 +148,13 @@ app.controller("baseballController", ['$scope', '$http', '$location', '$window',
 	
 	wsa.getRotogrindersBatterData = function()
 	{
+		wsa.rotogrindersSelectedTimeObject = "";
+
+		if (wsa.rotogrindersBattersSelectedTime != "")
+			wsa.rotogrindersSelectedTimeObject = wsa.rotogrindersBattersEntryTimes.find(findRotogrindersBattersId);
+
 		// send to database
-		var submit = $http.get('/api/baseballRotogrindersBatterData/');
+		var submit = $http.post('/api/baseballRotogrindersBatterData/', wsa.rotogrindersSelectedTimeObject);
 
 		submit.success(function(response){
 			console.log("Success");
