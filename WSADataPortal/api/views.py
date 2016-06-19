@@ -3,8 +3,9 @@ from django.http import HttpResponseNotFound
 from rest_framework.decorators import api_view
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
-from api.models import TimeKeeper, Rotowire, RotogrindersBatters
-from api.serializers import TimeKeeperSerializer, RotowireSerializer, RotogrindersBattersSerializer
+from api.models import TimeKeeper, Rotowire, RotogrindersBatters, RotogrindersPitchers
+from api.serializers import TimeKeeperSerializer, RotowireSerializer, RotogrindersBattersSerializer, \
+    RotogrindersPitchersSerializer
 from bs4 import BeautifulSoup
 from string import whitespace
 import urllib2
@@ -39,6 +40,13 @@ def baseballRotogrindersBattersTimes(request):
     if request.method == 'GET':
         rotogrindersBattersTimes = TimeKeeper.objects.filter(name='Rotogrinders Batters Data')
         serializer = TimeKeeperSerializer(rotogrindersBattersTimes, many=True)
+        return HttpResponse(json.dumps(serializer.data))
+
+@api_view(['GET'])
+def baseballRotogrindersPitchersTimes(request):
+    if request.method == 'GET':
+        rotogrindersPitchersTimes = TimeKeeper.objects.filter(name='Rotogrinders Pitchers Data')
+        serializer = TimeKeeperSerializer(rotogrindersPitchersTimes, many=True)
         return HttpResponse(json.dumps(serializer.data))
 
 
@@ -397,140 +405,187 @@ def baseballRotogrindersBatterData(request):
 
 @api_view(['POST', 'GET'])
 def baseballRotogrindersPitcherData(request):
-    if request.method == 'GET':
-        url = "https://rotogrinders.com/projected-stats/mlb-pitcher?site=draftkings"
+    if request.method == 'POST':
+        if not request.data.items():
+            url = "https://rotogrinders.com/projected-stats/mlb-pitcher?site=draftkings"
 
-        page = urllib2.urlopen(url).read()
-        soup = BeautifulSoup(page, "html.parser")
+            page = urllib2.urlopen(url).read()
+            soup = BeautifulSoup(page, "html.parser")
 
-        rotogrindersPitcherProjectionsHeader = ["Player Name", "Position", "Salary", "Team", "Opponent", "Player Hand",
-                                                "Ceiling", "Floor", "Projection", "Value", "xISO", "xR", "xSLG",
-                                                "xWOBA", "xL", "GP", "lWOBA", "rWOBA", "lSLG", "rSLG", "SIERA", "xFIP",
-                                                "lISO", "rISO", "GBPercentage", "FBPercentage", "IP"]
+            rotogrindersPitcherProjectionsHeader = ["Player Name", "Position", "Salary", "Team", "Opponent", "Player Hand",
+                                                    "Ceiling", "Floor", "Projection", "Value", "xISO", "xR", "xSLG",
+                                                    "xWOBA", "xL", "GP", "lWOBA", "rWOBA", "lSLG", "rSLG", "SIERA", "xFIP",
+                                                    "lISO", "rISO", "GBPercentage", "FBPercentage", "IP"]
 
-        # get object
-        script = soup.find_all("script")
-        script = script[8].text
+            # get object
+            script = soup.find_all("script")
+            script = script[8].text
 
-        # strip all junk
-        scriptJunk, rotoObject = script.split("=")
-        rotoObject, scriptJunk = rotoObject.split("projectedStats.init(data)")
-        rotoObject = rotoObject.lstrip()
-        rotoObject = rotoObject.rstrip()
-        rotoObject = rotoObject[:-1]
+            # strip all junk
+            scriptJunk, rotoObject = script.split("=")
+            rotoObject, scriptJunk = rotoObject.split("projectedStats.init(data)")
+            rotoObject = rotoObject.lstrip()
+            rotoObject = rotoObject.rstrip()
+            rotoObject = rotoObject[:-1]
 
-        rotoProj = demjson.decode(rotoObject)
+            rotoProj = demjson.decode(rotoObject)
 
-        rotogrindersPitcherData = []
+            RotogrindersPitchersEntry = TimeKeeper(name='Rotogrinders Pitchers Data')
+            RotogrindersPitchersEntry.save()
 
-        for line in rotoProj:
-            playerData = []
+            rotogrindersPitcherData = []
 
-            playerName = (line['player_name'])
-            playerData.append(str(playerName))
+            for line in rotoProj:
+                playerData = []
 
-            position = (line['position'])
-            playerData.append(str(position))
+                playerName = (line['player_name'])
+                playerData.append(str(playerName))
 
-            salary = (line['salary'])
-            playerData.append(str(salary))
+                position = (line['position'])
+                playerData.append(str(position))
 
-            team = (line['team'])
-            playerData.append(str(team))
+                salary = (line['salary'])
+                playerData.append(str(salary))
 
-            opponent = (line['opp'])
-            playerData.append(str(opponent))
+                team = (line['team'])
+                playerData.append(str(team))
 
-            playerHand = (line['player']['hand'])
-            playerData.append((str(playerHand)))
+                opponent = (line['opp'])
+                playerData.append(str(opponent))
 
-            ceil = (line['ceil'])
-            playerData.append(str(ceil))
+                playerHand = (line['player']['hand'])
+                playerData.append((str(playerHand)))
 
-            floor = (line['floor'])
-            playerData.append((str(floor)))
+                ceil = (line['ceil'])
+                playerData.append(str(ceil))
 
-            points = (line['points'])
-            playerData.append(str(points))
+                floor = (line['floor'])
+                playerData.append((str(floor)))
 
-            value = "None"
-            playerData.append(str(value))
+                points = (line['points'])
+                playerData.append(str(points))
 
-            xIso = (line['xiso'])
-            playerData.append(str(xIso))
+                value = "None"
+                playerData.append(str(value))
 
-            xR = (line['xr'])
-            playerData.append(str(xR))
+                xIso = (line['xiso'])
+                playerData.append(str(xIso))
 
-            xSLG = (line['xslg'])
-            playerData.append(str(xSLG))
+                xR = (line['xr'])
+                playerData.append(str(xR))
 
-            xWOBA = (line['xwoba'])
-            playerData.append(str(xWOBA))
+                xSLG = (line['xslg'])
+                playerData.append(str(xSLG))
 
-            # xk9 = (line["xk\/9"])
-            xl = (line['xl'])
-            playerData.append(str(xl))
+                xWOBA = (line['xwoba'])
+                playerData.append(str(xWOBA))
 
-            gp = (line['gp'])
-            playerData.append(str(gp))
+                # xk9 = (line["xk\/9"])
+                xl = (line['xl'])
+                playerData.append(str(xl))
 
-            lwoba = (line['lwoba'])
-            playerData.append(str(lwoba))
+                gp = (line['gp'])
+                playerData.append(str(gp))
 
-            rwoba = (line['rwoba'])
-            playerData.append(str(rwoba))
+                lwoba = (line['lwoba'])
+                playerData.append(str(lwoba))
 
-            # lk9 = (line['lk\/9'])
-            # rk9 = (line['rk\/9'])
-            lSLG = (line['lslg'])
-            playerData.append(str(lSLG))
+                rwoba = (line['rwoba'])
+                playerData.append(str(rwoba))
 
-            rSLG = (line['rslg'])
-            playerData.append(str(rSLG))
+                # lk9 = (line['lk\/9'])
+                # rk9 = (line['rk\/9'])
+                lSLG = (line['lslg'])
+                playerData.append(str(lSLG))
 
-            SIERA = (line['siera'])
-            playerData.append(str(SIERA))
+                rSLG = (line['rslg'])
+                playerData.append(str(rSLG))
 
-            xFIP = (line['xfip'])
-            playerData.append(str(xFIP))
+                SIERA = (line['siera'])
+                playerData.append(str(SIERA))
 
-            # HRFB = (line['hr\/fb'])
-            lISO = (line['liso'])
-            playerData.append(str(lISO))
+                xFIP = (line['xfip'])
+                playerData.append(str(xFIP))
 
-            rISO = (line['riso'])
-            playerData.append(str(rISO))
+                # HRFB = (line['hr\/fb'])
+                lISO = (line['liso'])
+                playerData.append(str(lISO))
 
-            GBPercentage = (line['gb%'])
-            playerData.append(str(GBPercentage))
+                rISO = (line['riso'])
+                playerData.append(str(rISO))
 
-            FBPercentage = (line['fb%'])
-            playerData.append(str(FBPercentage))
+                GBPercentage = (line['gb%'])
+                playerData.append(str(GBPercentage))
 
-            IP = (line['ip'])
-            playerData.append(str(IP))
+                FBPercentage = (line['fb%'])
+                playerData.append(str(FBPercentage))
 
-            rotogrindersPitcherData.append(playerData)
+                IP = (line['ip'])
+                playerData.append(str(IP))
 
-        html = '<table class="table table-hover table-bordered table-striped">'
+                rotogrindersPitcherEntry = RotogrindersPitchers(parent=RotogrindersPitchersEntry,
+                                                                name=playerName, position=position, salary=salary,
+                                                                team=team, opponent=opponent, playerThrows=playerHand,
+                                                                ceiling=ceil, floor=floor, projPoints=points, value=value,
+                                                                xISO=xIso, xR=xR, xSLG=xSLG, xWOBA=xWOBA, xL=xl, GP=gp,
+                                                                lWOBA=lwoba, rWOBA=rwoba, lSLG=lSLG, rSLG=rSLG, SIERA=SIERA,
+                                                                xFIP=xFIP, lISO=rISO, GBPercentage=GBPercentage,
+                                                                FBPercentage=FBPercentage, IP=IP)
+                rotogrindersPitcherEntry.save()
 
-        for header in rotogrindersPitcherProjectionsHeader:
-            html += '<th>'
-            html += header
-            html += '</th>'
+                rotogrindersPitcherData.append(playerData)
 
-        for player in rotogrindersPitcherData:
-            html += '<tr>'
-            for data in player:
-                html += '<td>'
-                html += data
-                html += '</td>'
-            html += '</tr>'
+            html = '<table class="table table-hover table-bordered table-striped">'
 
-        html += '</table>'
+            for header in rotogrindersPitcherProjectionsHeader:
+                html += '<th>'
+                html += header
+                html += '</th>'
 
-        return HttpResponse(html)
+            for player in rotogrindersPitcherData:
+                html += '<tr>'
+                for data in player:
+                    html += '<td>'
+                    html += data
+                    html += '</td>'
+                html += '</tr>'
+
+            html += '</table>'
+
+            return HttpResponse(html)
+
+        else:
+            rotogrindersPitchersData = RotogrindersPitchers.objects.filter(parent=request.data["id"])
+            serializer = RotogrindersPitchersSerializer(rotogrindersPitchersData, many=True)
+            rotogrindersPitchersSerializedData = serializer.data
+
+            rotogrindersPitcherProjectionsHeader = ["Player Name", "Position", "Salary", "Team", "Opponent",
+                                                    "Player Hand",
+                                                    "Ceiling", "Floor", "Projection", "Value", "xISO", "xR", "xSLG",
+                                                    "xWOBA", "xL", "GP", "lWOBA", "rWOBA", "lSLG", "rSLG", "SIERA",
+                                                    "xFIP",
+                                                    "lISO", "rISO", "GBPercentage", "FBPercentage", "IP"]
+
+            html = '<table class="table table-hover table-bordered table-striped">'
+
+            for header in rotogrindersPitcherProjectionsHeader:
+                html += '<th>'
+                html += header
+                html += '</th>'
+
+            for player in rotogrindersPitchersSerializedData:
+                html += '<tr>'
+                for i, (key , value) in enumerate(player.iteritems()):
+                    html += '<td>'
+                    if value is None:
+                        html += "N/A"
+                    else:
+                        html += value
+                    html += '</td>'
+                html += '</tr>'
+
+            html += '</table>'
+            return HttpResponse(html)
 
 @api_view(['POST', 'GET'])
 def baseballSwishAnalyticsBatterData(request):

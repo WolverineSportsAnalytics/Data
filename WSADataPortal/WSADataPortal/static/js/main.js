@@ -59,6 +59,16 @@ app.controller("baseballController", ['$scope', '$http', '$location', '$window',
 		console.log("Error: ", + response.toString())
 	});
 
+	var rotogrindersPitchersEntryTimesGet = $http.get('/api/baseballRotogrindersPitchersTimes');
+
+	rotogrindersPitchersEntryTimesGet.success(function(response){
+		console.log("Success getting Rotogrinders Pitchers times");
+		wsa.rotogrindersPitchersEntryTimes = response;
+	});
+	rotogrindersPitchersEntryTimesGet.error(function(response){
+		console.log("Error: ", + response.toString())
+	});
+
 	wsa.showRotowire = true;
 
 	wsa.rotowireHide = function()
@@ -127,6 +137,10 @@ app.controller("baseballController", ['$scope', '$http', '$location', '$window',
 		return time.scraped === wsa.rotogrindersBattersSelectedTime;
 	}
 
+	function findRotogrindersPitchersId(time) {
+		return time.scraped === wsa.rotogrindersPitchersSelectedTime;
+	}
+
 	wsa.getRotowireData = function()
 	{
 		wsa.rotowireSelectedTimeObject = "";
@@ -167,8 +181,16 @@ app.controller("baseballController", ['$scope', '$http', '$location', '$window',
 
 	wsa.getRotogrindersPitcherData = function()
 	{
+		wsa.rotogrindersPitchersSelectedTimeObject = "";
+
+		if (wsa.rotogrindersPitchersSelectedTime != "")
+		{
+			wsa.rotogrindersPitchersSelectedTimeObject =
+				wsa.rotogrindersPitchersEntryTimes.find(findRotogrindersPitchersId);
+		}
+
 		// send to database
-		var submit = $http.get('/api/baseballRotogrindersPitcherData/');
+		var submit = $http.post('/api/baseballRotogrindersPitcherData/', wsa.rotogrindersPitchersSelectedTimeObject);
 
 		submit.success(function(response){
 			console.log("Success");

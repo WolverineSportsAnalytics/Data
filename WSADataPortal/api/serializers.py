@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models import User, TimeKeeper, Rotowire, RotogrindersBatters
+from api.models import User, TimeKeeper, Rotowire, RotogrindersBatters, RotogrindersPitchers
 
 '''
 Serializing and deserializing objects into JSON to be sent 
@@ -12,7 +12,6 @@ class UserSerializer(serializers.ModelSerializer):
 		fields = ('pk', 'username', 'password')
 
 class RotowireSerializer(serializers.ModelSerializer):
-
 	class Meta:
 		model = Rotowire
 		fields = ('name', 'bats', 'team', 'position', 'orderInLU', 'opponent', 'opponentThrows', 'salary', 'projPoints',
@@ -30,3 +29,10 @@ class RotogrindersBattersSerializer(serializers.ModelSerializer):
 		fields = ('name', 'position', 'secondaryPosition', 'salary', 'team', 'opponent', 'bats', 'ceiling', 'floor',
 				  'projPoints', 'value', 'pitcherName', 'pitcherThrows', 'seasonAB', 'average', 'wOBA', 'ISO', 'OBP',
 				  'BABIP', 'SLG', 'kPercentage', 'BB', 'OPS')
+
+class RotogrindersPitchersSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = RotogrindersPitchers
+		fields = ('name', 'position', 'salary', 'team', 'opponent', 'playerThrows', 'ceiling', 'floor', 'projPoints',
+				  'value', 'xISO', 'xR', 'xSLG', 'xWOBA', 'xL', 'GP', 'lWOBA', 'rWOBA', 'lSLG',
+				  'rSLG', 'SIERA', 'xFIP', 'lISO', 'rISO', 'GBPercentage', 'FBPercentage', 'IP')
