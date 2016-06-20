@@ -3,9 +3,10 @@ from django.http import HttpResponseNotFound
 from rest_framework.decorators import api_view
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
-from api.models import TimeKeeper, Rotowire, RotogrindersBatters, RotogrindersPitchers, SwishAnalyticsBatters
+from api.models import TimeKeeper, Rotowire, RotogrindersBatters, RotogrindersPitchers, SwishAnalyticsBatters, \
+    SwishAnalyticsPitchers
 from api.serializers import TimeKeeperSerializer, RotowireSerializer, RotogrindersBattersSerializer, \
-    RotogrindersPitchersSerializer, SwishAnalyticsBattersSerializer
+    RotogrindersPitchersSerializer, SwishAnalyticsBattersSerializer, SwishAnalyticsPitchersSerializer
 from bs4 import BeautifulSoup
 from string import whitespace
 import urllib2
@@ -56,6 +57,12 @@ def baseballSwishAnalyticsBattersTimes(request):
         serializer = TimeKeeperSerializer(swishAnalyticsBattersTimes, many=True)
         return HttpResponse(json.dumps(serializer.data))
 
+@api_view(['GET'])
+def baseballSwishAnalyticsPitchersTimes(request):
+    if request.method == 'GET':
+        swishAnalyticsPitchersTimes = TimeKeeper.objects.filter(name='Swish Analytics Pitcher Data')
+        serializer = TimeKeeperSerializer(swishAnalyticsPitchersTimes, many=True)
+        return HttpResponse(json.dumps(serializer.data))
 
 
 @api_view(['POST', 'GET'])
@@ -757,107 +764,150 @@ def baseballSwishAnalyticsBatterData(request):
 
 @api_view(['POST', 'GET'])
 def baseballSwishAnalyticsPitcherData(request):
-    if request.method == 'GET':
-        url = "https://www.swishanalytics.com/optimus/mlb/dfs-pitcher-projections"
+    if request.method == 'POST':
+        if not request.data.items():
+            url = "https://www.swishanalytics.com/optimus/mlb/dfs-pitcher-projections"
 
-        page = urllib2.urlopen(url).read()
-        soup = BeautifulSoup(page, "html.parser")
+            page = urllib2.urlopen(url).read()
+            soup = BeautifulSoup(page, "html.parser")
 
-        swishAnalyticsPitcherProjectionsHeaders = ["Player Name", "Salary", "Team", "Opponent", "Proj. Points",
-                                                   "Proj. Value", "Outs", "ER", "H", "BB", "HBP",
-                                                   "K", "CG Probability", "CGSO Probability", "No Hit Probability",
-                                                   "W Probability", "DraftKings Average"]
+            swishAnalyticsPitcherProjectionsHeaders = ["Player Name", "Salary", "Team", "Opponent", "Proj. Points",
+                                                       "Proj. Value", "Outs", "ER", "H", "BB", "HBP",
+                                                       "K", "CG Probability", "CGSO Probability", "No Hit Probability",
+                                                       "W Probability", "DraftKings Average"]
 
-        script = soup.find_all("script")
-        script = script[20].text
+            script = soup.find_all("script")
+            script = script[20].text
 
-        # strip all junk
-        scriptJunk, rotoObject = script.split("this.pitcherArray")
-        rotoObject, scriptJunk = rotoObject.split("this.updatedpitcherArray")
-        rotoObject = rotoObject[2:]
-        rotoObject = rotoObject.lstrip()
-        rotoObject = rotoObject.rstrip()
-        rotoObject = rotoObject[:-1]
+            # strip all junk
+            scriptJunk, rotoObject = script.split("this.pitcherArray")
+            rotoObject, scriptJunk = rotoObject.split("this.updatedpitcherArray")
+            rotoObject = rotoObject[2:]
+            rotoObject = rotoObject.lstrip()
+            rotoObject = rotoObject.rstrip()
+            rotoObject = rotoObject[:-1]
 
-        rotoProj = demjson.decode(rotoObject)
+            rotoProj = demjson.decode(rotoObject)
 
-        swishAnalyticsPitcherData = []
+            swishAnalyticsPitcherData = []
 
-        for line in rotoProj:
-            playerData = []
+            swishAnalyticsPitchersTimeEntry = TimeKeeper(name='Swish Analytics Pitcher Data')
+            swishAnalyticsPitchersTimeEntry.save()
 
-            playerName = (line['player_name'])
-            playerData.append(playerName)
+            for line in rotoProj:
+                playerData = []
 
-            salary = (line['dk_salary'])
-            salary = salary.replace(",", "")
-            playerData.append(salary)
+                playerName = (line['player_name'])
+                playerData.append(playerName)
 
-            team = (line['team_short'])
-            playerData.append(team)
+                salary = (line['dk_salary'])
+                salary = salary.replace(",", "")
+                playerData.append(salary)
 
-            opponent = (line['matchup'])
-            opponent = opponent.replace("vs", "")
-            opponent = opponent.replace("@", "")
-            opponent = opponent.lstrip()
-            playerData.append(opponent)
+                team = (line['team_short'])
+                playerData.append(team)
 
-            projPts = (line['dk_pts'])
-            playerData.append(projPts)
+                opponent = (line['matchup'])
+                opponent = opponent.replace("vs", "")
+                opponent = opponent.replace("@", "")
+                opponent = opponent.lstrip()
+                playerData.append(opponent)
 
-            projValue = (line['dk_value'])
-            playerData.append(projValue)
+                projPts = (line['dk_pts'])
+                playerData.append(projPts)
 
-            outs = (line['outs'])
-            playerData.append(outs)
+                projValue = (line['dk_value'])
+                playerData.append(projValue)
 
-            ER = (line['er'])
-            playerData.append(ER)
+                outs = (line['outs'])
+                playerData.append(outs)
 
-            hits = (line['h'])
-            playerData.append(hits)
+                ER = (line['er'])
+                playerData.append(ER)
 
-            walks = (line['bb'])
-            playerData.append(walks)
+                hits = (line['h'])
+                playerData.append(hits)
 
-            hbp = (line['hbp'])
-            playerData.append(hbp)
+                walks = (line['bb'])
+                playerData.append(walks)
 
-            strikeouts = (line['so'])
-            playerData.append(strikeouts)
+                hbp = (line['hbp'])
+                playerData.append(hbp)
 
-            completeGame = (line['cg'])
-            playerData.append(completeGame)
+                strikeouts = (line['so'])
+                playerData.append(strikeouts)
 
-            completeGameSO = (line['cgso'])
-            playerData.append(completeGameSO)
+                completeGame = (line['cg'])
+                playerData.append(completeGame)
 
-            noHit = (line['noh'])
-            playerData.append(noHit)
+                completeGameSO = (line['cgso'])
+                playerData.append(completeGameSO)
 
-            win = (line['win'])
-            playerData.append(win)
+                noHit = (line['noh'])
+                playerData.append(noHit)
 
-            dk_avg = (line['dk_avg'])
-            playerData.append(dk_avg)
+                win = (line['win'])
+                playerData.append(win)
 
-            swishAnalyticsPitcherData.append(playerData)
+                dk_avg = (line['dk_avg'])
+                playerData.append(dk_avg)
 
-        html = '<table class="table table-hover table-bordered table-striped">'
+                swishAnalyticsPitcherData.append(playerData)
 
-        for header in swishAnalyticsPitcherProjectionsHeaders:
-            html += '<th>'
-            html += header
-            html += '</th>'
+                swishAnalyticsPitcherEntry = SwishAnalyticsPitchers(parent=swishAnalyticsPitchersTimeEntry,
+                                                                    averageDKPoints=dk_avg, CG=completeGame, CGSO=completeGameSO,
+                                                                    ER=ER, HBP=hbp, Hits=hits, Ks=strikeouts, NOHit=noHit,
+                                                                    name=playerName, opponent=opponent, outs=outs,
+                                                                    projPoints=projPts, salary=salary, team=team,
+                                                                    value=projValue, Walks=walks, Win=win)
+                swishAnalyticsPitcherEntry.save()
 
-        for player in swishAnalyticsPitcherData:
-            html += '<tr>'
-            for data in player:
-                html += '<td>'
-                html += data
-                html += '</td>'
-            html += '</tr>'
+            html = '<table class="table table-hover table-bordered table-striped">'
 
-        html += '</table>'
+            for header in swishAnalyticsPitcherProjectionsHeaders:
+                html += '<th>'
+                html += header
+                html += '</th>'
 
-        return HttpResponse(html)
+            for player in swishAnalyticsPitcherData:
+                html += '<tr>'
+                for data in player:
+                    html += '<td>'
+                    html += data
+                    html += '</td>'
+                html += '</tr>'
+
+            html += '</table>'
+
+            return HttpResponse(html)
+
+        else:
+            swishAnalyticsPitchersData = SwishAnalyticsPitchers.objects.filter(parent=request.data["id"])
+            serializer = SwishAnalyticsPitchersSerializer(swishAnalyticsPitchersData, many=True)
+            swishAnalyticsSerializedPitchersData = serializer.data
+
+            swishAnalyticsPitcherProjectionsHeaders = ["Player Name", "Salary", "Team", "Opponent", "Proj. Points",
+                                                       "Proj. Value", "Outs", "ER", "H", "BB", "HBP",
+                                                       "K", "CG Probability", "CGSO Probability", "No Hit Probability",
+                                                       "W Probability", "DraftKings Average"]
+
+            html = '<table class="table table-hover table-bordered table-striped">'
+
+            for header in swishAnalyticsPitcherProjectionsHeaders:
+                html += '<th>'
+                html += header
+                html += '</th>'
+
+            for player in swishAnalyticsSerializedPitchersData:
+                html += '<tr>'
+                for i, (key, value) in enumerate(player.iteritems()):
+                    html += '<td>'
+                    if value is None:
+                        html += "N/A"
+                    else:
+                        html += value
+                    html += '</td>'
+                html += '</tr>'
+
+            html += '</table>'
+            return HttpResponse(html)

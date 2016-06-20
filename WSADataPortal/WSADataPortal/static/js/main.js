@@ -39,7 +39,7 @@ app.controller("mainController", ['$scope', '$http', '$location', '$window', fun
 app.controller("baseballController", ['$scope', '$http', '$location', '$window', function($scope, $http, $location) {
 	var wsa = this;
 
-	var rotowireTimesGet = $http.get('/api/baseballRotowireTimes/');
+	var rotowireTimesGet = $http.get('/api/baseballRotowireTimes');
 
 	rotowireTimesGet.success(function(response){
 		console.log("Success getting Rotowire times");
@@ -76,6 +76,16 @@ app.controller("baseballController", ['$scope', '$http', '$location', '$window',
 		wsa.swishAnalyticsBattersEntryTimes = response;
 	});
 	swishAnalyticsEntryTimesGet.error(function(response){
+		console.log("Error: ", + response.toString())
+	});
+
+	var swishAnalyticsPitcherEntryTimesGet = $http.get('/api/baseballSwishAnalyticsPitchersTimes');
+
+	swishAnalyticsPitcherEntryTimesGet.success(function(response){
+		console.log("Success getting Swish Analytics Pitchers times");
+		wsa.swishAnalyticsPitchersEntryTimes = response;
+	});
+	swishAnalyticsPitcherEntryTimesGet.error(function(response){
 		console.log("Error: ", + response.toString())
 	});
 
@@ -153,6 +163,10 @@ app.controller("baseballController", ['$scope', '$http', '$location', '$window',
 	
 	function findSwishAnalyticsBattersId(time) {
 		return time.scraped === wsa.swishAnalyticsBattersSelectedTime;
+	}
+
+	function findSwishAnalyticsPitchersId(time) {
+		return time.scraped === wsa.swishAnalyticsPitchersSelectedTime;
 	}
 
 	wsa.getRotowireData = function()
@@ -239,8 +253,16 @@ app.controller("baseballController", ['$scope', '$http', '$location', '$window',
 	
 	wsa.getSwishAnalyticsPitcherData = function()
 	{
+		wsa.swishAnalyticsPitchersSelectedTimeObject = "";
+
+		if (wsa.swishAnalyticsPitchersSelectedTime != "")
+		{
+			wsa.swishAnalyticsPitchersSelectedTimeObject = wsa.swishAnalyticsPitchersEntryTimes
+				.find(findSwishAnalyticsPitchersId);
+		}
 		// send to database
-		var submit = $http.get('/api/baseballSwishAnalyticsPitcherData/');
+		var submit = $http.post('/api/baseballSwishAnalyticsPitcherData/',
+			wsa.swishAnalyticsPitchersSelectedTimeObject);
 
 		submit.success(function(response){
 			console.log("Success");

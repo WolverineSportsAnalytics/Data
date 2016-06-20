@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from api.models import User, TimeKeeper, Rotowire, RotogrindersBatters, RotogrindersPitchers, SwishAnalyticsBatters
+from api.models import User, TimeKeeper, Rotowire, RotogrindersBatters, RotogrindersPitchers, SwishAnalyticsBatters, \
+	SwishAnalyticsPitchers
 
 '''
 Serializing and deserializing objects into JSON to be sent 
@@ -42,3 +43,9 @@ class SwishAnalyticsBattersSerializer(serializers.ModelSerializer):
 		model = SwishAnalyticsBatters
 		fields = ('name', 'salary', 'bats', 'position', 'team', 'opponent', 'projPoints', 'value', 'outs', 'AB',
 				  'BB', 'HBP', 'singles', 'doubles', 'triples', 'HR', 'RBI', 'SB', 'CS', 'averageDKPoints')
+
+class SwishAnalyticsPitchersSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = SwishAnalyticsPitchers
+		fields = ('name', 'salary', 'team', 'opponent', 'projPoints', 'value', 'outs', 'ER', 'Hits', 'Walks', 'HBP',
+				  'Ks', 'CG', 'CGSO', 'NOHit', 'Win', 'averageDKPoints')

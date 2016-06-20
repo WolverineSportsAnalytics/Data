@@ -109,5 +109,22 @@ class SwishAnalyticsBatters(models.Model):
 	CS = models.CharField(max_length=7, blank=True, null=True)
 	averageDKPoints = models.CharField(max_length=7, blank=True, null=True)
 
-
-
+class SwishAnalyticsPitchers(models.Model):
+	parent = models.ForeignKey(TimeKeeper, related_name='SwishAnalyticsPitchers')
+	name = models.CharField(max_length=250, blank=True, null=True)
+	salary = models.CharField(max_length=10, blank=True, null=True)
+	team = models.CharField(max_length=250, blank=True, null=True)
+	opponent = models.CharField(max_length=250, blank=True, null=True)
+	projPoints = models.CharField(max_length=7, blank=True, null=True)
+	value = models.CharField(max_length=7, blank=True, null=True)
+	outs = models.CharField(max_length=7, blank=True, null=True)
+	ER = models.CharField(max_length=7, blank=True, null=True)
+	Hits = models.CharField(max_length=7, blank=True, null=True)
+	Walks = models.CharField(max_length=7, blank=True, null=True)
+	HBP = models.CharField(max_length=7, blank=True, null=True)
+	Ks = models.CharField(max_length=7, blank=True, null=True)
+	CG = models.CharField(max_length=7, blank=True, null=True)
+	CGSO = models.CharField(max_length=7, blank=True, null=True)
+	NOHit = models.CharField(max_length=7, blank=True, null=True)
+	Win = models.CharField(max_length=7, blank=True, null=True)
+	averageDKPoints = models.CharField(max_length=7, blank=True, null=True)
