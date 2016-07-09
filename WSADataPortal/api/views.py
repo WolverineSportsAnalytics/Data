@@ -263,11 +263,11 @@ def baseballRotogrindersBatterData(request):
 
             # get object
             script = soup.find_all("script")
-            script = script[8].text
+            script = script[10].text
 
             # strip all junk
             scriptJunk, rotoObject = script.split("=")
-            rotoObject, scriptJunk = rotoObject.split("projectedStats.init(data)")
+            rotoObject, scriptJunk = rotoObject.split("projectedStats.init(data")
             rotoObject = rotoObject.lstrip()
             rotoObject = rotoObject.rstrip()
             rotoObject = rotoObject[:-1]
@@ -434,11 +434,11 @@ def baseballRotogrindersPitcherData(request):
 
             # get object
             script = soup.find_all("script")
-            script = script[8].text
+            script = script[10].text
 
             # strip all junk
             scriptJunk, rotoObject = script.split("=")
-            rotoObject, scriptJunk = rotoObject.split("projectedStats.init(data)")
+            rotoObject, scriptJunk = rotoObject.split("projectedStats.init(data")
             rotoObject = rotoObject.lstrip()
             rotoObject = rotoObject.rstrip()
             rotoObject = rotoObject[:-1]

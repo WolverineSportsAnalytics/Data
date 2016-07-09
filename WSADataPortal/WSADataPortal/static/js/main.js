@@ -15,12 +15,12 @@ app.controller("mainController", ['$scope', '$http', '$location', '$window', fun
 
 	wsa.username = "";
 
-	wsa.validate = function(inUsername, inPassword) 
+	wsa.validate = function(inPassword) 
 	{
-		wsa.username = inUsername;
+		wsa.username = "admin";
 		// create data object
 		var data = {
-			username: inUsername,
+			username: "admin",
 			password: inPassword
 		};
 		// send to database 
