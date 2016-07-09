@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2dd6155f-2547-4aec-ba31-7dc6b94b528f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WSADataPortal/static/js/main.js" afterPath="$PROJECT_DIR$/WSADataPortal/static/js/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WSADataPortal/templates/data/index.html" afterPath="$PROJECT_DIR$/WSADataPortal/templates/data/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/views.py" afterPath="$PROJECT_DIR$/api/views.py" />
     </list>
     <ignored path="WSADataPortal.iws" />
@@ -32,11 +30,9 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="25" column="51" selection-start-line="25" selection-start-column="51" selection-end-line="25" selection-end-column="51" />
-              <folding>
-                <element signature="e#0#32#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="30">
+              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -54,16 +50,17 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="149">
-              <caret line="435" column="44" selection-start-line="435" selection-start-column="44" selection-end-line="435" selection-end-column="44" />
+            <state relative-caret-position="304">
+              <caret line="788" column="63" selection-start-line="788" selection-start-column="63" selection-end-line="788" selection-end-column="63" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
                 <element signature="e#1465#1723#0" expanded="false" />
                 <element signature="e#1796#2057#0" expanded="false" />
                 <element signature="e#2807#9809#0" expanded="false" />
                 <element signature="e#2844#9809#0" expanded="false" />
-                <element signature="e#9887#16423#0" expanded="false" />
-                <element signature="e#23693#29931#0" expanded="false" />
+                <element signature="e#9887#16652#0" expanded="false" />
+                <element signature="e#16732#23842#0" expanded="false" />
+                <element signature="e#23922#30160#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -718,18 +715,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/api/views.py</url>
-          <line>386</line>
-          <option name="timeStamp" value="29" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/api/views.py</url>
-          <line>389</line>
+          <line>395</line>
           <option name="timeStamp" value="51" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/api/views.py</url>
-          <line>251</line>
-          <option name="timeStamp" value="52" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/api/views.py</url>
@@ -738,19 +725,19 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/api/views.py</url>
-          <line>268</line>
-          <option name="timeStamp" value="64" />
+          <line>445</line>
+          <option name="timeStamp" value="66" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/api/views.py</url>
-          <line>439</line>
-          <option name="timeStamp" value="66" />
+          <line>558</line>
+          <option name="timeStamp" value="67" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="67" />
+      <option name="time" value="70" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -765,8 +752,9 @@
             <element signature="e#1796#2057#0" expanded="false" />
             <element signature="e#2807#9809#0" expanded="false" />
             <element signature="e#2844#9809#0" expanded="false" />
-            <element signature="e#9887#16423#0" expanded="false" />
-            <element signature="e#23693#29931#0" expanded="false" />
+            <element signature="e#9887#16652#0" expanded="false" />
+            <element signature="e#16732#23842#0" expanded="false" />
+            <element signature="e#23922#30160#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -866,8 +854,9 @@
             <element signature="e#1796#2057#0" expanded="false" />
             <element signature="e#2807#9809#0" expanded="false" />
             <element signature="e#2844#9809#0" expanded="false" />
-            <element signature="e#9887#16423#0" expanded="false" />
-            <element signature="e#23693#29931#0" expanded="false" />
+            <element signature="e#9887#16652#0" expanded="false" />
+            <element signature="e#16732#23842#0" expanded="false" />
+            <element signature="e#23922#30160#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1142,16 +1131,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="25" column="51" selection-start-line="25" selection-start-column="51" selection-end-line="25" selection-end-column="51" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/WSADataPortal/templates/data/baseball.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1995">
@@ -1219,18 +1198,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/api/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/api/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="435" column="44" selection-start-line="435" selection-start-column="44" selection-end-line="435" selection-end-column="44" />
+        <state relative-caret-position="304">
+          <caret line="788" column="63" selection-start-line="788" selection-start-column="63" selection-end-line="788" selection-end-column="63" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
             <element signature="e#1465#1723#0" expanded="false" />
             <element signature="e#1796#2057#0" expanded="false" />
             <element signature="e#2807#9809#0" expanded="false" />
             <element signature="e#2844#9809#0" expanded="false" />
-            <element signature="e#9887#16423#0" expanded="false" />
-            <element signature="e#23693#29931#0" expanded="false" />
+            <element signature="e#9887#16652#0" expanded="false" />
+            <element signature="e#16732#23842#0" expanded="false" />
+            <element signature="e#23922#30160#0" expanded="false" />
           </folding>
         </state>
       </provider>

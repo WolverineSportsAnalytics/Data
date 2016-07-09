@@ -320,7 +320,13 @@ def baseballRotogrindersBatterData(request):
 
                 pFirstName = (line['pitcher']['first_name'])
                 pLastName = (line['pitcher']['last_name'])
-                pitcherName = pFirstName + " " + pLastName
+                pitcherName = ""
+                if (pFirstName is None):
+                    pitcherName = pLastName
+                elif pLastName is None:
+                    pitcherName = pFirstName
+                else:
+                    pitcherName = pFirstName + " " + pLastName
                 playerData.append(str(pitcherName))
 
                 pitcherHand = (line['pitcher']['hand'])
