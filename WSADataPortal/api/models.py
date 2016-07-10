@@ -128,3 +128,46 @@ class SwishAnalyticsPitchers(models.Model):
 	NOHit = models.CharField(max_length=7, blank=True, null=True)
 	Win = models.CharField(max_length=7, blank=True, null=True)
 	averageDKPoints = models.CharField(max_length=7, blank=True, null=True)
+
+class PitcherRightSplits(models.Model):
+	parent = models.ForeignKey(TimeKeeper, related_name='PitcherRightSplits')
+	name = models.CharField(max_length=250, blank=True, null=True)
+	team = models.CharField(max_length=5, blank=True, null=True)
+	opponent = models.CharField(max_length=5, blank=True, null=True)
+	ip = models.CharField(max_length=7, blank=True, null=True)
+	avg = models.CharField(max_length=7, blank=True, null=True)
+	woba = models.CharField(max_length=7, blank=True, null=True)
+	ops = models.CharField(max_length=7, blank=True, null=True)
+	knine = models.CharField(max_length=7, blank=True, null=True)
+	babip = models.CharField(max_length=7, blank=True, null=True)
+	bbPercentage = models.CharField(max_length=7, blank=True, null=True)
+	whip = models.CharField(max_length=7, blank=True, null=True)
+	era = models.CharField(max_length=7, blank=True, null=True)
+	fip = models.CharField(max_length=7, blank=True, null=True)
+	lob = models.CharField(max_length=7, blank=True, null=True)
+	fb = models.CharField(max_length=7, blank=True, null=True)
+	hrfb = models.CharField(max_length=7, blank=True, null=True)
+
+class PitcherLeftSplits(models.Model):
+	parent = models.ForeignKey(TimeKeeper, related_name='PitcherLeftSplits')
+	name = models.CharField(max_length=250, blank=True, null=True)
+	team = models.CharField(max_length=5, blank=True, null=True)
+	opponent = models.CharField(max_length=5, blank=True, null=True)
+	ip = models.CharField(max_length=7, blank=True, null=True)
+	avg = models.CharField(max_length=7, blank=True, null=True)
+	woba = models.CharField(max_length=7, blank=True, null=True)
+	ops = models.CharField(max_length=7, blank=True, null=True)
+	knine = models.CharField(max_length=7, blank=True, null=True)
+	babip = models.CharField(max_length=7, blank=True, null=True)
+	bbPercentage = models.CharField(max_length=7, blank=True, null=True)
+	whip = models.CharField(max_length=7, blank=True, null=True)
+	era = models.CharField(max_length=7, blank=True, null=True)
+	fip = models.CharField(max_length=7, blank=True, null=True)
+	lob = models.CharField(max_length=7, blank=True, null=True)
+	fb = models.CharField(max_length=7, blank=True, null=True)
+	hrfb = models.CharField(max_length=7, blank=True, null=True)
+
+
+
+
+

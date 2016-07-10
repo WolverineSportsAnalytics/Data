@@ -89,6 +89,26 @@ app.controller("baseballController", ['$scope', '$http', '$location', '$window',
 		console.log("Error: ", + response.toString())
 	});
 
+	var pitcherLeftHandSplitsEntryTimesGet = $http.get('/api/baseballPitcherLeftHandSplitsTimes');
+
+	pitcherLeftHandSplitsEntryTimesGet.success(function(response){
+		console.log("Success getting Left Hand Pitcher Splits times");
+		wsa.pitcherLeftHandSplitsEntryTimes = response;
+	});
+	pitcherLeftHandSplitsEntryTimesGet.error(function(response){
+		console.log("Error: ", + response.toString())
+	});
+
+	var pitcherRightHandSplitsEntryTimesGet = $http.get('/api/baseballPitcherRightHandSplitsTimes');
+
+	pitcherRightHandSplitsEntryTimesGet.success(function(response){
+		console.log("Success getting Right Hand Pitcher Splits times");
+		wsa.pitcherRightHandSplitsEntryTimes = response;
+	});
+	pitcherRightHandSplitsEntryTimesGet.error(function(response){
+		console.log("Error: ", + response.toString())
+	});
+
 	wsa.showRotowire = true;
 
 	wsa.rotowireHide = function()
@@ -149,6 +169,30 @@ app.controller("baseballController", ['$scope', '$http', '$location', '$window',
 		wsa.showSwishAnalyticsPitcherData = true;
 	};
 
+	wsa.showPitcherRightHandSplits = true;
+
+	wsa.pitcherRightHandSplitsHide = function()
+	{
+		wsa.showPitcherRightHandSplits = false;
+	};
+
+	wsa.pitcherRightHandSplitsShow = function()
+	{
+		wsa.showPitcherRightHandSplits = true;
+	};
+
+	wsa.showPitcherLeftHandSplits = true;
+
+	wsa.pitcherLeftHandSplitsHide = function()
+	{
+		wsa.showPitcherLeftHandSplits = false;
+	};
+
+	wsa.pitcherLeftHandSplitsShow = function()
+	{
+		wsa.showPitcherLeftHandSplits = true;
+	};
+
 	function findRotowireId(time) {
 		return time.scraped === wsa.rotowireSelectTime;
 	}
@@ -167,6 +211,14 @@ app.controller("baseballController", ['$scope', '$http', '$location', '$window',
 
 	function findSwishAnalyticsPitchersId(time) {
 		return time.scraped === wsa.swishAnalyticsPitchersSelectedTime;
+	}
+
+	function findRightPitcherSplitsId(time) {
+		return time.scraped === wsa.rightHandedPitcherSplitsSelectedTime;
+	}
+
+	function findLeftPitcherSplitsId(time) {
+		return time.scraped === wsa.leftHandedPitcherSplitsSelectedTime;
 	}
 
 	wsa.getRotowireData = function()
@@ -272,7 +324,75 @@ app.controller("baseballController", ['$scope', '$http', '$location', '$window',
 			console.log("Error: ", + response.toString())
 		});
 	};
+
+	wsa.getPitcherRightHandSplitsData = function()
+	{
+		wsa.rightHandedPitcherSplitsSelectedTimeObject = "";
+
+		if (wsa.rightHandedPitcherSplitsSelectedTime != "")
+		{
+			wsa.rightHandedPitcherSplitsSelectedTimeObject = wsa.pitcherRightHandSplitsEntryTimes
+				.find(findRightPitcherSplitsId);
+		}
+		// send to database
+		var submit = $http.post('/api/baseballRotogrindersRightHandedPitcherSplits/',
+			wsa.rightHandedPitcherSplitsSelectedTimeObject);
+
+		submit.success(function(response){
+			console.log("Success");
+			wsa.pitcherRightHandSplitsData = response.toString();
+		});
+		submit.error(function(response){
+			console.log("Error: ", + response.toString())
+		});
+	};
+
+	wsa.getPitcherLeftHandSplitsData = function()
+	{
+		wsa.leftHandedPitcherSplitsSelectedTimeObject = "";
+
+		if (wsa.leftHandedPitcherSplitsSelectedTime != "")
+		{
+			wsa.leftHandedPitcherSplitsSelectedTimeObject = wsa.pitcherLeftHandSplitsEntryTimes
+				.find(findLeftPitcherSplitsId);
+		}
+		// send to database
+		var submit = $http.post('/api/baseballRotogrindersLeftHandedPitcherSplits/',
+			wsa.leftHandedPitcherSplitsSelectedTimeObject);
+
+		submit.success(function(response){
+			console.log("Success");
+			wsa.pitcherLeftHandSplitsData = response.toString();
+		});
+		submit.error(function(response){
+			console.log("Error: ", + response.toString())
+		});
+	};
 	
 }]);
 
+/*
+app.controller("baseballUploadController", ['$scope', '$http', '$location', '$window', function($scope, $http, $location) {
+	var wsa = this;
 
+	wsa.uploadSaberSimBatters = function() {
+		var file = document.getElementById('saberSimBatterFile').files[0];
+		var r = new FileReader();
+
+		r.onloadend = function(e) {
+			var data = e.target.result;
+
+			var submit = $http.post('/api/uploadSaberSimBatters/', file, data);
+
+			submit.success(function(response){
+				console.log("Success");
+			});
+			submit.error(function(response){
+				console.log("Error: ", + response.toString())
+			});
+		};
+
+		r.readAsBinaryString(file);
+	};
+}]);
+*/

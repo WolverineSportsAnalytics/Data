@@ -15,3 +15,6 @@ def home(request):
 
 def baseball(request):
 	return render(request, 'data/baseball.html')
+
+def uploadBaseball(request):
+	return render(request, 'data/baseballupload.html')

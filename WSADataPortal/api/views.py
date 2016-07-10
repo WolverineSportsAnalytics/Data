@@ -4,9 +4,10 @@ from rest_framework.decorators import api_view
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from api.models import TimeKeeper, Rotowire, RotogrindersBatters, RotogrindersPitchers, SwishAnalyticsBatters, \
-    SwishAnalyticsPitchers
+    SwishAnalyticsPitchers, PitcherLeftSplits, PitcherRightSplits
 from api.serializers import TimeKeeperSerializer, RotowireSerializer, RotogrindersBattersSerializer, \
-    RotogrindersPitchersSerializer, SwishAnalyticsBattersSerializer, SwishAnalyticsPitchersSerializer
+    RotogrindersPitchersSerializer, SwishAnalyticsBattersSerializer, SwishAnalyticsPitchersSerializer, \
+    PitcherLeftSplitsSerializer, PitcherRightSplitsSerializer
 from bs4 import BeautifulSoup
 from string import whitespace
 import urllib2
@@ -61,6 +62,20 @@ def baseballSwishAnalyticsBattersTimes(request):
 def baseballSwishAnalyticsPitchersTimes(request):
     if request.method == 'GET':
         swishAnalyticsPitchersTimes = TimeKeeper.objects.filter(name='Swish Analytics Pitcher Data')
+        serializer = TimeKeeperSerializer(swishAnalyticsPitchersTimes, many=True)
+        return HttpResponse(json.dumps(serializer.data))
+
+@api_view(['GET'])
+def baseballPitcherLeftHandSplitsTimes(request):
+    if request.method == 'GET':
+        swishAnalyticsPitchersTimes = TimeKeeper.objects.filter(name='Rotogrinders Left Hand Pitcher Splits Data')
+        serializer = TimeKeeperSerializer(swishAnalyticsPitchersTimes, many=True)
+        return HttpResponse(json.dumps(serializer.data))
+
+@api_view(['GET'])
+def baseballPitcherRightHandSplitsTimes(request):
+    if request.method == 'GET':
+        swishAnalyticsPitchersTimes = TimeKeeper.objects.filter(name='Rotogrinders Right Hand Pitcher Splits Data')
         serializer = TimeKeeperSerializer(swishAnalyticsPitchersTimes, many=True)
         return HttpResponse(json.dumps(serializer.data))
 
@@ -905,6 +920,317 @@ def baseballSwishAnalyticsPitcherData(request):
                 html += '</th>'
 
             for player in swishAnalyticsSerializedPitchersData:
+                html += '<tr>'
+                for i, (key, value) in enumerate(player.iteritems()):
+                    html += '<td>'
+                    if value is None:
+                        html += "N/A"
+                    else:
+                        html += value
+                    html += '</td>'
+                html += '</tr>'
+
+            html += '</table>'
+            return HttpResponse(html)
+
+@api_view(['POST', 'GET'])
+def baseballRotogrindersRightHandedPitcherSplits(request):
+    if request.method == 'POST':
+        if not request.data.items():
+            url = "https://rotogrinders.com/pages/starting-pitcher-splits-335278"
+
+            page = urllib2.urlopen(url).read()
+            soup = BeautifulSoup(page, "html.parser")
+
+            rotogrindersPitcherSplitsHeaders = ["Name", "Team", "Opponent", "IP", "AVG", "wOBA", "OPS", "K/9", "BABIP", "BB%",
+                                                "WHIP", "ERA", "FIP", "LOB%", "FB%", "HR/FB"]
+
+            rotogrindersPitcherRSplitsData = []
+
+            RotogrindersPitcherRSplitsEntry = TimeKeeper(name="Rotogrinders Right Hand Pitcher Splits Data")
+            RotogrindersPitcherRSplitsEntry.save()
+
+            rSplitsTable = soup.find_all('tbody')[1]
+
+            for tr in rSplitsTable.find_all('tr'):
+                tds = tr.find_all('td')
+
+                playerData = []
+
+                playerName = tds[0].a
+                if playerName is None:
+                    playerName = tds[0]
+                playerName = playerName.text
+                playerName = playerName.strip()
+                playerData.append(playerName)
+
+                team = tds[1].span
+                team = team.text
+                team = team.strip()
+                playerData.append(team)
+
+                opponent = tds[2].span
+                opponent = opponent.text
+                opponent = opponent.strip()
+                playerData.append(opponent)
+
+                inningsPitched = tds[3].text
+                inningsPitched = inningsPitched.lstrip()
+                inningsPitched = inningsPitched.rstrip()
+                playerData.append(inningsPitched)
+
+                average = tds[4].text
+                average = average.lstrip()
+                average = average.rstrip()
+                playerData.append(average)
+
+                wOBA = tds[5].text
+                wOBA = wOBA.lstrip()
+                wOBA = wOBA.rstrip()
+                playerData.append(wOBA)
+
+                OPS = tds[6].text
+                OPS = OPS.lstrip()
+                OPS = OPS.rstrip()
+                playerData.append(OPS)
+
+                k9 = tds[7].text
+                k9 = k9.strip()
+                playerData.append(k9)
+
+                babip = tds[8].text
+                babip = babip.strip()
+                playerData.append(babip)
+
+                bbPercentage = tds[9].text
+                bbPercentage = bbPercentage.strip()
+                playerData.append(bbPercentage)
+
+                WHIP = tds[10].text
+                WHIP = WHIP.strip()
+                playerData.append(WHIP)
+
+                ERA = tds[11].text
+                ERA = ERA.strip()
+                playerData.append(ERA)
+
+                FIP = tds[12].text
+                FIP = FIP.strip()
+                playerData.append(FIP)
+
+                leftOnBase = tds[13].text
+                leftOnBase = leftOnBase.strip()
+                playerData.append(leftOnBase)
+
+                fbPercentage = tds[14].text
+                fbPercentage = fbPercentage.strip()
+                playerData.append(fbPercentage)
+
+                hrFB = tds[15].text
+                hrFB = hrFB.strip()
+                playerData.append(hrFB)
+
+                rotogrindersPitcherRSplitsData.append(playerData)
+
+                pitchersRightSplitsEntry = PitcherRightSplits(parent=RotogrindersPitcherRSplitsEntry, name=playerName,
+                                                            team=team, opponent=opponent,
+                                                            avg=average, babip=babip, ip=inningsPitched, woba=wOBA,
+                                                            knine=k9, bbPercentage=bbPercentage, whip=WHIP, era=ERA,
+                                                            fip=FIP,
+                                                            lob=leftOnBase, fb=fbPercentage, hrfb=hrFB, ops=OPS)
+                pitchersRightSplitsEntry.save()
+
+            html = '<table class="table table-hover table-bordered table-striped">'
+
+            for header in rotogrindersPitcherSplitsHeaders:
+                html += '<th>'
+                html += header
+                html += '</th>'
+
+            for player in rotogrindersPitcherRSplitsData:
+                html += '<tr>'
+                for data in player:
+                    html += '<td>'
+                    html += data
+                    html += '</td>'
+                html += '</tr>'
+
+            html += '</table>'
+
+            return HttpResponse(html)
+
+        else:
+            pitcherSplitsRightData = PitcherRightSplits.objects.filter(parent=request.data["id"])
+            serializer = PitcherRightSplitsSerializer(pitcherSplitsRightData, many=True)
+            pitcherRightSplitsSerializedData = serializer.data
+
+            rotogrindersPitcherSplitsHeaders = ["Name", "Team", "Opponent", "IP", "AVG", "wOBA", "OPS", "K/9", "BABIP",
+                                                "BB%",
+                                                "WHIP", "ERA", "FIP", "LOB%", "FB%", "HR/FB"]
+
+            html = '<table class="table table-hover table-bordered table-striped">'
+
+            for header in rotogrindersPitcherSplitsHeaders:
+                html += '<th>'
+                html += header
+                html += '</th>'
+
+            for player in pitcherRightSplitsSerializedData:
+                html += '<tr>'
+                for i, (key, value) in enumerate(player.iteritems()):
+                    html += '<td>'
+                    if value is None:
+                        html += "N/A"
+                    else:
+                        html += value
+                    html += '</td>'
+                html += '</tr>'
+
+            html += '</table>'
+            return HttpResponse(html)
+
+@api_view(['POST', 'GET'])
+def baseballRotogrindersLeftHandedPitcherSplits(request):
+    if request.method == 'POST':
+        if not request.data.items():
+            url = "https://rotogrinders.com/pages/starting-pitcher-splits-335278"
+
+            page = urllib2.urlopen(url).read()
+            soup = BeautifulSoup(page, "html.parser")
+
+            rotogrindersPitcherSplitsHeaders = ["Name", "Team", "Opponent", "IP", "AVG", "wOBA", "OPS", "K/9", "BABIP", "BB%",
+                                                "WHIP", "ERA", "FIP", "LOB%", "FB%", "HR/FB"]
+
+            rotogrindersPitcherLSplitsData = []
+
+            RotogrindersPitcherLSplitsEntry = TimeKeeper(name="Rotogrinders Left Hand Pitcher Splits Data")
+            RotogrindersPitcherLSplitsEntry.save()
+
+            lSplitsTable = soup.find_all('tbody')[2]
+
+            for tr in lSplitsTable.find_all('tr'):
+                tds = tr.find_all('td')
+
+                playerData = []
+
+                playerName = tds[0].a
+                if playerName is None:
+                    playerName = tds[0]
+                playerName = playerName.text
+                playerName = playerName.strip()
+                playerData.append(playerName)
+
+                team = tds[1].span
+                team = team.text
+                team = team.strip()
+                playerData.append(team)
+
+                opponent = tds[2].span
+                opponent = opponent.text
+                opponent = opponent.strip()
+                playerData.append(opponent)
+
+                inningsPitched = tds[3].text
+                inningsPitched = inningsPitched.lstrip()
+                inningsPitched = inningsPitched.rstrip()
+                playerData.append(inningsPitched)
+
+                average = tds[4].text
+                average = average.lstrip()
+                average = average.rstrip()
+                playerData.append(average)
+
+                wOBA = tds[5].text
+                wOBA = wOBA.lstrip()
+                wOBA = wOBA.rstrip()
+                playerData.append(wOBA)
+
+                OPS = tds[6].text
+                OPS = OPS.lstrip()
+                OPS = OPS.rstrip()
+                playerData.append(OPS)
+
+                k9 = tds[7].text
+                k9 = k9.strip()
+                playerData.append(k9)
+
+                babip = tds[8].text
+                babip = babip.strip()
+                playerData.append(babip)
+
+                bbPercentage = tds[9].text
+                bbPercentage = bbPercentage.strip()
+                playerData.append(bbPercentage)
+
+                WHIP = tds[10].text
+                WHIP = WHIP.strip()
+                playerData.append(WHIP)
+
+                ERA = tds[11].text
+                ERA = ERA.strip()
+                playerData.append(ERA)
+
+                FIP = tds[12].text
+                FIP = FIP.strip()
+                playerData.append(FIP)
+
+                leftOnBase = tds[13].text
+                leftOnBase = leftOnBase.strip()
+                playerData.append(leftOnBase)
+
+                fbPercentage = tds[14].text
+                fbPercentage = fbPercentage.strip()
+                playerData.append(fbPercentage)
+
+                hrFB = tds[15].text
+                hrFB = hrFB.strip()
+                playerData.append(hrFB)
+
+                rotogrindersPitcherLSplitsData.append(playerData)
+
+                pitchersLeftSplitsEntry = PitcherLeftSplits(parent=RotogrindersPitcherLSplitsEntry, name=playerName,
+                                                            team=team, opponent=opponent,
+                                                            avg=average, babip=babip, ip=inningsPitched, woba=wOBA,
+                                                            knine=k9, bbPercentage=bbPercentage, whip=WHIP, era=ERA, fip=FIP,
+                                                            lob=leftOnBase, fb=fbPercentage, hrfb=hrFB, ops=OPS)
+                pitchersLeftSplitsEntry.save()
+
+            html = '<table class="table table-hover table-bordered table-striped">'
+
+            for header in rotogrindersPitcherSplitsHeaders:
+                html += '<th>'
+                html += header
+                html += '</th>'
+
+            for player in rotogrindersPitcherLSplitsData:
+                html += '<tr>'
+                for data in player:
+                    html += '<td>'
+                    html += data
+                    html += '</td>'
+                html += '</tr>'
+
+            html += '</table>'
+
+            return HttpResponse(html)
+
+        else:
+            pitcherSplitsLeftData = PitcherLeftSplits.objects.filter(parent=request.data["id"])
+            serializer = PitcherLeftSplitsSerializer(pitcherSplitsLeftData, many=True)
+            pitcherLeftSplitsSerializedData = serializer.data
+
+            rotogrindersPitcherSplitsHeaders = ["Name", "Team", "Opponent", "IP", "AVG", "wOBA", "OPS", "K/9", "BABIP",
+                                                "BB%",
+                                                "WHIP", "ERA", "FIP", "LOB%", "FB%", "HR/FB"]
+
+            html = '<table class="table table-hover table-bordered table-striped">'
+
+            for header in rotogrindersPitcherSplitsHeaders:
+                html += '<th>'
+                html += header
+                html += '</th>'
+
+            for player in pitcherLeftSplitsSerializedData:
                 html += '<tr>'
                 for i, (key, value) in enumerate(player.iteritems()):
                     html += '<td>'
