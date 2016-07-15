@@ -183,6 +183,78 @@
         <div class="row buttonAlign">
             <div ng-bind-html="wsa.pitcherLeftHandSplitsData" class="table-responsive" ng-show="wsa.showPitcherLeftHandSplits"></div>
         </div>
+        <div class = "row">
+            <div class="col-md-5 col-xs-12">
+                <h2> Left Handed Batter Splits Stats </h2>
+            </div>
+            <div class="col-md-3 col-xs-2">
+                <select class="form-control buttonAlign">
+                    <option></option>
+                </select>
+            </div>
+            <div class="col-md-4 col-xs-10">
+                <button type="button" class="btn btn-md btn-info btn pull-right buttonAlign" ng-click="wsa.leftHandedBatterSplitsHide()" ng-show="wsa.showLeftHandedBatterSplits"> Hide </button>
+                <button type="button" class="btn btn-md btn-success btn pull-right buttonAlign" ng-click="wsa.leftHandedBatterSplitsShow()" ng-show="!wsa.showLeftHandedBatterSplits"> Show </button>
+                <button type="button" class="btn btn-md btn-danger btn pull-right buttonAlign" ng-click="wsa.getLeftHandedBatterSplitsData()"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Get Left Handed Batter Splits </button>
+            </div>
+        </div>
+        <div class="row buttonAlign">
+            <div ng-bind-html="wsa.batterLeftHandedSplitsData" class="table-responsive" ng-show="wsa.showLeftHandedBatterSplits"></div>
+        </div>
+        <div class = "row">
+            <div class="col-md-5 col-xs-12">
+                <h2> Right Handed Batter Splits Stats </h2>
+            </div>
+            <div class="col-md-3 col-xs-2">
+                <select class="form-control buttonAlign">
+                    <option></option>
+                </select>
+            </div>
+            <div class="col-md-4 col-xs-10">
+                <button type="button" class="btn btn-md btn-info btn pull-right buttonAlign" ng-click="wsa.rightHandedBatterSplitsHide()" ng-show="wsa.showRightHandedBatterSplits"> Hide </button>
+                <button type="button" class="btn btn-md btn-success btn pull-right buttonAlign" ng-click="wsa.rightHandedBatterSplitsShow()" ng-show="!wsa.showRightHandedBatterSplits"> Show </button>
+                <button type="button" class="btn btn-md btn-danger btn pull-right buttonAlign" ng-click="wsa.getRightHandedBatterSplitsData()"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Get Right Handed Batter Splits </button>
+            </div>
+        </div>
+        <div class="row buttonAlign">
+            <div ng-bind-html="wsa.batterRightHandedSplitsData" class="table-responsive" ng-show="wsa.showRightHandedBatterSplits"></div>
+        </div>
+        <div class = "row">
+            <div class="col-md-5 col-xs-12">
+                <h2> Left Handed Advanced Batter Splits Stats </h2>
+            </div>
+            <div class="col-md-3 col-xs-2">
+                <select class="form-control buttonAlign">
+                    <option></option>
+                </select>
+            </div>
+            <div class="col-md-4 col-xs-10">
+                <button type="button" class="btn btn-md btn-info btn pull-right buttonAlign" ng-click="wsa.leftHandedAdvBatterSplitsHide()" ng-show="wsa.showLeftHandedAdvancedBatterSplits"> Hide </button>
+                <button type="button" class="btn btn-md btn-success btn pull-right buttonAlign" ng-click="wsa.leftHandedAdvBatterSplitsShow()" ng-show="!wsa.showLeftHandedAdvancedBatterSplits"> Show </button>
+                <button type="button" class="btn btn-md btn-danger btn pull-right buttonAlign" ng-click="wsa.getLeftHandedAdvancedBatterSplitsData()"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Get Left Handed Adv. Batter Splits </button>
+            </div>
+        </div>
+        <div class="row buttonAlign">
+            <div ng-bind-html="wsa.batterLeftHandedAdvancedSplitsData" class="table-responsive" ng-show="wsa.showLeftHandedAdvancedBatterSplits"></div>
+        </div>
+        <div class = "row">
+            <div class="col-md-5 col-xs-12">
+                <h2> Right Handed Advanced Batter Splits Stats </h2>
+            </div>
+            <div class="col-md-3 col-xs-2">
+                <select class="form-control buttonAlign">
+                    <option></option>
+                </select>
+            </div>
+            <div class="col-md-4 col-xs-10">
+                <button type="button" class="btn btn-md btn-info btn pull-right buttonAlign" ng-click="wsa.rightHandedAdvBatterSplitsHide()" ng-show="wsa.showRightHandedAdvancedBatterSplits"> Hide </button>
+                <button type="button" class="btn btn-md btn-success btn pull-right buttonAlign" ng-click="wsa.rightHandedAdvBatterSplitsShow()" ng-show="!wsa.showRightHandedAdvancedBatterSplits"> Show </button>
+                <button type="button" class="btn btn-md btn-danger btn pull-right buttonAlign" ng-click="wsa.getRightHandedAdvancedBatterSplitsData()"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Get Right Handed Adv. Batter Splits </button>
+            </div>
+        </div>
+        <div class="row buttonAlign">
+            <div ng-bind-html="wsa.batterRightHandedAdvancedSplitsData" class="table-responsive" ng-show="wsa.showRightHandedAdvancedBatterSplits"></div>
+        </div>
     </div>
 
     <div class="container" id="logo">

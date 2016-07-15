@@ -193,6 +193,55 @@ app.controller("baseballController", ['$scope', '$http', '$location', '$window',
 		wsa.showPitcherLeftHandSplits = true;
 	};
 
+	wsa.showLeftHandedBatterSplits = true;
+
+	wsa.leftHandedBatterSplitsHide = function()
+	{
+		wsa.showLeftHandedBatterSplits = false;
+	};
+
+	wsa.leftHandedBatterSplitsShow = function()
+	{
+		wsa.showLeftHandedBatterSplits = true;
+	};
+
+	wsa.showRightHandedBatterSplits = true;
+
+	wsa.rightHandedBatterSplitsHide = function()
+	{
+		wsa.showRightHandedBatterSplits = false;
+	};
+
+	wsa.rightHandedBatterSplitsShow = function()
+	{
+		wsa.showRightHandedBatterSplits = true;
+	};
+
+	wsa.showRightHandedAdvancedBatterSplits = true;
+
+	wsa.rightHandedAdvBatterSplitsHide = function()
+	{
+		wsa.showRightHandedAdvancedBatterSplits = false;
+	};
+
+	wsa.rightHandedAdvBatterSplitsShow = function()
+	{
+		wsa.showRightHandedAdvancedBatterSplits = true;
+	};
+
+	wsa.showLeftHandedAdvancedBatterSplits = true;
+
+	wsa.leftHandedAdvBatterSplitsHide = function()
+	{
+		wsa.showLeftHandedAdvancedBatterSplits = false;
+	};
+
+	wsa.leftHandedAdvBatterSplitsShow = function()
+	{
+		wsa.showLeftHandedAdvancedBatterSplits = true;
+	};
+
+
 	function findRotowireId(time) {
 		return time.scraped === wsa.rotowireSelectTime;
 	}
@@ -368,6 +417,58 @@ app.controller("baseballController", ['$scope', '$http', '$location', '$window',
 			console.log("Error: ", + response.toString())
 		});
 	};
+
+	wsa.getLeftHandedBatterSplitsData = function()
+	{
+		var submit = $http.post('/api/baseballRotogrindersLeftHandedBatterSplits/', '');
+
+		submit.success(function(response){
+			console.log("Success");
+			wsa.batterLeftHandedSplitsData = response.toString();
+		});
+		submit.error(function(response){
+			console.log("Error: ", + response.toString())
+		});
+	}
+
+	wsa.getRightHandedBatterSplitsData = function()
+	{
+		var submit = $http.post('/api/baseballRotogrindersRightHandedBatterSplits/', '');
+
+		submit.success(function(response){
+			console.log("Success");
+			wsa.batterRightHandedSplitsData = response.toString();
+		});
+		submit.error(function(response){
+			console.log("Error: ", + response.toString())
+		});
+	}
+
+	wsa.getLeftHandedAdvancedBatterSplitsData = function()
+	{
+		var submit = $http.post('/api/baseballRotogrindersLeftHandedAdvancedBatterSplits/', '');
+
+		submit.success(function(response){
+			console.log("Success");
+			wsa.batterLeftHandedAdvancedSplitsData = response.toString();
+		});
+		submit.error(function(response){
+			console.log("Error: ", + response.toString())
+		});
+	}
+
+	wsa.getRightHandedAdvancedBatterSplitsData = function()
+	{
+		var submit = $http.post('/api/baseballRotogrindersRightHandedAdvancedBatterSplits/', '');
+
+		submit.success(function(response){
+			console.log("Success");
+			wsa.batterRightHandedAdvancedSplitsData = response.toString();
+		});
+		submit.error(function(response){
+			console.log("Error: ", + response.toString())
+		});
+	}
 	
 }]);
 

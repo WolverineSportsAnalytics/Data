@@ -31,5 +31,13 @@ urlpatterns = [
 	url(r'^baseballPitcherLeftHandSplitsTimes', views.baseballPitcherLeftHandSplitsTimes,
 		name='baseballPitcherLeftHandSplitsTimes'),
 	url(r'^baseballPitcherRightHandSplitsTimes', views.baseballPitcherRightHandSplitsTimes,
-		name='baseballPitcherRightHandSplitsTimes')
+		name='baseballPitcherRightHandSplitsTimes'),
+	url(r'^baseballRotogrindersLeftHandedBatterSplits', views.baseballRotogrindersLeftHandedBatterSplits,
+		name='baseballRotogrindersLeftHandedBatterSplits'),
+	url(r'^baseballRotogrindersRightHandedBatterSplits', views.baseballRotogrindersRightHandedBatterSplits,
+		name='baseballRotogrindersRightHandedBatterSplits'),
+	url(r'^baseballRotogrindersRightHandedAdvancedBatterSplits', views.baseballRotogrindersRightHandedAdvancedBatterSplits,
+		name='baseballRotogrindersRightHandedAdvancedBatterSplits'),
+	url(r'^baseballRotogrindersLeftHandedAdvancedBatterSplits', views.baseballRotogrindersLeftHandedAdvancedBatterSplits,
+		name='baseballRotogrindersLeftHandedAdvancedBatterSplits')
 ]

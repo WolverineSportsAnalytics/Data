@@ -1243,3 +1243,2171 @@ def baseballRotogrindersLeftHandedPitcherSplits(request):
 
             html += '</table>'
             return HttpResponse(html)
+
+def baseballRotogrindersLeftHandedBatterSplits(request):
+    if request.method == 'POST':
+        url = "https://rotogrinders.com/pages/mlb-player-statistics-catchers-vs-left-264413"
+
+        page = urllib2.urlopen(url).read()
+        soup = BeautifulSoup(page, "html.parser")
+
+        lSplitsTable = soup.find_all('tbody')[0]
+
+        batterSplitsHeader = ["Player", "Team", "GP", "AB", "H", "1B", "2B", "3B", "HR", "R", "RBI", "BB", "SO", "SB", "SF",
+                              "GIDP", "AVG", "OBP", "SLG", "OBP"]
+
+        batterLeftSplitsData = []
+
+        for tr in lSplitsTable.find_all('tr'):
+            tds = tr.find_all('td')
+
+            playerData = []
+
+            playerName = tds[0].a
+            if playerName is None:
+                playerName = tds[0]
+            playerName = playerName.text
+            playerName = playerName.strip()
+            playerData.append(playerName)
+
+            team = tds[1].span
+            team = team.text
+            team = team.strip()
+            playerData.append(team)
+
+            gp = tds[2].text
+            gp = gp.strip()
+            playerData.append(gp)
+
+            ab = tds[3].text
+            ab = ab.strip()
+            playerData.append(ab)
+
+            hits = tds[4].text
+            hits = hits.strip()
+            playerData.append(hits)
+
+            singles = tds[5].text
+            singles = singles.strip()
+            playerData.append(singles)
+
+            doubles = tds[6].text
+            doubles = doubles.strip()
+            playerData.append(doubles)
+
+            triples = tds[7].text
+            triples = triples.strip()
+            playerData.append(triples)
+
+            hr = tds[8].text
+            hr = hr.strip()
+            playerData.append(hr)
+
+            runs = tds[9].text
+            runs = runs.strip()
+            playerData.append(runs)
+
+            rbi = tds[10].text
+            rbi = rbi.strip()
+            playerData.append(rbi)
+
+            walks = tds[11].text
+            walks = walks.strip()
+            playerData.append(walks)
+
+            strikouts = tds[12].text
+            strikouts = strikouts.strip()
+            playerData.append(strikouts)
+
+            sb = tds[13].text
+            sb = sb.strip()
+            playerData.append(sb)
+
+            sf = tds[14].text
+            sf = sf.strip()
+            playerData.append(sf)
+
+            gidp = tds[15].text
+            gidp = gidp.strip()
+            playerData.append(gidp)
+
+            avg = tds[16].text
+            avg = avg.strip()
+            playerData.append(avg)
+
+            obp = tds[17].text
+            obp = obp.strip()
+            playerData.append(obp)
+
+            slg = tds[18].text
+            slg = slg.strip()
+            playerData.append(slg)
+
+            ops = tds[19].text
+            ops = ops.strip()
+            playerData.append(ops)
+
+            batterLeftSplitsData.append(playerData)
+
+        url = "https://rotogrinders.com/pages/mlb-player-statistics-1st-base-vs-left-264414"
+
+        page = urllib2.urlopen(url).read()
+        soup = BeautifulSoup(page, "html.parser")
+
+        lSplitsTable = soup.find_all('tbody')[0]
+
+        for tr in lSplitsTable.find_all('tr'):
+            tds = tr.find_all('td')
+
+            playerData = []
+
+            playerName = tds[0].a
+            if playerName is None:
+                playerName = tds[0]
+            playerName = playerName.text
+            playerName = playerName.strip()
+            playerData.append(playerName)
+
+            team = tds[1].span
+            team = team.text
+            team = team.strip()
+            playerData.append(team)
+
+            gp = tds[2].text
+            gp = gp.strip()
+            playerData.append(gp)
+
+            ab = tds[3].text
+            ab = ab.strip()
+            playerData.append(ab)
+
+            hits = tds[4].text
+            hits = hits.strip()
+            playerData.append(hits)
+
+            singles = tds[5].text
+            singles = singles.strip()
+            playerData.append(singles)
+
+            doubles = tds[6].text
+            doubles = doubles.strip()
+            playerData.append(doubles)
+
+            triples = tds[7].text
+            triples = triples.strip()
+            playerData.append(triples)
+
+            hr = tds[8].text
+            hr = hr.strip()
+            playerData.append(hr)
+
+            runs = tds[9].text
+            runs = runs.strip()
+            playerData.append(runs)
+
+            rbi = tds[10].text
+            rbi = rbi.strip()
+            playerData.append(rbi)
+
+            walks = tds[11].text
+            walks = walks.strip()
+            playerData.append(walks)
+
+            strikouts = tds[12].text
+            strikouts = strikouts.strip()
+            playerData.append(strikouts)
+
+            sb = tds[13].text
+            sb = sb.strip()
+            playerData.append(sb)
+
+            sf = tds[14].text
+            sf = sf.strip()
+            playerData.append(sf)
+
+            gidp = tds[15].text
+            gidp = gidp.strip()
+            playerData.append(gidp)
+
+            avg = tds[16].text
+            avg = avg.strip()
+            playerData.append(avg)
+
+            obp = tds[17].text
+            obp = obp.strip()
+            playerData.append(obp)
+
+            slg = tds[18].text
+            slg = slg.strip()
+            playerData.append(slg)
+
+            ops = tds[19].text
+            ops = ops.strip()
+            playerData.append(ops)
+
+            batterLeftSplitsData.append(playerData)
+
+        url = "https://rotogrinders.com/pages/mlb-player-statistics-2nd-base-vs-left-264416"
+
+        page = urllib2.urlopen(url).read()
+        soup = BeautifulSoup(page, "html.parser")
+
+        lSplitsTable = soup.find_all('tbody')[0]
+
+        for tr in lSplitsTable.find_all('tr'):
+            tds = tr.find_all('td')
+
+            playerData = []
+
+            playerName = tds[0].a
+            if playerName is None:
+                playerName = tds[0]
+            playerName = playerName.text
+            playerName = playerName.strip()
+            playerData.append(playerName)
+
+            team = tds[1].span
+            team = team.text
+            team = team.strip()
+            playerData.append(team)
+
+            gp = tds[2].text
+            gp = gp.strip()
+            playerData.append(gp)
+
+            ab = tds[3].text
+            ab = ab.strip()
+            playerData.append(ab)
+
+            hits = tds[4].text
+            hits = hits.strip()
+            playerData.append(hits)
+
+            singles = tds[5].text
+            singles = singles.strip()
+            playerData.append(singles)
+
+            doubles = tds[6].text
+            doubles = doubles.strip()
+            playerData.append(doubles)
+
+            triples = tds[7].text
+            triples = triples.strip()
+            playerData.append(triples)
+
+            hr = tds[8].text
+            hr = hr.strip()
+            playerData.append(hr)
+
+            runs = tds[9].text
+            runs = runs.strip()
+            playerData.append(runs)
+
+            rbi = tds[10].text
+            rbi = rbi.strip()
+            playerData.append(rbi)
+
+            walks = tds[11].text
+            walks = walks.strip()
+            playerData.append(walks)
+
+            strikouts = tds[12].text
+            strikouts = strikouts.strip()
+            playerData.append(strikouts)
+
+            sb = tds[13].text
+            sb = sb.strip()
+            playerData.append(sb)
+
+            sf = tds[14].text
+            sf = sf.strip()
+            playerData.append(sf)
+
+            gidp = tds[15].text
+            gidp = gidp.strip()
+            playerData.append(gidp)
+
+            avg = tds[16].text
+            avg = avg.strip()
+            playerData.append(avg)
+
+            obp = tds[17].text
+            obp = obp.strip()
+            playerData.append(obp)
+
+            slg = tds[18].text
+            slg = slg.strip()
+            playerData.append(slg)
+
+            ops = tds[19].text
+            ops = ops.strip()
+            playerData.append(ops)
+
+            batterLeftSplitsData.append(playerData)
+
+        url = "https://rotogrinders.com/pages/mlb-player-statistics-3rd-base-vs-left-264417"
+
+        page = urllib2.urlopen(url).read()
+        soup = BeautifulSoup(page, "html.parser")
+
+        lSplitsTable = soup.find_all('tbody')[0]
+
+        for tr in lSplitsTable.find_all('tr'):
+            tds = tr.find_all('td')
+
+            playerData = []
+
+            playerName = tds[0].a
+            if playerName is None:
+                playerName = tds[0]
+            playerName = playerName.text
+            playerName = playerName.strip()
+            playerData.append(playerName)
+
+            team = tds[1].span
+            team = team.text
+            team = team.strip()
+            playerData.append(team)
+
+            gp = tds[2].text
+            gp = gp.strip()
+            playerData.append(gp)
+
+            ab = tds[3].text
+            ab = ab.strip()
+            playerData.append(ab)
+
+            hits = tds[4].text
+            hits = hits.strip()
+            playerData.append(hits)
+
+            singles = tds[5].text
+            singles = singles.strip()
+            playerData.append(singles)
+
+            doubles = tds[6].text
+            doubles = doubles.strip()
+            playerData.append(doubles)
+
+            triples = tds[7].text
+            triples = triples.strip()
+            playerData.append(triples)
+
+            hr = tds[8].text
+            hr = hr.strip()
+            playerData.append(hr)
+
+            runs = tds[9].text
+            runs = runs.strip()
+            playerData.append(runs)
+
+            rbi = tds[10].text
+            rbi = rbi.strip()
+            playerData.append(rbi)
+
+            walks = tds[11].text
+            walks = walks.strip()
+            playerData.append(walks)
+
+            strikouts = tds[12].text
+            strikouts = strikouts.strip()
+            playerData.append(strikouts)
+
+            sb = tds[13].text
+            sb = sb.strip()
+            playerData.append(sb)
+
+            sf = tds[14].text
+            sf = sf.strip()
+            playerData.append(sf)
+
+            gidp = tds[15].text
+            gidp = gidp.strip()
+            playerData.append(gidp)
+
+            avg = tds[16].text
+            avg = avg.strip()
+            playerData.append(avg)
+
+            obp = tds[17].text
+            obp = obp.strip()
+            playerData.append(obp)
+
+            slg = tds[18].text
+            slg = slg.strip()
+            playerData.append(slg)
+
+            ops = tds[19].text
+            ops = ops.strip()
+            playerData.append(ops)
+
+            batterLeftSplitsData.append(playerData)
+
+        url = "https://rotogrinders.com/pages/mlb-player-statistics-shortstop-vs-left-264418"
+
+        page = urllib2.urlopen(url).read()
+        soup = BeautifulSoup(page, "html.parser")
+
+        lSplitsTable = soup.find_all('tbody')[0]
+
+        for tr in lSplitsTable.find_all('tr'):
+            tds = tr.find_all('td')
+
+            playerData = []
+
+            playerName = tds[0].a
+            if playerName is None:
+                playerName = tds[0]
+            playerName = playerName.text
+            playerName = playerName.strip()
+            playerData.append(playerName)
+
+            team = tds[1].span
+            team = team.text
+            team = team.strip()
+            playerData.append(team)
+
+            gp = tds[2].text
+            gp = gp.strip()
+            playerData.append(gp)
+
+            ab = tds[3].text
+            ab = ab.strip()
+            playerData.append(ab)
+
+            hits = tds[4].text
+            hits = hits.strip()
+            playerData.append(hits)
+
+            singles = tds[5].text
+            singles = singles.strip()
+            playerData.append(singles)
+
+            doubles = tds[6].text
+            doubles = doubles.strip()
+            playerData.append(doubles)
+
+            triples = tds[7].text
+            triples = triples.strip()
+            playerData.append(triples)
+
+            hr = tds[8].text
+            hr = hr.strip()
+            playerData.append(hr)
+
+            runs = tds[9].text
+            runs = runs.strip()
+            playerData.append(runs)
+
+            rbi = tds[10].text
+            rbi = rbi.strip()
+            playerData.append(rbi)
+
+            walks = tds[11].text
+            walks = walks.strip()
+            playerData.append(walks)
+
+            strikouts = tds[12].text
+            strikouts = strikouts.strip()
+            playerData.append(strikouts)
+
+            sb = tds[13].text
+            sb = sb.strip()
+            playerData.append(sb)
+
+            sf = tds[14].text
+            sf = sf.strip()
+            playerData.append(sf)
+
+            gidp = tds[15].text
+            gidp = gidp.strip()
+            playerData.append(gidp)
+
+            avg = tds[16].text
+            avg = avg.strip()
+            playerData.append(avg)
+
+            obp = tds[17].text
+            obp = obp.strip()
+            playerData.append(obp)
+
+            slg = tds[18].text
+            slg = slg.strip()
+            playerData.append(slg)
+
+            ops = tds[19].text
+            ops = ops.strip()
+            playerData.append(ops)
+
+            batterLeftSplitsData.append(playerData)
+
+        url = "https://rotogrinders.com/pages/mlb-player-statistics-outfielders-vs-left-264419"
+
+        page = urllib2.urlopen(url).read()
+        soup = BeautifulSoup(page, "html.parser")
+
+        lSplitsTable = soup.find_all('tbody')[0]
+
+        for tr in lSplitsTable.find_all('tr'):
+            tds = tr.find_all('td')
+
+            playerData = []
+
+            playerName = tds[0].a
+            if playerName is None:
+                playerName = tds[0]
+            playerName = playerName.text
+            playerName = playerName.strip()
+            playerData.append(playerName)
+
+            team = tds[1].span
+            team = team.text
+            team = team.strip()
+            playerData.append(team)
+
+            gp = tds[2].text
+            gp = gp.strip()
+            playerData.append(gp)
+
+            ab = tds[3].text
+            ab = ab.strip()
+            playerData.append(ab)
+
+            hits = tds[4].text
+            hits = hits.strip()
+            playerData.append(hits)
+
+            singles = tds[5].text
+            singles = singles.strip()
+            playerData.append(singles)
+
+            doubles = tds[6].text
+            doubles = doubles.strip()
+            playerData.append(doubles)
+
+            triples = tds[7].text
+            triples = triples.strip()
+            playerData.append(triples)
+
+            hr = tds[8].text
+            hr = hr.strip()
+            playerData.append(hr)
+
+            runs = tds[9].text
+            runs = runs.strip()
+            playerData.append(runs)
+
+            rbi = tds[10].text
+            rbi = rbi.strip()
+            playerData.append(rbi)
+
+            walks = tds[11].text
+            walks = walks.strip()
+            playerData.append(walks)
+
+            strikouts = tds[12].text
+            strikouts = strikouts.strip()
+            playerData.append(strikouts)
+
+            sb = tds[13].text
+            sb = sb.strip()
+            playerData.append(sb)
+
+            sf = tds[14].text
+            sf = sf.strip()
+            playerData.append(sf)
+
+            gidp = tds[15].text
+            gidp = gidp.strip()
+            playerData.append(gidp)
+
+            avg = tds[16].text
+            avg = avg.strip()
+            playerData.append(avg)
+
+            obp = tds[17].text
+            obp = obp.strip()
+            playerData.append(obp)
+
+            slg = tds[18].text
+            slg = slg.strip()
+            playerData.append(slg)
+
+            ops = tds[19].text
+            ops = ops.strip()
+            playerData.append(ops)
+
+            batterLeftSplitsData.append(playerData)
+
+        html = '<table class="table table-hover table-bordered table-striped">'
+
+        for header in batterSplitsHeader:
+            html += '<th>'
+            html += header
+            html += '</th>'
+
+        for player in batterLeftSplitsData:
+            html += '<tr>'
+            for data in player:
+                html += '<td>'
+                html += data
+                html += '</td>'
+            html += '</tr>'
+
+        html += '</table>'
+
+        return HttpResponse(html)
+
+def baseballRotogrindersRightHandedBatterSplits(request):
+    if request.method == 'POST':
+        url = "https://rotogrinders.com/pages/mlb-player-statistics-catchers-vs-right-264420"
+
+        page = urllib2.urlopen(url).read()
+        soup = BeautifulSoup(page, "html.parser")
+
+        rSplitsTable = soup.find_all('tbody')[0]
+
+        batterSplitsHeader = ["Player", "Team", "GP", "AB", "H", "1B", "2B", "3B", "HR", "R", "RBI", "BB", "SO", "SB", "SF",
+                              "GIDP", "AVG", "OBP", "SLG", "OBP"]
+
+        batterRightSplitsData = []
+
+        for tr in rSplitsTable.find_all('tr'):
+            tds = tr.find_all('td')
+
+            playerData = []
+
+            playerName = tds[0].a
+            if playerName is None:
+                playerName = tds[0]
+            playerName = playerName.text
+            playerName = playerName.strip()
+            playerData.append(playerName)
+
+            team = tds[1].span
+            team = team.text
+            team = team.strip()
+            playerData.append(team)
+
+            gp = tds[2].text
+            gp = gp.strip()
+            playerData.append(gp)
+
+            ab = tds[3].text
+            ab = ab.strip()
+            playerData.append(ab)
+
+            hits = tds[4].text
+            hits = hits.strip()
+            playerData.append(hits)
+
+            singles = tds[5].text
+            singles = singles.strip()
+            playerData.append(singles)
+
+            doubles = tds[6].text
+            doubles = doubles.strip()
+            playerData.append(doubles)
+
+            triples = tds[7].text
+            triples = triples.strip()
+            playerData.append(triples)
+
+            hr = tds[8].text
+            hr = hr.strip()
+            playerData.append(hr)
+
+            runs = tds[9].text
+            runs = runs.strip()
+            playerData.append(runs)
+
+            rbi = tds[10].text
+            rbi = rbi.strip()
+            playerData.append(rbi)
+
+            walks = tds[11].text
+            walks = walks.strip()
+            playerData.append(walks)
+
+            strikouts = tds[12].text
+            strikouts = strikouts.strip()
+            playerData.append(strikouts)
+
+            sb = tds[13].text
+            sb = sb.strip()
+            playerData.append(sb)
+
+            sf = tds[14].text
+            sf = sf.strip()
+            playerData.append(sf)
+
+            gidp = tds[15].text
+            gidp = gidp.strip()
+            playerData.append(gidp)
+
+            avg = tds[16].text
+            avg = avg.strip()
+            playerData.append(avg)
+
+            obp = tds[17].text
+            obp = obp.strip()
+            playerData.append(obp)
+
+            slg = tds[18].text
+            slg = slg.strip()
+            playerData.append(slg)
+
+            ops = tds[19].text
+            ops = ops.strip()
+            playerData.append(ops)
+
+            batterRightSplitsData.append(playerData)
+
+        url = "https://rotogrinders.com/pages/mlb-player-statistics-1st-base-vs-right-264421"
+
+        page = urllib2.urlopen(url).read()
+        soup = BeautifulSoup(page, "html.parser")
+
+        rSplitsTable = soup.find_all('tbody')[0]
+
+        for tr in rSplitsTable.find_all('tr'):
+            tds = tr.find_all('td')
+
+            playerData = []
+
+            playerName = tds[0].a
+            if playerName is None:
+                playerName = tds[0]
+            playerName = playerName.text
+            playerName = playerName.strip()
+            playerData.append(playerName)
+
+            team = tds[1].span
+            team = team.text
+            team = team.strip()
+            playerData.append(team)
+
+            gp = tds[2].text
+            gp = gp.strip()
+            playerData.append(gp)
+
+            ab = tds[3].text
+            ab = ab.strip()
+            playerData.append(ab)
+
+            hits = tds[4].text
+            hits = hits.strip()
+            playerData.append(hits)
+
+            singles = tds[5].text
+            singles = singles.strip()
+            playerData.append(singles)
+
+            doubles = tds[6].text
+            doubles = doubles.strip()
+            playerData.append(doubles)
+
+            triples = tds[7].text
+            triples = triples.strip()
+            playerData.append(triples)
+
+            hr = tds[8].text
+            hr = hr.strip()
+            playerData.append(hr)
+
+            runs = tds[9].text
+            runs = runs.strip()
+            playerData.append(runs)
+
+            rbi = tds[10].text
+            rbi = rbi.strip()
+            playerData.append(rbi)
+
+            walks = tds[11].text
+            walks = walks.strip()
+            playerData.append(walks)
+
+            strikouts = tds[12].text
+            strikouts = strikouts.strip()
+            playerData.append(strikouts)
+
+            sb = tds[13].text
+            sb = sb.strip()
+            playerData.append(sb)
+
+            sf = tds[14].text
+            sf = sf.strip()
+            playerData.append(sf)
+
+            gidp = tds[15].text
+            gidp = gidp.strip()
+            playerData.append(gidp)
+
+            avg = tds[16].text
+            avg = avg.strip()
+            playerData.append(avg)
+
+            obp = tds[17].text
+            obp = obp.strip()
+            playerData.append(obp)
+
+            slg = tds[18].text
+            slg = slg.strip()
+            playerData.append(slg)
+
+            ops = tds[19].text
+            ops = ops.strip()
+            playerData.append(ops)
+
+            batterRightSplitsData.append(playerData)
+
+        url = "https://rotogrinders.com/pages/mlb-player-statistics-2nd-base-vs-right-264422"
+
+        page = urllib2.urlopen(url).read()
+        soup = BeautifulSoup(page, "html.parser")
+
+        rSplitsTable = soup.find_all('tbody')[0]
+
+        for tr in rSplitsTable.find_all('tr'):
+            tds = tr.find_all('td')
+
+            playerData = []
+
+            playerName = tds[0].a
+            if playerName is None:
+                playerName = tds[0]
+            playerName = playerName.text
+            playerName = playerName.strip()
+            playerData.append(playerName)
+
+            team = tds[1].span
+            team = team.text
+            team = team.strip()
+            playerData.append(team)
+
+            gp = tds[2].text
+            gp = gp.strip()
+            playerData.append(gp)
+
+            ab = tds[3].text
+            ab = ab.strip()
+            playerData.append(ab)
+
+            hits = tds[4].text
+            hits = hits.strip()
+            playerData.append(hits)
+
+            singles = tds[5].text
+            singles = singles.strip()
+            playerData.append(singles)
+
+            doubles = tds[6].text
+            doubles = doubles.strip()
+            playerData.append(doubles)
+
+            triples = tds[7].text
+            triples = triples.strip()
+            playerData.append(triples)
+
+            hr = tds[8].text
+            hr = hr.strip()
+            playerData.append(hr)
+
+            runs = tds[9].text
+            runs = runs.strip()
+            playerData.append(runs)
+
+            rbi = tds[10].text
+            rbi = rbi.strip()
+            playerData.append(rbi)
+
+            walks = tds[11].text
+            walks = walks.strip()
+            playerData.append(walks)
+
+            strikouts = tds[12].text
+            strikouts = strikouts.strip()
+            playerData.append(strikouts)
+
+            sb = tds[13].text
+            sb = sb.strip()
+            playerData.append(sb)
+
+            sf = tds[14].text
+            sf = sf.strip()
+            playerData.append(sf)
+
+            gidp = tds[15].text
+            gidp = gidp.strip()
+            playerData.append(gidp)
+
+            avg = tds[16].text
+            avg = avg.strip()
+            playerData.append(avg)
+
+            obp = tds[17].text
+            obp = obp.strip()
+            playerData.append(obp)
+
+            slg = tds[18].text
+            slg = slg.strip()
+            playerData.append(slg)
+
+            ops = tds[19].text
+            ops = ops.strip()
+            playerData.append(ops)
+
+            batterRightSplitsData.append(playerData)
+
+        url = "https://rotogrinders.com/pages/mlb-player-statistics-3rd-base-vs-right-264423"
+
+        page = urllib2.urlopen(url).read()
+        soup = BeautifulSoup(page, "html.parser")
+
+        rSplitsTable = soup.find_all('tbody')[0]
+
+        for tr in rSplitsTable.find_all('tr'):
+            tds = tr.find_all('td')
+
+            playerData = []
+
+            playerName = tds[0].a
+            if playerName is None:
+                playerName = tds[0]
+            playerName = playerName.text
+            playerName = playerName.strip()
+            playerData.append(playerName)
+
+            team = tds[1].span
+            team = team.text
+            team = team.strip()
+            playerData.append(team)
+
+            gp = tds[2].text
+            gp = gp.strip()
+            playerData.append(gp)
+
+            ab = tds[3].text
+            ab = ab.strip()
+            playerData.append(ab)
+
+            hits = tds[4].text
+            hits = hits.strip()
+            playerData.append(hits)
+
+            singles = tds[5].text
+            singles = singles.strip()
+            playerData.append(singles)
+
+            doubles = tds[6].text
+            doubles = doubles.strip()
+            playerData.append(doubles)
+
+            triples = tds[7].text
+            triples = triples.strip()
+            playerData.append(triples)
+
+            hr = tds[8].text
+            hr = hr.strip()
+            playerData.append(hr)
+
+            runs = tds[9].text
+            runs = runs.strip()
+            playerData.append(runs)
+
+            rbi = tds[10].text
+            rbi = rbi.strip()
+            playerData.append(rbi)
+
+            walks = tds[11].text
+            walks = walks.strip()
+            playerData.append(walks)
+
+            strikouts = tds[12].text
+            strikouts = strikouts.strip()
+            playerData.append(strikouts)
+
+            sb = tds[13].text
+            sb = sb.strip()
+            playerData.append(sb)
+
+            sf = tds[14].text
+            sf = sf.strip()
+            playerData.append(sf)
+
+            gidp = tds[15].text
+            gidp = gidp.strip()
+            playerData.append(gidp)
+
+            avg = tds[16].text
+            avg = avg.strip()
+            playerData.append(avg)
+
+            obp = tds[17].text
+            obp = obp.strip()
+            playerData.append(obp)
+
+            slg = tds[18].text
+            slg = slg.strip()
+            playerData.append(slg)
+
+            ops = tds[19].text
+            ops = ops.strip()
+            playerData.append(ops)
+
+            batterRightSplitsData.append(playerData)
+
+        url = "https://rotogrinders.com/pages/mlb-player-statistics-shortstop-vs-right-264424"
+
+        page = urllib2.urlopen(url).read()
+        soup = BeautifulSoup(page, "html.parser")
+
+        rSplitsTable = soup.find_all('tbody')[0]
+
+        for tr in rSplitsTable.find_all('tr'):
+            tds = tr.find_all('td')
+
+            playerData = []
+
+            playerName = tds[0].a
+            if playerName is None:
+                playerName = tds[0]
+            playerName = playerName.text
+            playerName = playerName.strip()
+            playerData.append(playerName)
+
+            team = tds[1].span
+            team = team.text
+            team = team.strip()
+            playerData.append(team)
+
+            gp = tds[2].text
+            gp = gp.strip()
+            playerData.append(gp)
+
+            ab = tds[3].text
+            ab = ab.strip()
+            playerData.append(ab)
+
+            hits = tds[4].text
+            hits = hits.strip()
+            playerData.append(hits)
+
+            singles = tds[5].text
+            singles = singles.strip()
+            playerData.append(singles)
+
+            doubles = tds[6].text
+            doubles = doubles.strip()
+            playerData.append(doubles)
+
+            triples = tds[7].text
+            triples = triples.strip()
+            playerData.append(triples)
+
+            hr = tds[8].text
+            hr = hr.strip()
+            playerData.append(hr)
+
+            runs = tds[9].text
+            runs = runs.strip()
+            playerData.append(runs)
+
+            rbi = tds[10].text
+            rbi = rbi.strip()
+            playerData.append(rbi)
+
+            walks = tds[11].text
+            walks = walks.strip()
+            playerData.append(walks)
+
+            strikouts = tds[12].text
+            strikouts = strikouts.strip()
+            playerData.append(strikouts)
+
+            sb = tds[13].text
+            sb = sb.strip()
+            playerData.append(sb)
+
+            sf = tds[14].text
+            sf = sf.strip()
+            playerData.append(sf)
+
+            gidp = tds[15].text
+            gidp = gidp.strip()
+            playerData.append(gidp)
+
+            avg = tds[16].text
+            avg = avg.strip()
+            playerData.append(avg)
+
+            obp = tds[17].text
+            obp = obp.strip()
+            playerData.append(obp)
+
+            slg = tds[18].text
+            slg = slg.strip()
+            playerData.append(slg)
+
+            ops = tds[19].text
+            ops = ops.strip()
+            playerData.append(ops)
+
+            batterRightSplitsData.append(playerData)
+
+        url = "https://rotogrinders.com/pages/mlb-player-statistics-outfielders-vs-right-264425"
+
+        page = urllib2.urlopen(url).read()
+        soup = BeautifulSoup(page, "html.parser")
+
+        rSplitsTable = soup.find_all('tbody')[0]
+
+        for tr in rSplitsTable.find_all('tr'):
+            tds = tr.find_all('td')
+
+            playerData = []
+
+            playerName = tds[0].a
+            if playerName is None:
+                playerName = tds[0]
+            playerName = playerName.text
+            playerName = playerName.strip()
+            playerData.append(playerName)
+
+            team = tds[1].span
+            team = team.text
+            team = team.strip()
+            playerData.append(team)
+
+            gp = tds[2].text
+            gp = gp.strip()
+            playerData.append(gp)
+
+            ab = tds[3].text
+            ab = ab.strip()
+            playerData.append(ab)
+
+            hits = tds[4].text
+            hits = hits.strip()
+            playerData.append(hits)
+
+            singles = tds[5].text
+            singles = singles.strip()
+            playerData.append(singles)
+
+            doubles = tds[6].text
+            doubles = doubles.strip()
+            playerData.append(doubles)
+
+            triples = tds[7].text
+            triples = triples.strip()
+            playerData.append(triples)
+
+            hr = tds[8].text
+            hr = hr.strip()
+            playerData.append(hr)
+
+            runs = tds[9].text
+            runs = runs.strip()
+            playerData.append(runs)
+
+            rbi = tds[10].text
+            rbi = rbi.strip()
+            playerData.append(rbi)
+
+            walks = tds[11].text
+            walks = walks.strip()
+            playerData.append(walks)
+
+            strikouts = tds[12].text
+            strikouts = strikouts.strip()
+            playerData.append(strikouts)
+
+            sb = tds[13].text
+            sb = sb.strip()
+            playerData.append(sb)
+
+            sf = tds[14].text
+            sf = sf.strip()
+            playerData.append(sf)
+
+            gidp = tds[15].text
+            gidp = gidp.strip()
+            playerData.append(gidp)
+
+            avg = tds[16].text
+            avg = avg.strip()
+            playerData.append(avg)
+
+            obp = tds[17].text
+            obp = obp.strip()
+            playerData.append(obp)
+
+            slg = tds[18].text
+            slg = slg.strip()
+            playerData.append(slg)
+
+            ops = tds[19].text
+            ops = ops.strip()
+            playerData.append(ops)
+
+            batterRightSplitsData.append(playerData)
+
+        html = '<table class="table table-hover table-bordered table-striped">'
+
+        for header in batterSplitsHeader:
+            html += '<th>'
+            html += header
+            html += '</th>'
+
+        for player in batterRightSplitsData:
+            html += '<tr>'
+            for data in player:
+                html += '<td>'
+                html += data
+                html += '</td>'
+            html += '</tr>'
+
+        html += '</table>'
+
+        return HttpResponse(html)
+
+def baseballRotogrindersLeftHandedAdvancedBatterSplits(request):
+    if request.method == 'POST':
+        url = "https://rotogrinders.com/pages/mlb-advanced-stats-catcher-vs-left-264456"
+
+        page = urllib2.urlopen(url).read()
+        soup = BeautifulSoup(page, "html.parser")
+
+        batterAdvancedSplitsHeader = ["Player", "PA", "AVG", "OBP", "SLG", "OPS", "K%", "BB/K", "ISO", "SPD", "BABIP", "wRC",
+                                      "wRC", "wOBA"]
+
+        batterLeftAdvancedSplitsHeader = []
+
+        lSplitsTable = soup.find_all('tbody')[0]
+
+        for tr in lSplitsTable.find_all('tr'):
+            tds = tr.find_all('td')
+
+            playerData = []
+
+            playerName = tds[0].a
+            if playerName is None:
+                playerName = tds[0]
+            playerName = playerName.text
+            playerName = playerName.strip()
+            playerData.append(playerName)
+
+            pa = tds[1]
+            pa = pa.text
+            pa = pa.strip()
+            playerData.append(pa)
+
+            avg = tds[2].text
+            avg = avg.strip()
+            playerData.append(avg)
+
+            obp = tds[3].text
+            obp = obp.strip()
+            playerData.append(obp)
+
+            slg = tds[4].text
+            slg = slg.strip()
+            playerData.append(slg)
+
+            ops = tds[5].text
+            ops = ops.strip()
+            playerData.append(ops)
+
+            kPercentage = tds[6].text
+            kPercentage = kPercentage.strip()
+            playerData.append(kPercentage)
+
+            BBPerK = tds[7].text
+            BBPerK = BBPerK.strip()
+            playerData.append(BBPerK)
+
+            ISO = tds[8].text
+            ISO = ISO.strip()
+            playerData.append(ISO)
+
+            SPD = tds[9].text
+            SPD = SPD.strip()
+            playerData.append(SPD)
+
+            BABIP = tds[10].text
+            BABIP = BABIP.strip()
+            playerData.append(BABIP)
+
+            wRC = tds[11].text
+            wRC = wRC.strip()
+            playerData.append(wRC)
+
+            wRCPlus = tds[12].text
+            wRCPlus = wRCPlus.strip()
+            playerData.append(wRCPlus)
+
+            wOBA = tds[13].text
+            wOBA = wOBA.strip()
+            playerData.append(wOBA)
+
+            batterLeftAdvancedSplitsHeader.append(playerData)
+
+        url = "https://rotogrinders.com/pages/mlb-advanced-stats-1b-vs-left-264457"
+
+        page = urllib2.urlopen(url).read()
+        soup = BeautifulSoup(page, "html.parser")
+
+        lSplitsTable = soup.find_all('tbody')[0]
+
+        for tr in lSplitsTable.find_all('tr'):
+            tds = tr.find_all('td')
+
+            playerData = []
+
+            playerName = tds[0].a
+            if playerName is None:
+                playerName = tds[0]
+            playerName = playerName.text
+            playerName = playerName.strip()
+            playerData.append(playerName)
+
+            pa = tds[1]
+            pa = pa.text
+            pa = pa.strip()
+            playerData.append(pa)
+
+            avg = tds[2].text
+            avg = avg.strip()
+            playerData.append(avg)
+
+            obp = tds[3].text
+            obp = obp.strip()
+            playerData.append(obp)
+
+            slg = tds[4].text
+            slg = slg.strip()
+            playerData.append(slg)
+
+            ops = tds[5].text
+            ops = ops.strip()
+            playerData.append(ops)
+
+            kPercentage = tds[6].text
+            kPercentage = kPercentage.strip()
+            playerData.append(kPercentage)
+
+            BBPerK = tds[7].text
+            BBPerK = BBPerK.strip()
+            playerData.append(BBPerK)
+
+            ISO = tds[8].text
+            ISO = ISO.strip()
+            playerData.append(ISO)
+
+            SPD = tds[9].text
+            SPD = SPD.strip()
+            playerData.append(SPD)
+
+            BABIP = tds[10].text
+            BABIP = BABIP.strip()
+            playerData.append(BABIP)
+
+            wRC = tds[11].text
+            wRC = wRC.strip()
+            playerData.append(wRC)
+
+            wRCPlus = tds[12].text
+            wRCPlus = wRCPlus.strip()
+            playerData.append(wRCPlus)
+
+            wOBA = tds[13].text
+            wOBA = wOBA.strip()
+            playerData.append(wOBA)
+
+            batterLeftAdvancedSplitsHeader.append(playerData)
+
+        url = "https://rotogrinders.com/pages/mlb-advanced-stats-2b-vs-left-264458"
+
+        page = urllib2.urlopen(url).read()
+        soup = BeautifulSoup(page, "html.parser")
+
+        lSplitsTable = soup.find_all('tbody')[0]
+
+        for tr in lSplitsTable.find_all('tr'):
+            tds = tr.find_all('td')
+
+            playerData = []
+
+            playerName = tds[0].a
+            if playerName is None:
+                playerName = tds[0]
+            playerName = playerName.text
+            playerName = playerName.strip()
+            playerData.append(playerName)
+
+            pa = tds[1]
+            pa = pa.text
+            pa = pa.strip()
+            playerData.append(pa)
+
+            avg = tds[2].text
+            avg = avg.strip()
+            playerData.append(avg)
+
+            obp = tds[3].text
+            obp = obp.strip()
+            playerData.append(obp)
+
+            slg = tds[4].text
+            slg = slg.strip()
+            playerData.append(slg)
+
+            ops = tds[5].text
+            ops = ops.strip()
+            playerData.append(ops)
+
+            kPercentage = tds[6].text
+            kPercentage = kPercentage.strip()
+            playerData.append(kPercentage)
+
+            BBPerK = tds[7].text
+            BBPerK = BBPerK.strip()
+            playerData.append(BBPerK)
+
+            ISO = tds[8].text
+            ISO = ISO.strip()
+            playerData.append(ISO)
+
+            SPD = tds[9].text
+            SPD = SPD.strip()
+            playerData.append(SPD)
+
+            BABIP = tds[10].text
+            BABIP = BABIP.strip()
+            playerData.append(BABIP)
+
+            wRC = tds[11].text
+            wRC = wRC.strip()
+            playerData.append(wRC)
+
+            wRCPlus = tds[12].text
+            wRCPlus = wRCPlus.strip()
+            playerData.append(wRCPlus)
+
+            wOBA = tds[13].text
+            wOBA = wOBA.strip()
+            playerData.append(wOBA)
+
+            batterLeftAdvancedSplitsHeader.append(playerData)
+
+        url = "https://rotogrinders.com/pages/mlb-advanced-stats-3b-vs-left-264459"
+
+        page = urllib2.urlopen(url).read()
+        soup = BeautifulSoup(page, "html.parser")
+
+        lSplitsTable = soup.find_all('tbody')[0]
+
+        for tr in lSplitsTable.find_all('tr'):
+            tds = tr.find_all('td')
+
+            playerData = []
+
+            playerName = tds[0].a
+            if playerName is None:
+                playerName = tds[0]
+            playerName = playerName.text
+            playerName = playerName.strip()
+            playerData.append(playerName)
+
+            pa = tds[1]
+            pa = pa.text
+            pa = pa.strip()
+            playerData.append(pa)
+
+            avg = tds[2].text
+            avg = avg.strip()
+            playerData.append(avg)
+
+            obp = tds[3].text
+            obp = obp.strip()
+            playerData.append(obp)
+
+            slg = tds[4].text
+            slg = slg.strip()
+            playerData.append(slg)
+
+            ops = tds[5].text
+            ops = ops.strip()
+            playerData.append(ops)
+
+            kPercentage = tds[6].text
+            kPercentage = kPercentage.strip()
+            playerData.append(kPercentage)
+
+            BBPerK = tds[7].text
+            BBPerK = BBPerK.strip()
+            playerData.append(BBPerK)
+
+            ISO = tds[8].text
+            ISO = ISO.strip()
+            playerData.append(ISO)
+
+            SPD = tds[9].text
+            SPD = SPD.strip()
+            playerData.append(SPD)
+
+            BABIP = tds[10].text
+            BABIP = BABIP.strip()
+            playerData.append(BABIP)
+
+            wRC = tds[11].text
+            wRC = wRC.strip()
+            playerData.append(wRC)
+
+            wRCPlus = tds[12].text
+            wRCPlus = wRCPlus.strip()
+            playerData.append(wRCPlus)
+
+            wOBA = tds[13].text
+            wOBA = wOBA.strip()
+            playerData.append(wOBA)
+
+            batterLeftAdvancedSplitsHeader.append(playerData)
+
+        url = "https://rotogrinders.com/pages/mlb-advanced-stats-ss-vs-left-264460"
+
+        page = urllib2.urlopen(url).read()
+        soup = BeautifulSoup(page, "html.parser")
+
+        lSplitsTable = soup.find_all('tbody')[0]
+
+        for tr in lSplitsTable.find_all('tr'):
+            tds = tr.find_all('td')
+
+            playerData = []
+
+            playerName = tds[0].a
+            if playerName is None:
+                playerName = tds[0]
+            playerName = playerName.text
+            playerName = playerName.strip()
+            playerData.append(playerName)
+
+            pa = tds[1]
+            pa = pa.text
+            pa = pa.strip()
+            playerData.append(pa)
+
+            avg = tds[2].text
+            avg = avg.strip()
+            playerData.append(avg)
+
+            obp = tds[3].text
+            obp = obp.strip()
+            playerData.append(obp)
+
+            slg = tds[4].text
+            slg = slg.strip()
+            playerData.append(slg)
+
+            ops = tds[5].text
+            ops = ops.strip()
+            playerData.append(ops)
+
+            kPercentage = tds[6].text
+            kPercentage = kPercentage.strip()
+            playerData.append(kPercentage)
+
+            BBPerK = tds[7].text
+            BBPerK = BBPerK.strip()
+            playerData.append(BBPerK)
+
+            ISO = tds[8].text
+            ISO = ISO.strip()
+            playerData.append(ISO)
+
+            SPD = tds[9].text
+            SPD = SPD.strip()
+            playerData.append(SPD)
+
+            BABIP = tds[10].text
+            BABIP = BABIP.strip()
+            playerData.append(BABIP)
+
+            wRC = tds[11].text
+            wRC = wRC.strip()
+            playerData.append(wRC)
+
+            wRCPlus = tds[12].text
+            wRCPlus = wRCPlus.strip()
+            playerData.append(wRCPlus)
+
+            wOBA = tds[13].text
+            wOBA = wOBA.strip()
+            playerData.append(wOBA)
+
+            batterLeftAdvancedSplitsHeader.append(playerData)
+
+        url = "https://rotogrinders.com/pages/mlb-advanced-stats-of-vs-left-264461"
+
+        page = urllib2.urlopen(url).read()
+        soup = BeautifulSoup(page, "html.parser")
+
+        lSplitsTable = soup.find_all('tbody')[0]
+
+        for tr in lSplitsTable.find_all('tr'):
+            tds = tr.find_all('td')
+
+            playerData = []
+
+            playerName = tds[0].a
+            if playerName is None:
+                playerName = tds[0]
+            playerName = playerName.text
+            playerName = playerName.strip()
+            playerData.append(playerName)
+
+            pa = tds[1]
+            pa = pa.text
+            pa = pa.strip()
+            playerData.append(pa)
+
+            avg = tds[2].text
+            avg = avg.strip()
+            playerData.append(avg)
+
+            obp = tds[3].text
+            obp = obp.strip()
+            playerData.append(obp)
+
+            slg = tds[4].text
+            slg = slg.strip()
+            playerData.append(slg)
+
+            ops = tds[5].text
+            ops = ops.strip()
+            playerData.append(ops)
+
+            kPercentage = tds[6].text
+            kPercentage = kPercentage.strip()
+            playerData.append(kPercentage)
+
+            BBPerK = tds[7].text
+            BBPerK = BBPerK.strip()
+            playerData.append(BBPerK)
+
+            ISO = tds[8].text
+            ISO = ISO.strip()
+            playerData.append(ISO)
+
+            SPD = tds[9].text
+            SPD = SPD.strip()
+            playerData.append(SPD)
+
+            BABIP = tds[10].text
+            BABIP = BABIP.strip()
+            playerData.append(BABIP)
+
+            wRC = tds[11].text
+            wRC = wRC.strip()
+            playerData.append(wRC)
+
+            wRCPlus = tds[12].text
+            wRCPlus = wRCPlus.strip()
+            playerData.append(wRCPlus)
+
+            wOBA = tds[13].text
+            wOBA = wOBA.strip()
+            playerData.append(wOBA)
+
+            batterLeftAdvancedSplitsHeader.append(playerData)
+
+        html = '<table class="table table-hover table-bordered table-striped">'
+
+        for header in batterAdvancedSplitsHeader:
+            html += '<th>'
+            html += header
+            html += '</th>'
+
+        for player in batterLeftAdvancedSplitsHeader:
+            html += '<tr>'
+            for data in player:
+                html += '<td>'
+                html += data
+                html += '</td>'
+            html += '</tr>'
+
+        html += '</table>'
+
+        return HttpResponse(html)
+
+def baseballRotogrindersRightHandedAdvancedBatterSplits(request):
+    if request.method == 'POST':
+        url = "https://rotogrinders.com/pages/mlb-advanced-stats-catcher-vs-right-264462"
+
+        page = urllib2.urlopen(url).read()
+        soup = BeautifulSoup(page, "html.parser")
+
+        batterAdvancedSplitsHeader = ["Player", "PA", "AVG", "OBP", "SLG", "OPS", "K%", "BB/K", "ISO", "SPD", "BABIP", "wRC",
+                                      "wRC", "wOBA"]
+
+        batterRightAdvancedSplitsHeader = []
+
+        rSplitsTable = soup.find_all('tbody')[0]
+
+        for tr in rSplitsTable.find_all('tr')[:-1]:
+            tds = tr.find_all('td')
+
+            playerData = []
+
+            playerName = tds[0].a
+            if playerName is None:
+                playerName = tds[0]
+            playerName = playerName.text
+            playerName = playerName.strip()
+            playerData.append(playerName)
+
+            pa = tds[1]
+            pa = pa.text
+            pa = pa.strip()
+            playerData.append(pa)
+
+            avg = tds[2].text
+            avg = avg.strip()
+            playerData.append(avg)
+
+            obp = tds[3].text
+            obp = obp.strip()
+            playerData.append(obp)
+
+            slg = tds[4].text
+            slg = slg.strip()
+            playerData.append(slg)
+
+            ops = tds[5].text
+            ops = ops.strip()
+            playerData.append(ops)
+
+            kPercentage = tds[6].text
+            kPercentage = kPercentage.strip()
+            playerData.append(kPercentage)
+
+            BBPerK = tds[7].text
+            BBPerK = BBPerK.strip()
+            playerData.append(BBPerK)
+
+            ISO = tds[8].text
+            ISO = ISO.strip()
+            playerData.append(ISO)
+
+            SPD = tds[9].text
+            SPD = SPD.strip()
+            playerData.append(SPD)
+
+            BABIP = tds[10].text
+            BABIP = BABIP.strip()
+            playerData.append(BABIP)
+
+            wRC = tds[11].text
+            wRC = wRC.strip()
+            playerData.append(wRC)
+
+            wRCPlus = tds[12].text
+            wRCPlus = wRCPlus.strip()
+            playerData.append(wRCPlus)
+
+            wOBA = tds[13].text
+            wOBA = wOBA.strip()
+            playerData.append(wOBA)
+
+            batterRightAdvancedSplitsHeader.append(playerData)
+
+        url = "https://rotogrinders.com/pages/mlb-advanced-stats-1b-vs-right-264463"
+
+        page = urllib2.urlopen(url).read()
+        soup = BeautifulSoup(page, "html.parser")
+
+        rSplitsTable = soup.find_all('tbody')[0]
+
+        for tr in rSplitsTable.find_all('tr'):
+            tds = tr.find_all('td')
+
+            playerData = []
+
+            playerName = tds[0].a
+            if playerName is None:
+                playerName = tds[0]
+            playerName = playerName.text
+            playerName = playerName.strip()
+            playerData.append(playerName)
+
+            pa = tds[1]
+            pa = pa.text
+            pa = pa.strip()
+            playerData.append(pa)
+
+            avg = tds[2].text
+            avg = avg.strip()
+            playerData.append(avg)
+
+            obp = tds[3].text
+            obp = obp.strip()
+            playerData.append(obp)
+
+            slg = tds[4].text
+            slg = slg.strip()
+            playerData.append(slg)
+
+            ops = tds[5].text
+            ops = ops.strip()
+            playerData.append(ops)
+
+            kPercentage = tds[6].text
+            kPercentage = kPercentage.strip()
+            playerData.append(kPercentage)
+
+            BBPerK = tds[7].text
+            BBPerK = BBPerK.strip()
+            playerData.append(BBPerK)
+
+            ISO = tds[8].text
+            ISO = ISO.strip()
+            playerData.append(ISO)
+
+            SPD = tds[9].text
+            SPD = SPD.strip()
+            playerData.append(SPD)
+
+            BABIP = tds[10].text
+            BABIP = BABIP.strip()
+            playerData.append(BABIP)
+
+            wRC = tds[11].text
+            wRC = wRC.strip()
+            playerData.append(wRC)
+
+            wRCPlus = tds[12].text
+            wRCPlus = wRCPlus.strip()
+            playerData.append(wRCPlus)
+
+            wOBA = tds[13].text
+            wOBA = wOBA.strip()
+            playerData.append(wOBA)
+
+            batterRightAdvancedSplitsHeader.append(playerData)
+
+        url = "https://rotogrinders.com/pages/mlb-advanced-stats-2b-vs-right-264464"
+
+        page = urllib2.urlopen(url).read()
+        soup = BeautifulSoup(page, "html.parser")
+
+        rSplitsTable = soup.find_all('tbody')[0]
+
+        for tr in rSplitsTable.find_all('tr'):
+            tds = tr.find_all('td')
+
+            playerData = []
+
+            playerName = tds[0].a
+            if playerName is None:
+                playerName = tds[0]
+            playerName = playerName.text
+            playerName = playerName.strip()
+            playerData.append(playerName)
+
+            pa = tds[1]
+            pa = pa.text
+            pa = pa.strip()
+            playerData.append(pa)
+
+            avg = tds[2].text
+            avg = avg.strip()
+            playerData.append(avg)
+
+            obp = tds[3].text
+            obp = obp.strip()
+            playerData.append(obp)
+
+            slg = tds[4].text
+            slg = slg.strip()
+            playerData.append(slg)
+
+            ops = tds[5].text
+            ops = ops.strip()
+            playerData.append(ops)
+
+            kPercentage = tds[6].text
+            kPercentage = kPercentage.strip()
+            playerData.append(kPercentage)
+
+            BBPerK = tds[7].text
+            BBPerK = BBPerK.strip()
+            playerData.append(BBPerK)
+
+            ISO = tds[8].text
+            ISO = ISO.strip()
+            playerData.append(ISO)
+
+            SPD = tds[9].text
+            SPD = SPD.strip()
+            playerData.append(SPD)
+
+            BABIP = tds[10].text
+            BABIP = BABIP.strip()
+            playerData.append(BABIP)
+
+            wRC = tds[11].text
+            wRC = wRC.strip()
+            playerData.append(wRC)
+
+            wRCPlus = tds[12].text
+            wRCPlus = wRCPlus.strip()
+            playerData.append(wRCPlus)
+
+            wOBA = tds[13].text
+            wOBA = wOBA.strip()
+            playerData.append(wOBA)
+
+            batterRightAdvancedSplitsHeader.append(playerData)
+
+        url = "https://rotogrinders.com/pages/mlb-advanced-stats-3b-vs-right-264465"
+
+        page = urllib2.urlopen(url).read()
+        soup = BeautifulSoup(page, "html.parser")
+
+        rSplitsTable = soup.find_all('tbody')[0]
+
+        for tr in rSplitsTable.find_all('tr'):
+            tds = tr.find_all('td')
+
+            playerData = []
+
+            playerName = tds[0].a
+            if playerName is None:
+                playerName = tds[0]
+            playerName = playerName.text
+            playerName = playerName.strip()
+            playerData.append(playerName)
+
+            pa = tds[1]
+            pa = pa.text
+            pa = pa.strip()
+            playerData.append(pa)
+
+            avg = tds[2].text
+            avg = avg.strip()
+            playerData.append(avg)
+
+            obp = tds[3].text
+            obp = obp.strip()
+            playerData.append(obp)
+
+            slg = tds[4].text
+            slg = slg.strip()
+            playerData.append(slg)
+
+            ops = tds[5].text
+            ops = ops.strip()
+            playerData.append(ops)
+
+            kPercentage = tds[6].text
+            kPercentage = kPercentage.strip()
+            playerData.append(kPercentage)
+
+            BBPerK = tds[7].text
+            BBPerK = BBPerK.strip()
+            playerData.append(BBPerK)
+
+            ISO = tds[8].text
+            ISO = ISO.strip()
+            playerData.append(ISO)
+
+            SPD = tds[9].text
+            SPD = SPD.strip()
+            playerData.append(SPD)
+
+            BABIP = tds[10].text
+            BABIP = BABIP.strip()
+            playerData.append(BABIP)
+
+            wRC = tds[11].text
+            wRC = wRC.strip()
+            playerData.append(wRC)
+
+            wRCPlus = tds[12].text
+            wRCPlus = wRCPlus.strip()
+            playerData.append(wRCPlus)
+
+            wOBA = tds[13].text
+            wOBA = wOBA.strip()
+            playerData.append(wOBA)
+
+            batterRightAdvancedSplitsHeader.append(playerData)
+
+        url = "https://rotogrinders.com/pages/mlb-advanced-stats-ss-vs-right-264466"
+
+        page = urllib2.urlopen(url).read()
+        soup = BeautifulSoup(page, "html.parser")
+
+        rSplitsTable = soup.find_all('tbody')[0]
+
+        for tr in rSplitsTable.find_all('tr'):
+            tds = tr.find_all('td')
+
+            playerData = []
+
+            playerName = tds[0].a
+            if playerName is None:
+                playerName = tds[0]
+            playerName = playerName.text
+            playerName = playerName.strip()
+            playerData.append(playerName)
+
+            pa = tds[1]
+            pa = pa.text
+            pa = pa.strip()
+            playerData.append(pa)
+
+            avg = tds[2].text
+            avg = avg.strip()
+            playerData.append(avg)
+
+            obp = tds[3].text
+            obp = obp.strip()
+            playerData.append(obp)
+
+            slg = tds[4].text
+            slg = slg.strip()
+            playerData.append(slg)
+
+            ops = tds[5].text
+            ops = ops.strip()
+            playerData.append(ops)
+
+            kPercentage = tds[6].text
+            kPercentage = kPercentage.strip()
+            playerData.append(kPercentage)
+
+            BBPerK = tds[7].text
+            BBPerK = BBPerK.strip()
+            playerData.append(BBPerK)
+
+            ISO = tds[8].text
+            ISO = ISO.strip()
+            playerData.append(ISO)
+
+            SPD = tds[9].text
+            SPD = SPD.strip()
+            playerData.append(SPD)
+
+            BABIP = tds[10].text
+            BABIP = BABIP.strip()
+            playerData.append(BABIP)
+
+            wRC = tds[11].text
+            wRC = wRC.strip()
+            playerData.append(wRC)
+
+            wRCPlus = tds[12].text
+            wRCPlus = wRCPlus.strip()
+            playerData.append(wRCPlus)
+
+            wOBA = tds[13].text
+            wOBA = wOBA.strip()
+            playerData.append(wOBA)
+
+            batterRightAdvancedSplitsHeader.append(playerData)
+
+        url = "https://rotogrinders.com/pages/mlb-advanced-stats-of-vs-right-264467"
+
+        page = urllib2.urlopen(url).read()
+        soup = BeautifulSoup(page, "html.parser")
+
+        rSplitsTable = soup.find_all('tbody')[0]
+
+        for tr in rSplitsTable.find_all('tr'):
+            tds = tr.find_all('td')
+
+            playerData = []
+
+            playerName = tds[0].a
+            if playerName is None:
+                playerName = tds[0]
+            playerName = playerName.text
+            playerName = playerName.strip()
+            playerData.append(playerName)
+
+            pa = tds[1]
+            pa = pa.text
+            pa = pa.strip()
+            playerData.append(pa)
+
+            avg = tds[2].text
+            avg = avg.strip()
+            playerData.append(avg)
+
+            obp = tds[3].text
+            obp = obp.strip()
+            playerData.append(obp)
+
+            slg = tds[4].text
+            slg = slg.strip()
+            playerData.append(slg)
+
+            ops = tds[5].text
+            ops = ops.strip()
+            playerData.append(ops)
+
+            kPercentage = tds[6].text
+            kPercentage = kPercentage.strip()
+            playerData.append(kPercentage)
+
+            BBPerK = tds[7].text
+            BBPerK = BBPerK.strip()
+            playerData.append(BBPerK)
+
+            ISO = tds[8].text
+            ISO = ISO.strip()
+            playerData.append(ISO)
+
+            SPD = tds[9].text
+            SPD = SPD.strip()
+            playerData.append(SPD)
+
+            BABIP = tds[10].text
+            BABIP = BABIP.strip()
+            playerData.append(BABIP)
+
+            wRC = tds[11].text
+            wRC = wRC.strip()
+            playerData.append(wRC)
+
+            wRCPlus = tds[12].text
+            wRCPlus = wRCPlus.strip()
+            playerData.append(wRCPlus)
+
+            wOBA = tds[13].text
+            wOBA = wOBA.strip()
+            playerData.append(wOBA)
+
+            batterRightAdvancedSplitsHeader.append(playerData)
+
+        html = '<table class="table table-hover table-bordered table-striped">'
+
+        for header in batterAdvancedSplitsHeader:
+            html += '<th>'
+            html += header
+            html += '</th>'
+
+        for player in batterRightAdvancedSplitsHeader:
+            html += '<tr>'
+            for data in player:
+                html += '<td>'
+                html += data
+                html += '</td>'
+            html += '</tr>'
+
+        html += '</table>'
+
+        return HttpResponse(html)
