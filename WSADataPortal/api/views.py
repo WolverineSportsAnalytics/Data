@@ -278,7 +278,7 @@ def baseballRotogrindersBatterData(request):
 
             # get object
             script = soup.find_all("script")
-            script = script[10].text
+            script = script[11].text
 
             # strip all junk
             scriptJunk, rotoObject = script.split("=")
@@ -455,7 +455,7 @@ def baseballRotogrindersPitcherData(request):
 
             # get object
             script = soup.find_all("script")
-            script = script[10].text
+            script = script[11].text
 
             # strip all junk
             scriptJunk, rotoObject = script.split("=")
@@ -1244,6 +1244,7 @@ def baseballRotogrindersLeftHandedPitcherSplits(request):
             html += '</table>'
             return HttpResponse(html)
 
+@api_view(['POST', 'GET'])
 def baseballRotogrindersLeftHandedBatterSplits(request):
     if request.method == 'POST':
         url = "https://rotogrinders.com/pages/mlb-player-statistics-catchers-vs-left-264413"
@@ -1858,6 +1859,7 @@ def baseballRotogrindersLeftHandedBatterSplits(request):
 
         return HttpResponse(html)
 
+@api_view(['POST', 'GET'])
 def baseballRotogrindersRightHandedBatterSplits(request):
     if request.method == 'POST':
         url = "https://rotogrinders.com/pages/mlb-player-statistics-catchers-vs-right-264420"
@@ -2472,6 +2474,7 @@ def baseballRotogrindersRightHandedBatterSplits(request):
 
         return HttpResponse(html)
 
+@api_view(['POST', 'GET'])
 def baseballRotogrindersLeftHandedAdvancedBatterSplits(request):
     if request.method == 'POST':
         url = "https://rotogrinders.com/pages/mlb-advanced-stats-catcher-vs-left-264456"
@@ -2942,6 +2945,7 @@ def baseballRotogrindersLeftHandedAdvancedBatterSplits(request):
 
         return HttpResponse(html)
 
+@api_view(['POST', 'GET'])
 def baseballRotogrindersRightHandedAdvancedBatterSplits(request):
     if request.method == 'POST':
         url = "https://rotogrinders.com/pages/mlb-advanced-stats-catcher-vs-right-264462"
