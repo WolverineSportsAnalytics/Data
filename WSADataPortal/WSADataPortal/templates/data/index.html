@@ -36,27 +36,41 @@
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="mainController as wsa">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="http://wolverinesportsanalytics.com">Wolverine Sports Analytics Data</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right" role="form" ng-submit="wsa.validate(wsa.password)">
-            <div class="form-group"> 
-              <input type="password" placeholder="Password" class="form-control" ng-model="wsa.password">
-            </div>
-            <button type="submit" class="btn btn-success">Enter the Data Realm</button>
-          </form>
-        </div><!--/.navbar-collapse -->
-      </div>
-    </nav>
+    <div ng-controller="mainController as wsa">
+      <nav class="navbar navbar-inverse topnav navbar-fixed-top" role="navigation">
+          <div class="container topnav">
+                <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand topnav" href="#"><strong>Wolverine Sports Analytics</strong></a>
+              </div>
+              <!-- Collect the nav links, forms, and other content for toggling -->
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#SignUpModal">Sign Up</a>
+                    </li>
+                </ul>
+                <form class = "navbar-form navbar-right">
+                    <div class="form-group">
+                        <label class="sr-only" for="exampleInputEmail3">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Enter email" ng-model="wsa.loginEmail">
+                    <div class="form-group">
+                        <label class="sr-only" for="exampleInputPassword3">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword3" placeholder="Password" ng-model="wsa.loginPassword">
+                    </div>
+                    <button type="submit" class="btn btn-default" ng-click="wsa.validate(wsa.loginEmail, wsa.loginPassword)">Login</button>
+                </form>
+              </div>
+              <!-- /.navbar-collapse -->
+          </div>
+          <!-- /.container -->
+      </nav>
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="container" class="headerImage">
@@ -300,7 +314,59 @@
         <p>&copy; Wolverine Sports Analytics 2016</p>
       </footer>
 
-    </div> <!-- /container --> 
+    </div> <!-- /container -->
+        <div class="modal fade" id="SignUpModal" tabindex="-1" role="dialog" aria-labelledby="SignUpLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="SignUpLabel">Sign Up for Wolverine Sports Analytics Data</h4>
+                    </div>
+                    <form class="form-horizontal" role="form" name="user.signUpForm">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="signUpFirstName">First Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="signUpFirstName" ng-model="wsa.firstName" placeholder="First Name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="signUpLastName">Last Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="signUpLastName" ng-model="wsa.lastName" placeholder="Last Name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="signUpEmail">Email</label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" id="signUpEmail" ng-model="wsa.email" placeholder="Email"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="signUpPassword">Password</label>
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" id="signUpPassword" ng-model="wsa.password" placeholder="Password"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="signUpConfirmPassword">Confirm Password</label>
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" id="signUpConfirmPassword" ng-model="wsa.confirmPassword" placeholder=" Confirm Password"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-5"></div>
+                                <div class="col-sm-2 text-center">
+                                    <button type="submit" class="btn btn-success" ng-click="wsa.signUp(wsa.firstName, wsa.lastName, wsa.email, wsa.password, wsa.confirmPassword)">Sign Up</button>
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="{% static 'js/vendor/jquery-1.11.2.min.js' %}"><\/script>')</script>
 

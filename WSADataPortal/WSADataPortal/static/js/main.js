@@ -13,14 +13,11 @@ app.config(['$httpProvider', '$interpolateProvider', function($httpProvider, $in
 app.controller("mainController", ['$scope', '$http', '$location', '$window', function($scope, $http, $location) {
 	var wsa = this;
 
-	wsa.username = "";
-
-	wsa.validate = function(inPassword) 
+	wsa.validate = function(inUsername, inPassword)
 	{
-		wsa.username = "admin";
 		// create data object
 		var data = {
-			username: "admin",
+			username: inUsername,
 			password: inPassword
 		};
 		// send to database 
@@ -30,6 +27,28 @@ app.controller("mainController", ['$scope', '$http', '$location', '$window', fun
 			console.log("Success: " + response.toString())
 			window.location.replace('/data/')
 		});
+		submit.error(function(response){
+			console.log("Error: ", + response.toString())
+		});
+	};
+
+	wsa.signUp = function(inFirstName, inLastName, inEmail, inPassword, inConfirmPassword)
+	{
+		var data = {
+			password: inPassword,
+			confirmPassword: inConfirmPassword,
+			firstName: inFirstName,
+			lastName: inLastName,
+			email: inEmail
+		};
+
+		var submit = $http.post('/api/signUp/', data);
+
+		submit.success(function(response){
+			console.log("Success: " + response.toString())
+			window.location.replace('/data/')
+		});
+
 		submit.error(function(response){
 			console.log("Error: ", + response.toString())
 		});

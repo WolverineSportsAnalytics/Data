@@ -3,6 +3,8 @@ from django.http import HttpResponseNotFound
 from rest_framework.decorators import api_view
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 from api.models import TimeKeeper, Rotowire, RotogrindersBatters, RotogrindersPitchers, SwishAnalyticsBatters, \
     SwishAnalyticsPitchers, PitcherLeftSplits, PitcherRightSplits
 from api.serializers import TimeKeeperSerializer, RotowireSerializer, RotogrindersBattersSerializer, \
@@ -16,15 +18,40 @@ import json
 
 # Create your views here.
 
+@api_view(['POST'])
+def createUser(request):
+    if request.method == 'POST':
+        userData = request.data
+        if userData["password"] != userData["confirmPassword"]:
+            return HttpResponseNotFound("The password and confirm password do not match")
+        user = User.objects.create_user(str(userData["email"]))
+        user.set_password(str(userData["password"]))
+        user.first_name = str(userData["firstName"])
+        user.last_name = str(userData["lastName"])
+        user.email = str(userData["email"])
+        user.save()
+        return HttpResponse('You have successfully signed up')
+
 
 @api_view(['POST'])
-def login(request):
+def loginUser(request):
     if request.method == 'POST':
         logindata = request.data
-        if logindata["password"] == 'H@tD00r!':
-            return HttpResponse('You have the keys to the kingdom')
+        username = str(logindata["username"])
+        password = str(logindata["password"])
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            # the password verified for the user
+            if user.is_active:
+                #User is valid, active and authenticated
+                login(request, user)
+                return HttpResponse('You have successfully logged in')
+            else:
+                #The password is valid, but the account has been disabled
+                return HttpResponseNotFound('The password is valid, but the account has been disabled')
         else:
-            return HttpResponseNotFound('You do not have the proper login')
+            # the authentication system was unable to verify the username and password
+            return HttpResponseNotFound('the authentication system was unable to verify the username and password')
 
 #notes
 # pull into database + then load?
