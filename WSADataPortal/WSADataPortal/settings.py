@@ -109,6 +109,8 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+LOGIN_URL='/'
+
 # Update database configuration with $DATABASE_URL.
 db_from_env = dj_database_url.config(default='mysql://b3f8346ee345ca:34224cae@us-cdbr-iron-east-04.cleardb.net/heroku_0ed5daf7af1c5a8')
 DATABASES['default'].update(db_from_env)
