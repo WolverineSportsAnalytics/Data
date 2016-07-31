@@ -3,7 +3,7 @@ python:
   - "2.7"
 install: 
   - pip install -r WSADataPortal/requirements.txt
-scripts: nosetests
+scripts: WSADataPortal/test.py
 deploy:
   provider: heroku
   api_key:
