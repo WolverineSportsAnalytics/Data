@@ -1,5 +1,10 @@
+language: python
+python:
+  - "2.7"
+install: 
+  - pip install -r /WSADataPorta/requirements.txt
 deploy:
   provider: heroku
   api_key:
-    secure: "da093c8e-bec1-469f-a7a7-4d5ee01b1dc7"
+    secure: da093c8e-bec1-469f-a7a7-4d5ee01b1dc7
   app: wsadata
