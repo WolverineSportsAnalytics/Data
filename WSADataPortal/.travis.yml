@@ -2,7 +2,7 @@ language: python
 python:
   - "2.7"
 install: 
-  - pip install -r ./WSADataPorta/requirements.txt
+  - pip install -r requirements.txt
 deploy:
   provider: heroku
   api_key:
