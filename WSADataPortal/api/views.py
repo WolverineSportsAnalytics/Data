@@ -1,10 +1,8 @@
-from django.shortcuts import HttpResponse, HttpResponseRedirect
+from django.shortcuts import HttpResponse
 from django.http import HttpResponseNotFound
 from rest_framework.decorators import api_view
-from rest_framework.renderers import JSONRenderer
-from rest_framework.parsers import JSONParser
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from api.models import TimeKeeper, Rotowire, RotogrindersBatters, RotogrindersPitchers, SwishAnalyticsBatters, \
     SwishAnalyticsPitchers, PitcherLeftSplits, PitcherRightSplits
 from api.serializers import TimeKeeperSerializer, RotowireSerializer, RotogrindersBattersSerializer, \
@@ -15,6 +13,7 @@ from string import whitespace
 import urllib2
 import demjson
 import json
+
 
 # Create your views here.
 
@@ -64,10 +63,25 @@ def loginUser(request):
             # the authentication system was unable to verify the username and password
             return HttpResponseNotFound('the authentication system was unable to verify the username and password')
 
-#notes
-# pull into database + then load?
-# scrollable/clickable links to get you to table
+@api_view(['GET'])
+def getUserData(request):
+    if request.method == 'GET':
+        if request.user.is_authenticated():
+            userData = {}
+            userData['email'] = str(request.user.email)
+            userData['firstName'] = str(request.user.first_name)
+            userData['lastName'] = str(request.user.last_name)
+            userData['joined'] = str(request.user.date_joined)
+            userData['lastLogin'] = str(request.user.last_login)
 
+            return HttpResponse(json.dumps(userData), content_type="application/json")
+
+@api_view(['POST'])
+def logoutUser(request):
+    if request.method == 'POST':
+        logout(request)
+        return HttpResponse('You just logged out')
+        
 @api_view(['GET'])
 def baseballRotowireTimes(request):
     if request.method == 'GET':

@@ -45,7 +45,7 @@ app.controller("mainController", ['$scope', '$http', '$location', '$window', fun
 		var submit = $http.post('/api/signUp/', data);
 
 		submit.success(function(response){
-			console.log("Success: " + response.toString())
+			console.log("Success: " + response.toString());
 			window.location.replace('/data/')
 		});
 
@@ -53,6 +53,37 @@ app.controller("mainController", ['$scope', '$http', '$location', '$window', fun
 			console.log("Error: ", + response.toString())
 		});
 	};
+}]);
+
+app.controller("homeController", ['$scope', '$http', '$window', function($scope, $http) {
+	var wsa = this;
+
+	var userInformation = $http.get('/api/getUserData/');
+
+	userInformation.success(function(response) {
+		console.log("Success getting User Data");
+		wsa.userData = response;
+	});
+
+	userInformation.error(function(response) {
+		console.log("Error " + response.toString());
+	});
+
+	wsa.logout = function() {
+		var logoutRequest = $http.post('/api/logoutUser/');
+
+		logoutRequest.success(function(response) {
+			console.log("Success logging out");
+			window.location.replace('/')
+		});
+
+		logoutRequest.error(function(response) {
+			console.log("Error logging out. You are trapped! " + response.toString());
+		});
+
+	};
+
+
 }]);
 
 app.controller("baseballController", ['$scope', '$http', '$location', '$window', function($scope, $http, $location) {

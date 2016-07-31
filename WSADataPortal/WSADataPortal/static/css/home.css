@@ -1,0 +1,19 @@
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #909;
+    font-weight: bold;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #909;
+    opacity:  1;
+    font-weight: bold;
+
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #909;
+    opacity:  1;
+    font-weight: bold;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color:    #909;
+    font-weight: bold;
+}

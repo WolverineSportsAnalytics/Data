@@ -22,6 +22,7 @@
         </style>
         <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}">
 
+        <link rel="stylesheet" href="{% static 'css/home.css' %}">
         <link rel="stylesheet" href="{% static 'css/main.css' %}">
 
         <script src="{% static 'js/vendor/modernizr-2.8.3-respond-1.4.2.min.js' %}"></script>
@@ -36,59 +37,122 @@
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="mainController as wsa">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="">Wolverine Sports Analytics</a>
-        </div>
-      </div>
-    </nav>
+    <div ng-controller="homeController as wsa">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" >
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="">Wolverine Sports Analytics</a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#LogoutModal">Logout</a>
+                    </li>
+                </ul>
+                <h4 class="nav navbar-nav navbar-right navbar-text">
+                    <a href="#" data-toggle="modal" data-target="#UserProfile">Hello {[{ wsa.userData.firstName }]}! </a></h4>
 
-    <div class="container" id="logo">
-        <div class = "row">
-          <div class="col-md-4">
-              <img src="http://media.cleveland.com/cavs_impact/photo/wade-reax-lbj-dunk-squ-apjpg-3bfe2369c4111200.jpg" id="lebron" class="center-block img-rounded">
+            </div>
           </div>
-          <div class="col-md-4">
-              <img src="https://i.kinja-img.com/gawker-media/image/upload/s--2lb15imp--/c_scale,fl_progressive,q_80,w_800/1475063766098781732.jpg" id="batFlip" class="center-block img-rounded">
+        </nav>
+
+        <div class="container" id="logo">
+            <div class = "row">
+              <div class="col-md-4">
+                  <img src="https://usatftw.files.wordpress.com/2015/03/c03-mccarthy-11.jpg?w=1000&h=667" id="fabFive" class="center-block img-rounded">
+                  <a type="button" class="btn btn-danger btn-lg center-block" href="/data/basketball" id="buttonPad"><span class="glyphicon glyphicon-fire" aria-hidden="true"></span> Basketball</a>
+              </div>
+              <div class="col-md-4">
+                  <img src="http://65.media.tumblr.com/tumblr_lts4niRjU51qm9rypo1_1280.jpg" id="freese" class="center-block img-rounded">
+                  <a type="button" class="btn btn-warning btn-lg center-block" href="/data/baseball" id="buttonPad"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Baseball</a>
+              </div>
+              <div class="col-md-4">
+                  <img src="http://ww4.hdnux.com/photos/34/65/35/7558995/3/rawImage.jpg" id="miracleOnIce" class="center-block img-rounded">
+                  <a type="button" class="btn btn-info btn-lg center-block" href="/data/hockey" id="buttonPad"><span class="glyphicon glyphicon-glass" aria-hidden="true"></span> Hockey</a>
+              </div>
           </div>
-          <div class="col-md-4">
-              <img src="http://michaelmindes.com/images/wayne-gretzky-stanley-cup.jpg" id="hockey" class="center-block img-rounded">
+        </div>
+
+        <div class="container" id="logo">
+          <div class="row" id="logo">
+            <div class="col-12">
+                <img src="https://media.giphy.com/media/xTiQymdLGfYMqDT8Pe/giphy.gif" class="center-block img-rounded">
+            </div>
           </div>
-      </div>
+
+          <hr>
+
+          <footer>
+            <p>&copy; Wolverine Sports Analytics 2016</p>
+          </footer>
+
+        </div> <!-- /container -->
+
+        <div class="modal fade" id="LogoutModal" tabindex="-1" role="dialog" aria-labelledby="LogoutModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header" style="text-align: center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="LogoutModalLabel">Are you sure?</h4>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" ng-click="wsa.logout()">Okay</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="UserProfile" tabindex="-1" role="dialog" aria-labelledby="UserProfileLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header" style="text-align: center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="UserProfileLabel"> {[{ wsa.userData.firstName }]}'s Profile </h4>
+              </div>
+              <div class="modal-body">
+                <div class="input-group">
+                  <span class="input-group-addon" id="wsaUserFirstName">First Name:</span>
+                  <input readonly type="text" class="form-control" placeholder="{[{ wsa.userData.firstName }]}" aria-describedby="wsaUserFirstName">
+                  <span class="input-group-btn">
+                    <button class="btn btn-info" type="button"><span class="glyphicon glyphicon-pencil"></span></button>
+                  </span>
+                </div>
+                <div class="input-group">
+                  <span class="input-group-addon" id="wsaUserLastName">Last Name:</span>
+                  <input readonly type="text" class="form-control" placeholder="{[{ wsa.userData.lastName }]}" aria-describedby="wsaUserLastName">
+                  <span class="input-group-btn">
+                    <button class="btn btn-info" type="button"><span class="glyphicon glyphicon-pencil"></span></button>
+                  </span>
+                </div>
+                <div class="input-group">
+                  <span class="input-group-addon" id="wsaUserEmail">Email:</span>
+                  <input readonly type="text" class="form-control" placeholder="{[{ wsa.userData.email }]}" aria-describedby="wsaUserEmail">
+                </div>
+                <div class="input-group">
+                  <span class="input-group-addon" id="wsaUserJoined">Joined WSA Data:</span>
+                  <input readonly type="text" class="form-control" placeholder="{[{ wsa.userData.joined }]}" aria-describedby="wsaUserJoined">
+                </div>
+                <div class="input-group">
+                  <span class="input-group-addon" id="wsaUserLastLogin">Last Login:</span>
+                  <input readonly type="text" class="form-control" placeholder="{[{ wsa.userData.lastLogin }]}" aria-describedby="wsaUserLastLogin">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success">Okay</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
     </div>
-
-    <div class="container" id="logo">
-      <div class="row">
-          <div class="col-md-4">
-              <a type="button" class="btn btn-danger btn-lg center-block" href="/data/basketball"><span class="glyphicon glyphicon-fire" aria-hidden="true"></span> Basketball</a>
-          </div>
-          <div class="col-md-4">
-              <a type="button" class="btn btn-warning btn-lg center-block" href="/data/baseball"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Baseball</a>
-          </div>
-          <div class="col-md-4">
-              <a type="button" class="btn btn-info btn-lg center-block" href="/data/hockey"><span class="glyphicon glyphicon-glass" aria-hidden="true"></span> Hockey</a>
-          </div>
-      </div>
-      <div class="row" id="logo">
-        <div class="col-12">
-            <img src="https://media.giphy.com/media/xTiQymdLGfYMqDT8Pe/giphy.gif" class="center-block img-rounded">
-        </div>
-      </div>
-
-      <hr>
-
-      <footer>
-        <p>&copy; Wolverine Sports Analytics 2016</p>
-      </footer>
-
-    </div> <!-- /container -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="{% static 'js/vendor/jquery-1.11.2.min.js' %}"><\/script>')</script>
 

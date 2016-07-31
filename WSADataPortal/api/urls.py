@@ -8,6 +8,8 @@ urlpatterns = [
 	url(r'^signUp/', views.createUser, name='createUser'),
 	url(r'^login/', views.loginUser, name='loginUser'),
 	url(r'^baseballRotowireData/', views.baseballRotowireData, name='baseballRotowireData'),
+	url(r'^getUserData/', views.getUserData, name='getUserData'),
+	url(r'^logoutUser/', views.logoutUser, name='logoutUser'),
 	url(r'^baseballRotogrindersBatterData/', views.baseballRotogrindersBatterData,
 		name='baseballRotogrindersBatterData'),
 	url(r'^baseballRotogrindersPitcherData/', views.baseballRotogrindersPitcherData,

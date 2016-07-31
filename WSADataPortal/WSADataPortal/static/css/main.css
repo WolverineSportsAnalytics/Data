@@ -6,17 +6,35 @@
 	margin-top: 50px;
 }
 
+#fabFive {
+  width: 100%
+}
+
 #lebron {
   width: 85%
+}
+
+#miracleOnIce {
+  width: 99%
 }
 
 #batFlip {
   width: 95%
 }
 
+#freese {
+  width: 95%
+}
+
 #hockey {
   width: 92%
 }
+
+#buttonPad{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .hovereffect {
   width: 100%;
   height: 40%;
