@@ -1,0 +1,5 @@
+deploy:
+  provider: heroku
+  api_key:
+    secure: "da093c8e-bec1-469f-a7a7-4d5ee01b1dc7"
+  app: wsadata
