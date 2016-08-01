@@ -80,8 +80,15 @@ WSGI_APPLICATION = 'WSADataPortal.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'WSADataServer',
+        'USER': 'WSADataMaster123',
+        'PASSWORD': 'Ir0nD00r!',
+        'HOST': 'wsadataserver.c52ix3fswhoj.us-west-2.rds.amazonaws.com',
+        'PORT': '3306',
+        'TEST': {
+            'NAME': 'test_WSADataServer',
+        },
     }
 }
 
@@ -110,10 +117,6 @@ USE_L10N = True
 USE_TZ = True
 
 LOGIN_URL='/'
-
-# Update database configuration with $DATABASE_URL.
-db_from_env = dj_database_url.config(default='mysql://b3f8346ee345ca:34224cae@us-cdbr-iron-east-04.cleardb.net/heroku_0ed5daf7af1c5a8')
-DATABASES['default'].update(db_from_env)
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
