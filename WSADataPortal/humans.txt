@@ -1,0 +1,15 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    <Brendan Hart> -- <Founder> -- <@TheHartLife>
+
+# THANKS
+
+    <Brendan Hart>
+
+# TECHNOLOGY COLOPHON
+
+    HTML5, CSS3
+    jQuery, Modernizr
