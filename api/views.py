@@ -147,8 +147,10 @@ def baseballRotowireData(request):
 
             rotoWireData = []
 
+            '''
             RotowireEntry = TimeKeeper(name="Rotowire Data")
             RotowireEntry.save()
+            '''
 
             for tr in soup.find_all('tr')[4:]:
                 tds = tr.find_all('td')
@@ -259,6 +261,7 @@ def baseballRotowireData(request):
 
                 rotoWireData.append(playerData)
 
+                '''
                 playerEntry = Rotowire(parent=RotowireEntry, name=playerName, bats=playerStance, team=team, orderInLU=battingOrder,
                                        position=position, opponent=opponent, opponentThrows=opponentThrowArm,
                                        salary=salary,
@@ -266,6 +269,7 @@ def baseballRotowireData(request):
                                        moneyLine=moneyLine,
                                        overUnder=overUnder)
                 playerEntry.save()
+                '''
 
             html = '<table class="table table-hover table-bordered table-striped">'
 
@@ -341,9 +345,10 @@ def baseballRotogrindersBatterData(request):
 
             rotoProj = demjson.decode(rotoObject)
 
+            '''
             RotogrindersBattersEntry = TimeKeeper(name='Rotogrinders Batters Data')
             RotogrindersBattersEntry.save()
-
+            '''
             rotogrindersData = []
 
             for line in rotoProj:
@@ -431,6 +436,7 @@ def baseballRotogrindersBatterData(request):
 
                 rotogrindersData.append(playerData)
 
+                '''
                 RotogrindersBattersPlayerData = RotogrindersBatters(parent=RotogrindersBattersEntry, name=playerName, position=position,
                                                 secondaryPosition=secondaryPosition, salary=salary, team=team, opponent=opponent,
                                                 bats=playerHand, ceiling=ceil, floor=floor, projPoints=points, value=value,
@@ -439,6 +445,7 @@ def baseballRotogrindersBatterData(request):
                                                 kPercentage=kPercentage, BB=bb, OPS=ops)
 
                 RotogrindersBattersPlayerData.save()
+                '''
 
             html = '<table class="table table-hover table-bordered table-striped">'
 
@@ -518,8 +525,10 @@ def baseballRotogrindersPitcherData(request):
 
             rotoProj = demjson.decode(rotoObject)
 
+            '''
             RotogrindersPitchersEntry = TimeKeeper(name='Rotogrinders Pitchers Data')
             RotogrindersPitchersEntry.save()
+            '''
 
             rotogrindersPitcherData = []
 
@@ -611,6 +620,7 @@ def baseballRotogrindersPitcherData(request):
                 IP = (line['ip'])
                 playerData.append(str(IP))
 
+                '''
                 rotogrindersPitcherEntry = RotogrindersPitchers(parent=RotogrindersPitchersEntry,
                                                                 name=playerName, position=position, salary=salary,
                                                                 team=team, opponent=opponent, playerThrows=playerHand,
@@ -620,6 +630,7 @@ def baseballRotogrindersPitcherData(request):
                                                                 xFIP=xFIP, lISO=rISO, GBPercentage=GBPercentage,
                                                                 FBPercentage=FBPercentage, IP=IP)
                 rotogrindersPitcherEntry.save()
+                '''
 
                 rotogrindersPitcherData.append(playerData)
 
@@ -704,9 +715,10 @@ def baseballSwishAnalyticsBatterData(request):
 
             swishAnalyticsBatterData = []
 
+            '''
             swishAnalyticsBattersTimeEntry = TimeKeeper(name='Swish Analytics Batters Data')
             swishAnalyticsBattersTimeEntry.save()
-
+            '''
             for line in rotoProj:
                 playerData = []
 
@@ -776,6 +788,7 @@ def baseballSwishAnalyticsBatterData(request):
 
                 swishAnalyticsBatterData.append(playerData)
 
+                '''
                 swishAnalyticsBatterEntry = SwishAnalyticsBatters(parent=swishAnalyticsBattersTimeEntry, name=playerName,
                                                                   salary=salary, bats=bats, position=dk_avg, opponent=opponent,
                                                                   projPoints=projPts, value=projValue, outs=outs, AB=ab,
@@ -783,6 +796,7 @@ def baseballSwishAnalyticsBatterData(request):
                                                                   triples=triples, HR=hr, RBI=rbi, SB=sb, CS=cs,
                                                                   averageDKPoints=dk_avg)
                 swishAnalyticsBatterEntry.save()
+                '''
 
             html = '<table class="table table-hover table-bordered table-striped">'
 
@@ -864,8 +878,10 @@ def baseballSwishAnalyticsPitcherData(request):
 
             swishAnalyticsPitcherData = []
 
+            '''
             swishAnalyticsPitchersTimeEntry = TimeKeeper(name='Swish Analytics Pitcher Data')
             swishAnalyticsPitchersTimeEntry.save()
+            '''
 
             for line in rotoProj:
                 playerData = []
@@ -927,6 +943,7 @@ def baseballSwishAnalyticsPitcherData(request):
 
                 swishAnalyticsPitcherData.append(playerData)
 
+                '''
                 swishAnalyticsPitcherEntry = SwishAnalyticsPitchers(parent=swishAnalyticsPitchersTimeEntry,
                                                                     averageDKPoints=dk_avg, CG=completeGame, CGSO=completeGameSO,
                                                                     ER=ER, HBP=hbp, Hits=hits, Ks=strikeouts, NOHit=noHit,
@@ -934,6 +951,7 @@ def baseballSwishAnalyticsPitcherData(request):
                                                                     projPoints=projPts, salary=salary, team=team,
                                                                     value=projValue, Walks=walks, Win=win)
                 swishAnalyticsPitcherEntry.save()
+                '''
 
             html = '<table class="table table-hover table-bordered table-striped">'
 
