@@ -1020,7 +1020,7 @@ def baseballRotogrindersRightHandedPitcherSplits(request):
             RotogrindersPitcherRSplitsEntry = TimeKeeper(name="Rotogrinders Right Hand Pitcher Splits Data")
             RotogrindersPitcherRSplitsEntry.save()
 
-            rSplitsTable = soup.find_all('tbody')[1]
+            rSplitsTable = soup.find_all('tbody')[0]
 
             for tr in rSplitsTable.find_all('tr'):
                 tds = tr.find_all('td')
