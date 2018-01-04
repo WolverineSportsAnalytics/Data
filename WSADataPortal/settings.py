@@ -24,7 +24,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = "wjp#7gu8^m42v2fr6tna8u0$hrfwsh8#$vc_yd=qxs*5#w0@9d"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True 
 
 # Application definition
 
@@ -77,20 +77,6 @@ WSGI_APPLICATION = 'WSADataPortal.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'WSADataServer',
-        'USER': 'WSADataMaster123',
-        'PASSWORD': 'Ir0nD00r!',
-        'HOST': 'wsadataserver.c52ix3fswhoj.us-west-2.rds.amazonaws.com',
-        'PORT': '3306',
-        'TEST': {
-            'NAME': 'test_WSADataServer',
-        },
-    }
-}
 
 AUTH_PASSWORD_VALIDATORS = (
     {

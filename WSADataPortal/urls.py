@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include('api.urls')),
     url(r'^$', dataViews.index, name="index"),
-    url(r'^data/', include('data.urls')),
+    url(r'^base$', dataViews.basketball, name="base"),
+    url(r'^data/', include('data.urls'))
 
 ]
