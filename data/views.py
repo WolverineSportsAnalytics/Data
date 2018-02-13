@@ -35,4 +35,3 @@ def basketball(request):
             'name7':id_generator(), 'team7':'BOS', 'pos7':"SG",
             'name8':id_generator(), 'team8':'LAL', 'pos8':"PG",
             'name9':id_generator(), 'team9':'NYK', 'pos9':"C"})
-
