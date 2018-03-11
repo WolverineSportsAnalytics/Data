@@ -14,9 +14,9 @@ rotoguruFileLocation = '/Users/Brendan/Google Drive/Wolverine Sports Analytics/A
 fanduelFileLocation = '/Users/Brendan/Downloads/FanDuel-NBA-2017-12-05-22284-players-list.csv'
 
 # predicting data
-yearP = 2017
-monthP = 11
-dayP = 28
+yearP = 2018
+monthP = 3
+dayP = 11
 
 startYearP = 2017
 startMonthP = 11

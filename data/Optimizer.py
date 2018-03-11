@@ -30,7 +30,6 @@ def optimize(day, month, year, cursor):
     playas = []
     dkPointsDict = {}
     dkPlayersPoints = {}
-    gameID = "775"
 
     getPlayersQuery = "SELECT b.nickName, p.playerID, p.fanduelPosition, p.fdPointsSKLinPredRidge, p.team, p.fanduel, p.opponent, p.fanduelPts FROM basketball.performance as p LEFT JOIN basketball.player_reference as b ON b.playerID = p.playerID WHERE p.dateID = %s AND p.projMinutes >= 8 AND p.fanduel > 0 AND p.fdPointsSKLinPredRidge IS NOT NULL AND p.fdPointsSKLinPredRidge > 0"
     getBPlayersData = (gameID,)
@@ -72,8 +71,6 @@ def optimize(day, month, year, cursor):
             dkpoints = dkpoints + dkPointsDict[player]
             playerName = dkPlayersPoints[player]
 
-            # print optimized lineups
-            print("Player Name: " + str(playerName) + "; Actual Points Scored: " + str(dkPointsDict[player]))
 
         print("Total Points: " + str(dkpoints))
         print ("\n")
