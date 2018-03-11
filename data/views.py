@@ -31,6 +31,8 @@ def basketball(request):
                 lineup.append(line)
             
         players = []
+        pos = []
+        team = []
         real_lineups = []
         for line in lineup:
             real_lineups.append(line)
@@ -38,21 +40,21 @@ def basketball(request):
         for line in str(real_lineups[0]).split("\n"):
             try:
                 players.append(str(line).split()[1] + " " + str(line).split()[2])
+                pos.append(str(line).split()[3])
+                team.append(str(line).split()[4])
+
             except:
                 pass
 
-        for player in players:
-            print player
-
-        return render(request, 'data/basket.html',  context={'name1':players[0], 'team1':'CHI', 'pos1':"PF",
-            'name2':players[1], 'team2':'SAS', 'pos2':"PG",
-            'name3':players[2], 'team3':'HOU', 'pos3':"SF",
-            'name4':players[3], 'team4':'OKC', 'pos4':"PF",
-            'name5':players[4], 'team5':'DET', 'pos5':"SG",
-            'name6':players[5], 'team6':'GSW', 'pos6':"SF",
-            'name7':players[6], 'team7':'BOS', 'pos7':"SG",
-            'name8':players[7], 'team8':'LAL', 'pos8':"PG",
-            'name9':players[8], 'team9':'NYK', 'pos9':"C"})
+        return render(request, 'data/basket.html',  context={'name1':players[0], 'team1':team[0], 'pos1':pos[0],
+            'name2':players[1], 'team2':team[1],'pos2':pos[1],
+            'name3':players[2], 'team3':team[2], 'pos3':pos[2],
+            'name4':players[3], 'team4':team[3], 'pos4':pos[3],
+            'name5':players[4], 'team5':team[4], 'pos5':pos[4],
+            'name6':players[5], 'team6':team[5], 'pos6':pos[5],
+            'name7':players[6], 'team7':team[6], 'pos7':pos[6],
+            'name8':players[7], 'team8':team[7], 'pos8':pos[7],
+            'name9':players[8], 'team9':team[8], 'pos9':pos[8]})
 
 
 if __name__== "__main__":
