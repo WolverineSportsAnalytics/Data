@@ -31,7 +31,7 @@ def optimize(day, month, year, cursor):
     dkPointsDict = {}
     dkPlayersPoints = {}
 
-    getPlayersQuery = "SELECT b.nickName, p.playerID, p.fanduelPosition, p.fdPointsSKLinPredRidgeP, p.team, p.fanduel, p.opponent, p.fanduelPts FROM basketball.performance as p LEFT JOIN basketball.player_reference as b ON b.playerID = p.playerID WHERE p.dateID = %s AND p.projMinutes >= 8 AND p.fanduel > 0 AND p.fdPointsSKLinPredRidge IS NOT NULL AND p.fdPointsSKLinPredRidge > 0"
+    getPlayersQuery = "SELECT b.nickName, p.playerID, p.fanduelPosition, p.simmonsProj, p.team, p.fanduel, p.opponent, p.fanduelPts FROM basketball.performance as p LEFT JOIN basketball.player_reference as b ON b.playerID = p.playerID WHERE p.dateID = %s AND p.projMinutes >= 8 AND p.fanduel > 0 AND p.simmonsProj IS NOT NULL AND p.simmonsProj > 0"
     getBPlayersData = (gameID,)
     cursor.execute(getPlayersQuery, getBPlayersData)
 
@@ -57,8 +57,9 @@ def optimize(day, month, year, cursor):
     numLineups = 5
 
     lineups = optimizer.optimize(n=numLineups)
-
+    lines = []
     for lineup in lineups:
+        lines.append(lineup)
         print(lineup)
         print(lineup.fantasy_points_projection)
         print(lineup.salary_costs)
@@ -74,8 +75,8 @@ def optimize(day, month, year, cursor):
 
         print("Total Points: " + str(dkpoints))
         print ("\n")
-        return lineups
-
+    
+    return lines
 
 def automate():
     cnx = mysql.connector.connect(user=constants.databaseUser,
