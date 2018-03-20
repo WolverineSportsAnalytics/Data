@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 import random
 import string
 import Optimizer 
+import datetime
 
 
 # Create your views here.
@@ -25,9 +26,11 @@ def uploadBaseball(request):
 def basketball(request):
         def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
             return ''.join(random.choice(chars) for _ in range(size))
-        lineups = Optimizer.automate()
+        now = datetime.datetime.now()
+        lineups = Optimizer.automate(now.day, now.month, now.year)
         lineup  = []
         for line in lineups:
+                print "GO", line
                 lineup.append(line)
             
         players = []

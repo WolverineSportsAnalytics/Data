@@ -78,7 +78,7 @@ def optimize(day, month, year, cursor):
     
     return lines
 
-def automate():
+def automate(day, month, year):
     cnx = mysql.connector.connect(user=constants.databaseUser,
                                   host=constants.databaseHost,
                                   database=constants.databaseName,
@@ -86,9 +86,6 @@ def automate():
     
     cursor = cnx.cursor(buffered=True)
 
-    year = constants.yearP
-    month = constants.monthP
-    day = constants.dayP
 
     lineups = optimize(day, month, year, cursor)
 
