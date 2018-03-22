@@ -26,6 +26,7 @@ def optimize(day, month, year, cursor):
 
     gameID = getDate(day, month, year, cursor)
 
+    print day, month, year
     # get players
     playas = []
     dkPointsDict = {}
@@ -34,6 +35,7 @@ def optimize(day, month, year, cursor):
     getPlayersQuery = "SELECT b.nickName, p.playerID, p.fanduelPosition, p.simmonsProj, p.team, p.fanduel, p.opponent, p.fanduelPts FROM basketball.performance as p LEFT JOIN basketball.player_reference as b ON b.playerID = p.playerID WHERE p.dateID = %s AND p.projMinutes >= 8 AND p.fanduel > 0 AND p.simmonsProj IS NOT NULL AND p.simmonsProj > 0"
     getBPlayersData = (gameID,)
     cursor.execute(getPlayersQuery, getBPlayersData)
+
 
     print ("Number of players being considered: " + str(cursor.rowcount))
     players = cursor.fetchall()
@@ -88,6 +90,156 @@ def automate(day, month, year):
 
 
     lineups = optimize(day, month, year, cursor)
+
+    cursor.close()
+    cnx.commit()
+    cnx.close()
+    return lineups
+
+def optimizeLe(day, month, year, cursor):
+
+    gameID = getDate(day, month, year, cursor)
+
+    print day, month, year
+    # get players
+    playas = []
+    dkPointsDict = {}
+    dkPlayersPoints = {}
+
+    getPlayersQuery = "SELECT b.nickName, p.playerID, p.fanduelPosition, p.leProj, p.team, p.fanduel, p.opponent, p.fanduelPts FROM basketball.performance as p LEFT JOIN basketball.player_reference as b ON b.playerID = p.playerID WHERE p.dateID = %s AND p.projMinutes >= 8 AND p.fanduel > 0 AND p.leProj IS NOT NULL AND p.leProj > 0"
+    getBPlayersData = (gameID,)
+    cursor.execute(getPlayersQuery, getBPlayersData)
+
+
+    print ("Number of players being considered: " + str(cursor.rowcount))
+    players = cursor.fetchall()
+
+    for baller in players:
+        positions = []
+        positions.append(str(baller[2]))
+        dkPointsDict[baller[1]] = float(baller[7])
+        dkPlayersPoints[baller[1]] = baller[0]
+
+        newPlaya = Player(baller[1], baller[0], "", positions, baller[4], int(baller[5]), float(baller[3]))
+        playas.append(newPlaya)
+
+    #instantiate optimizer + run
+
+    optimizer = get_optimizer(Site.FANDUEL, Sport.BASKETBALL)
+    optimizer.load_players(playas)
+
+    # if duplicate player, increase n + generate next lineup,
+    # next lineup will generate lineup with next highest amount of points
+    numLineups = 5
+
+    lineups = optimizer.optimize(n=numLineups)
+    lines = []
+    for lineup in lineups:
+        lines.append(lineup)
+        print(lineup)
+        print(lineup.fantasy_points_projection)
+        print(lineup.salary_costs)
+        playerIDList = []
+        dkpoints = 0
+        for player in lineup.lineup:
+            playerIDList.append(player.id)
+
+        for player in playerIDList:
+            dkpoints = dkpoints + dkPointsDict[player]
+            playerName = dkPlayersPoints[player]
+
+
+        print("Total Points: " + str(dkpoints))
+        print ("\n")
+    
+    return lines
+
+def optimizeZo(day, month, year, cursor):
+
+    gameID = getDate(day, month, year, cursor)
+
+    print day, month, year
+    # get players
+    playas = []
+    dkPointsDict = {}
+    dkPlayersPoints = {}
+
+    getPlayersQuery = "SELECT b.nickName, p.playerID, p.fanduelPosition, p.zoProj, p.team, p.fanduel, p.opponent, p.fanduelPts FROM basketball.performance as p LEFT JOIN basketball.player_reference as b ON b.playerID = p.playerID WHERE p.dateID = %s AND p.projMinutes >= 8 AND p.fanduel > 0 AND p.leProj IS NOT NULL AND p.zoProj > 0"
+    getBPlayersData = (gameID,)
+    cursor.execute(getPlayersQuery, getBPlayersData)
+
+
+    print ("Number of players being considered: " + str(cursor.rowcount))
+    players = cursor.fetchall()
+
+    for baller in players:
+        positions = []
+        positions.append(str(baller[2]))
+        dkPointsDict[baller[1]] = float(baller[7])
+        dkPlayersPoints[baller[1]] = baller[0]
+
+        newPlaya = Player(baller[1], baller[0], "", positions, baller[4], int(baller[5]), float(baller[3]))
+        playas.append(newPlaya)
+
+    #instantiate optimizer + run
+
+    optimizer = get_optimizer(Site.FANDUEL, Sport.BASKETBALL)
+    optimizer.load_players(playas)
+
+    # if duplicate player, increase n + generate next lineup,
+    # next lineup will generate lineup with next highest amount of points
+    numLineups = 5
+
+    lineups = optimizer.optimize(n=numLineups)
+    lines = []
+    for lineup in lineups:
+        lines.append(lineup)
+        print(lineup)
+        print(lineup.fantasy_points_projection)
+        print(lineup.salary_costs)
+        playerIDList = []
+        dkpoints = 0
+        for player in lineup.lineup:
+            playerIDList.append(player.id)
+
+        for player in playerIDList:
+            dkpoints = dkpoints + dkPointsDict[player]
+            playerName = dkPlayersPoints[player]
+
+
+        print("Total Points: " + str(dkpoints))
+        print ("\n")
+    
+    return lines
+
+
+
+def automatele(day, month, year):
+    cnx = mysql.connector.connect(user=constants.databaseUser,
+                                  host=constants.databaseHost,
+                                  database=constants.databaseName,
+                                  password=constants.databasePassword)
+    
+    cursor = cnx.cursor(buffered=True)
+
+
+    lineups = optimizeLe(day, month, year, cursor)
+
+    cursor.close()
+    cnx.commit()
+    cnx.close()
+    return lineups
+
+def automatezo(day, month, year):
+    cnx = mysql.connector.connect(user=constants.databaseUser,
+                                  host=constants.databaseHost,
+                                  database=constants.databaseName,
+                                  password=constants.databasePassword)
+    
+    cursor = cnx.cursor(buffered=True)
+
+
+    lineups = optimizeZo(day, month, year, cursor)
 
     cursor.close()
     cnx.commit()

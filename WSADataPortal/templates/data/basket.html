@@ -19,6 +19,10 @@
                 padding-top: 50px;
                 padding-bottom: 20px;
             }
+            table {
+                 border-collapse: separate;
+                 border-spacing: 20px 0;
+            }
         </style>
         <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}">
 
@@ -49,86 +53,178 @@
       </div>
     </nav>
     <div class="container" id="logo">
-     <div class="container" id="logo" style="width:100%;  overflow:hidden;" >
-       <div id="sidebar" style="float:left; width: 30%;">
-            <h2>Status Bar</h2>
-            <p id='date'>
-            <script> var d = new Date(); document.getElementById("date").innerHTML = d.getFullYear().toString() + "-" +  d.getMonth().toString() + "-" + d.getDay().toString(); </script>
-            </p>
             
-            <ul>
-                <li>DateID Status  &#10060 &#9989 </li>
-                <li>Performance Status  &#10060 &#9989</li>
-                <li>Team Status  &#10060 &#9989</li>
-                <li>TeamVsDefence Status  &#10060 &#9989</li>
-                <li>Magic Status  &#10060 &#9989</li>
-            </ul>
-       </div>
 
-      <!-- <div style="position:absolute; left:30%; top:30%; bottom: 40%; border-left:1px solid black;">
-          </div>--!>
-       <div id="lineup" style="float:left; width:60%;">
+       <div id="lineup" >
 
-        <h2>Today's Lineup</h2>
+        <h2>Today's Lineups</h2>
 
-      <table style ="width:50%;">
+    <table style="vertical-align: top; float : left; display: inline-block;padding: 20px;">
+        <caption>Simmons Model</caption>
 	  <tr>
 	    <th>Player</th>
 	    <th>Team</th> 
 	    <th>Pos</th>
+      </tr>
       <tr>
-          <td>{{ name1 }}</td>
-          <td> {{ team1}}</td> 
-          <td>{{ pos1}} </td>
+          <td>{{ name1_1 }}</td>
+          <td> {{ team1_1}}</td> 
+          <td>{{ pos1_1}} </td>
 	  </tr>
       <tr>
-          <td>{{ name2 }}</td>
-          <td> {{ team2}}</td> 
-          <td>{{ pos2}} </td>
+          <td>{{ name2_1 }}</td>
+          <td> {{ team2_1}}</td> 
+          <td>{{ pos2_1}} </td>
 	  </tr>
       <tr>
-          <td>{{ name3 }}</td>
-          <td> {{ team3}}</td> 
-          <td>{{ pos3}} </td>
+          <td>{{ name3_1 }}</td>
+          <td> {{ team3_1}}</td> 
+          <td>{{ pos3_1}} </td>
 	  </tr>
       <tr>
-          <td>{{ name4 }}</td>
-          <td> {{ team4}}</td> 
-          <td>{{ pos4}} </td>
+          <td>{{ name4_1 }}</td>
+          <td> {{ team4_1}}</td> 
+          <td>{{ pos4_1}} </td>
 	  </tr>
       <tr>
-          <td>{{ name5 }}</td>
-          <td> {{ team5}}</td> 
-          <td>{{ pos5}} </td>
+          <td>{{ name5_1 }}</td>
+          <td> {{ team5_1}}</td> 
+          <td>{{ pos5_1}} </td>
 	  </tr>
       <tr>
-          <td>{{ name6 }}</td>
-          <td> {{ team6}}</td> 
-          <td>{{ pos6}} </td>
+          <td>{{ name6_1 }}</td>
+          <td> {{ team6_1}}</td> 
+          <td>{{ pos6_1}} </td>
 	  </tr>
       <tr>
-          <td>{{ name7 }}</td>
-          <td> {{ team7}}</td> 
-          <td>{{ pos7}} </td>
+          <td>{{ name7_1 }}</td>
+          <td> {{ team7_1}}</td> 
+          <td>{{ pos7_1}} </td>
 	  </tr>
       <tr>
-          <td>{{ name8 }}</td>
-          <td> {{ team8}}</td> 
-          <td>{{ pos8}} </td>
+          <td>{{ name8_1 }}</td>
+          <td> {{ team8_1}}</td> 
+          <td>{{ pos8_1}} </td>
 	  </tr>
       <tr>
-          <td>{{ name9 }}</td>
-          <td> {{ team9}}</td> 
-          <td>{{ pos9}} </td>
+          <td>{{ name9_1 }}</td>
+          <td> {{ team9_1}}</td> 
+          <td>{{ pos9_1}} </td>
 	  </tr>
-
-
-
-
-
       </table>
+    
+    <table style="vertical-align: top; float : left; display: inline-block;padding: 20px;">
+        <caption>Lebron Model</caption>
+        
+	  <tr>
+	    <th>Player</th>
+	    <th>Team</th> 
+	    <th>Pos</th>
+      </tr>
+      <tr>
+          <td>{{ name1_2 }}</td>
+          <td> {{ team1_2}}</td> 
+          <td>{{ pos1_2}} </td>
+	  </tr>
+      <tr>
+          <td>{{ name2_2 }}</td>
+          <td> {{ team2_2}}</td> 
+          <td>{{ pos2_2}} </td>
+	  </tr>
+      <tr>
+          <td>{{ name3_2 }}</td>
+          <td> {{ team3_2}}</td> 
+          <td>{{ pos3_2}} </td>
+	  </tr>
+      <tr>
+          <td>{{ name4_2 }}</td>
+          <td> {{ team4_2}}</td> 
+          <td>{{ pos4_2}} </td>
+	  </tr>
+      <tr>
+          <td>{{ name5_2 }}</td>
+          <td> {{ team5_2}}</td> 
+          <td>{{ pos5_2}} </td>
+	  </tr>
+      <tr>
+          <td>{{ name6_2 }}</td>
+          <td> {{ team6_2}}</td> 
+          <td>{{ pos6_2}} </td>
+	  </tr>
+      <tr>
+          <td>{{ name7_2 }}</td>
+          <td> {{ team7_2}}</td> 
+          <td>{{ pos7_2}} </td>
+	  </tr>
+      <tr>
+          <td>{{ name8_2 }}</td>
+          <td> {{ team8_2}}</td> 
+          <td>{{ pos8_2}} </td>
+	  </tr>
+      <tr>
+          <td>{{ name9_2 }}</td>
+          <td> {{ team9_2}}</td> 
+          <td>{{ pos9_2}} </td>
+	  </tr>
+    </table>
+    
+      
+    <table style="vertical-align: top; float : left; display: inline-block;padding: 20px;">
+        <caption>Lonzo Model</caption>
+	  <tr>
+	    <th>Player</th>
+	    <th>Team</th> 
+	    <th>Pos</th>
+      </tr>
+      <tr>
+          <td>{{ name1_3 }}</td>
+          <td> {{ team1_3}}</td> 
+          <td>{{ pos1_3}} </td>
+	  </tr>
+      <tr>
+          <td>{{ name2_3 }}</td>
+          <td> {{ team2_3}}</td> 
+          <td>{{ pos2_3}} </td>
+	  </tr>
+      <tr>
+          <td>{{ name3_3 }}</td>
+          <td> {{ team3_3}}</td> 
+          <td>{{ pos3_3}} </td>
+	  </tr>
+      <tr>
+          <td>{{ name4_3 }}</td>
+          <td> {{ team4_3}}</td> 
+          <td>{{ pos4_3}} </td>
+	  </tr>
+      <tr>
+          <td>{{ name5_3 }}</td>
+          <td> {{ team5_3}}</td> 
+          <td>{{ pos5_3}} </td>
+	  </tr>
+      <tr>
+          <td>{{ name6_3 }}</td>
+          <td> {{ team6_3}}</td> 
+          <td>{{ pos6_3}} </td>
+	  </tr>
+      <tr>
+          <td>{{ name7_3 }}</td>
+          <td> {{ team7_3}}</td> 
+          <td>{{ pos7_3}} </td>
+	  </tr>
+      <tr>
+          <td>{{ name8_3 }}</td>
+          <td> {{ team8_3}}</td> 
+          <td>{{ pos8_3}} </td>
+	  </tr>
+      <tr>
+          <td>{{ name9_3 }}</td>
+          <td> {{ team9_3}}</td> 
+          <td>{{ pos9_3}} </td>
+	  </tr>
+    </table>
+
     </div>
-     </div>
+    </div>
 
       <hr>
 
