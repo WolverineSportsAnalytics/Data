@@ -7,6 +7,7 @@ import random
 import string
 import Optimizer 
 import datetime
+import pytz
 
 
 # Create your views here.
@@ -26,7 +27,8 @@ def uploadBaseball(request):
 def basketball(request):
         def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
             return ''.join(random.choice(chars) for _ in range(size))
-        now = datetime.datetime.now()
+        tz = pytz.timezone('US/Eastern')
+        now = datetime.datetime.now(tz)
         lineups = Optimizer.automate(now.day, now.month, now.year)
         lineup  = []
         for line in lineups:
