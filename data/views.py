@@ -29,72 +29,83 @@ def basketball(request):
             return ''.join(random.choice(chars) for _ in range(size))
         tz = pytz.timezone('US/Eastern')
         now = datetime.datetime.now(tz)
-        lineups = Optimizer.automate(now.day, now.month, now.year)
-        lineupsle = Optimizer.automatele(now.day, now.month, now.year)
-        lineupszo = Optimizer.automatezo(now.day, now.month, now.year)
-        lineup  = []
-        for line in lineups:
-                print "GO", line
-                lineup.append(line)
+        try:
+            lineups = Optimizer.automate(now.day, now.month, now.year)
+            lineupsle = Optimizer.automatele(now.day, now.month, now.year)
+            lineupszo = Optimizer.automatezo(now.day, now.month, now.year)
+
+            lineup  = []
+            for line in lineups:
+                    print "GO", line
+                    lineup.append(line)
+                
+            players = []
+            pos = []
+            team = []
+            real_lineups = []
+            for line in lineup:
+                real_lineups.append(line)
+
+            for line in str(real_lineups[0]).split("\n"):
+                try:
+                    players.append(str(line).split()[1] + " " + str(line).split()[2])
+                    pos.append(str(line).split()[3])
+                    team.append(str(line).split()[4])
+
+                except:
+                    pass
             
-        players = []
-        pos = []
-        team = []
-        real_lineups = []
-        for line in lineup:
-            real_lineups.append(line)
+            lineup  = []
+            for line in lineupsle:
+                    print "GO", line
+                    lineup.append(line)
+                
+            playersLe = []
+            posLe = []
+            teamLe = []
+            real_lineups = []
+            for line in lineup:
+                real_lineups.append(line)
 
-        for line in str(real_lineups[0]).split("\n"):
-            try:
-                players.append(str(line).split()[1] + " " + str(line).split()[2])
-                pos.append(str(line).split()[3])
-                team.append(str(line).split()[4])
+            for line in str(real_lineups[0]).split("\n"):
+                try:
+                    playersLe.append(str(line).split()[1] + " " + str(line).split()[2])
+                    posLe.append(str(line).split()[3])
+                    teamLe.append(str(line).split()[4])
 
-            except:
-                pass
-        
-        lineup  = []
-        for line in lineupsle:
-                print "GO", line
-                lineup.append(line)
-            
-        playersLe = []
-        posLe = []
-        teamLe = []
-        real_lineups = []
-        for line in lineup:
-            real_lineups.append(line)
-
-        for line in str(real_lineups[0]).split("\n"):
-            try:
-                playersLe.append(str(line).split()[1] + " " + str(line).split()[2])
-                posLe.append(str(line).split()[3])
-                teamLe.append(str(line).split()[4])
-
-            except:
-                pass
+                except:
+                    pass
     
-        lineup  = []
-        for line in lineupszo:
-                print "GO", line
-                lineup.append(line)
-            
-        playersZo = []
-        posZo = []
-        teamZo = []
-        real_lineups = []
-        for line in lineup:
-            real_lineups.append(line)
+            lineup  = []
+            for line in lineupszo:
+                    print "GO", line
+                    lineup.append(line)
+                
+            playersZo = []
+            posZo = []
+            teamZo = []
+            real_lineups = []
+            for line in lineup:
+                real_lineups.append(line)
 
-        for line in str(real_lineups[0]).split("\n"):
-            try:
-                playersZo.append(str(line).split()[1] + " " + str(line).split()[2])
-                posZo.append(str(line).split()[3])
-                teamZo.append(str(line).split()[4])
+            for line in str(real_lineups[0]).split("\n"):
+                try:
+                    playersZo.append(str(line).split()[1] + " " + str(line).split()[2])
+                    posZo.append(str(line).split()[3])
+                    teamZo.append(str(line).split()[4])
 
-            except:
-                pass
-
+                except:
+                    pass
+        except:
+            players = ["N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A"]
+            playersLe = ["N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A"]
+            playersZo = ["N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A"]
+            team = ["","","","","","","","",""]
+            teamLe = ["","","","","","","","",""]
+            teamZo = ["","","","","","","","",""]
+            pos = ["","","","","","","","",""]
+            posLe = ["","","","","","","","",""]
+            posZo = ["","","","","","","","",""]
 
         return render(request, 'data/basket.html',  context={'name1_1':players[0], 'team1_1':team[0], 'pos1_1':pos[0],
             'name2_1':players[1], 'team2_1':team[1],'pos2_1':pos[1],
