@@ -16,7 +16,7 @@ fanduelFileLocation = '/Users/Brendan/Downloads/FanDuel-NBA-2017-12-05-22284-pla
 # predicting data
 yearP = 2018
 monthP = 3
-dayP = 11
+dayP = 20
 
 startYearP = 2017
 startMonthP = 11

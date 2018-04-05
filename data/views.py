@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseRedirect
 from django.template import loader
 from django.core.urlresolvers import reverse
+from django.views.decorators.csrf import csrf_exempt
 import random
 import string
 import Optimizer 
@@ -11,7 +12,6 @@ import pytz
 
 
 # Create your views here.
-
 def index(request):
 	return render(request, 'data/index.html')
 
@@ -24,15 +24,38 @@ def baseball(request):
 def uploadBaseball(request):
 	return render(request, 'data/baseballupload.html')
 
+@csrf_exempt
 def basketball(request):
+
         def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
             return ''.join(random.choice(chars) for _ in range(size))
+
         tz = pytz.timezone('US/Eastern')
         now = datetime.datetime.now(tz)
+        day = 0
+        month = 0
+        year = 0
+        if request.method == "POST":
+                print request.POST.get("time", None)
+                
+
+                
+        print "day", type(day)
+        print "Month", month
+        print "Year", year
+        if day == 0:
+
+            day = now.day
+            month = now.month
+            year = now.year
+        day = int(day)
+        month = int(month)
+        year = int(year)
+
         try:
-            lineups = Optimizer.automate(now.day, now.month, now.year)
-            lineupsle = Optimizer.automatele(now.day, now.month, now.year)
-            lineupszo = Optimizer.automatezo(now.day, now.month, now.year)
+            lineups = Optimizer.automate(day, month, year)
+            lineupsle = Optimizer.automatele(day, month, year)
+            lineupszo = Optimizer.automatezo(day, month, year)
 
             lineup  = []
             for line in lineups:
@@ -106,6 +129,10 @@ def basketball(request):
             pos = ["","","","","","","","",""]
             posLe = ["","","","","","","","",""]
             posZo = ["","","","","","","","",""]
+        
+        print request.method;
+
+
 
         return render(request, 'data/basket.html',  context={'name1_1':players[0], 'team1_1':team[0], 'pos1_1':pos[0],
             'name2_1':players[1], 'team2_1':team[1],'pos2_1':pos[1],
