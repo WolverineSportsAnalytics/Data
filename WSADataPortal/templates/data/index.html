@@ -47,7 +47,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+                <form class = "navbar-form,navbar-toggle">
                 <a class="navbar-brand topnav" href="#"><strong>Wolverine Sports Analytics</strong></a>
+                <a href="{% url 'base' %}" style="margin-top:8px;"  class="btn btn-primary">Basketball Lineups</a> 
+                </form>
               </div>
               <!-- Collect the nav links, forms, and other content for toggling -->
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -64,7 +67,6 @@
                         <label class="sr-only" for="exampleInputPassword3">Password</label>
                         <input type="password" class="form-control" id="exampleInputPassword3" placeholder="Password" ng-model="wsa.loginPassword">
                     </div>
-                        <a href="{% url 'base' %}">Home</a>
                     <button type="submit" class="btn btn-default" ng-click="wsa.validate(wsa.loginEmail, wsa.loginPassword)">Login</button>
                 </form>
               </div>
