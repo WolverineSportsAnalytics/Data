@@ -41,7 +41,6 @@ lxml==3.8.0
 Markdown==2.6.9
 matplotlib==2.1.0
 mccabe==0.6.1
-mlbgame==2.3.3
 mock==2.0.0
 mysql-connector==2.1.4
 MySQL-python==1.2.5
@@ -81,8 +80,6 @@ six==1.11.0
 sklearn==0.0
 SQLAlchemy==1.1.10
 subprocess32==3.2.7
-tensorflow==1.4.0
-tensorflow-tensorboard==0.4.0rc3
 TTFQuery==1.0.5
 Unidecode==0.4.21
 urllib3==1.21.1
@@ -92,6 +89,4 @@ virtualenv-clone==0.2.6
 VPython==6.11
 Werkzeug==0.12.2
 whitenoise==3.1
-wxPython==3.0.0.0
-wxPython-common==3.0.0.0
 xlrd==1.1.0
