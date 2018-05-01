@@ -1,6 +1,8 @@
 from django.conf.urls import include, url
 from django.contrib import admin
-from data import views as dataViews
+from data import views as basketballViews
+from baseball import views as baseballViews
+from wnba import views as wnbaViews
 
 urlpatterns = [
     # Examples:
@@ -9,9 +11,11 @@ urlpatterns = [
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include('api.urls')),
-    url(r'^base$', dataViews.basketball, name="basketball"),
-    url(r'^$', dataViews.index, name="index"),
-    url(r'^base$', dataViews.basketball, name="base"),
-    url(r'^data/', include('data.urls'))
-
+    url(r'^$', basketballViews.index, name="index"),
+    url(r'^basket$', basketballViews.baskethome, name="basketball"),
+    url(r'^wnba$', wnbaViews.index, name="wnba"),
+    url(r'^baseball$', baseballViews.index, name="baseball"),
+    url(r'^data/', include('data.urls')),
+    url(r'^baseball/', include('baseball.urls')),
+    url(r'^wnba/', include('wnba.urls')),
 ]

@@ -49,6 +49,7 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="/">Wolverine Sports Analytics</a>
+          <a href="{% url 'basketball' %}" style="margin-top:8px;"  class="btn btn-primary"> NBA </a> 
         </div>
       </div>
     </nav>
@@ -72,11 +73,11 @@
 		</select> 
         <input type="submit" value="Submit">
         </form>
-
+{% if context%}
        <div id="lineup" >
 
         <h2>Today's Lineups</h2>
-
+    
     <table style="vertical-align: top; float : left; display: inline-block;padding: 20px;">
         <caption>Simmons Model</caption>
 	  <tr>
@@ -242,6 +243,9 @@
     </table>
 
     </div>
+{%else%}
+    <h1> No Lineups For Today Sorry </h1>
+{%endif%}
     </div>
 
       <hr>

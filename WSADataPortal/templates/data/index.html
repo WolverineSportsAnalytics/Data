@@ -49,15 +49,16 @@
                 </button>
                 <form class = "navbar-form,navbar-toggle">
                 <a class="navbar-brand topnav" href="#"><strong>Wolverine Sports Analytics</strong></a>
-                <a href="{% url 'base' %}" style="margin-top:8px;"  class="btn btn-primary">Basketball Lineups</a> 
+                <a href="{% url 'basketball' %}" style="margin-top:8px;"  class="btn btn-primary"> NBA </a> 
+                <a href="{% url 'baseball' %}" style="margin-top:8px;"  class="btn btn-primary"> MLB </a> 
+                <a href="{% url 'wnba' %}" style="margin-top:8px;"  class="btn btn-primary"> WNBA </a> 
+                <a href="{% url 'data:home' %}" style="margin-top:8px;"  class="btn btn-primary"> Legacy </a> 
+                
                 </form>
               </div>
               <!-- Collect the nav links, forms, and other content for toggling -->
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="#" data-toggle="modal" data-target="#SignUpModal">Sign Up</a>
-                    </li>
                 </ul>
                 <form class = "navbar-form navbar-right">
                     <div class="form-group">
@@ -95,7 +96,7 @@
                 <img class="img-responsive thumbnail" src="http://i.imgur.com/I1iixZQ.jpg" alt="">
                   <div class="overlay">
                     <h2> Brendan Hart </h2>
-                    <h2> President and Founder </h2>
+                    <h2> Founder </h2>
                   </div>
               </div>
             </a>
@@ -106,38 +107,39 @@
                   <img class="img-responsive thumbnail" src="https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAz3AAAAJGNiMzMwZWNiLTA5ZWQtNDQ2Ni1hNGUxLTE1Y2EwZTNhY2FkMg.jpg" alt="">
                   <div class="overlay">
                     <h2> Evan Ciancio </h2>
-                    <h2>Actual coolest </h2>
+                    <h2> President </h2>
                   </div>
                 </div>
               </a>
           </div>
           <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-              <a href="mailto:pjfend@umich.edu">
+              <a href="mailto:aneedel@umich.edu">
                 <div class="hovereffect">
-                  <img class="img-responsive thumbnail" src="http://i.imgur.com/Ujb8rmP.jpg" alt="">
+                    <img class="img-responsive thumbnail" src="{% static "img/jakebecker.jpg" %}" alt="Jake"/>
                   <div class="overlay">
-                    <h2> Gone</h2>
-                    <h2> Vice President </h2>
+                    <h2> Jake Becker </h2>
+                    <h2> President </h2>
                   </div>
                 </div>
               </a>
           </div>
           <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-              <a href="mailto:jnas@umich.edu">
+              <a href="mailto:aneedel@umich.edu">
                 <div class="hovereffect">
-                  <img class="img-responsive thumbnail" src="http://i.imgur.com/2SD1yQH.jpg" alt="">
+                    <img class="img-responsive thumbnail" src="{% static "img/phillipmathew.jpg" %}" alt="Jake"/>
                   <div class="overlay">
-                    <h2> No Longer </h2>
-                    <h2> Treasurer </h2>
+                    <h2> Phillip Mathew </h2>
+                    <h2> Member </h2>
                   </div>
                 </div>
-                </div>
               </a>
-          </div
-      <hr>
+          </div>
+
+
+            <hr>
 
       <footer>
-        <p>&copy; Wolverine Sports Analytics 2016</p>
+        <p>&copy; Wolverine Sports Analytics 2018</p>
       </footer>
 
     <div> 

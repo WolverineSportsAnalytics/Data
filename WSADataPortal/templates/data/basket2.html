@@ -1,0 +1,11 @@
+{%if players_list %}
+    <ul> 
+         {% for player in players_list%}
+            <li>
+                {{player}}
+            </li>
+        {% endfor %}
+    </ul>
+{%else%}
+    <p>No lineup for today</p>
+{%endif%}

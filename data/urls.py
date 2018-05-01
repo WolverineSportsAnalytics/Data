@@ -7,6 +7,8 @@ app_name = 'data'
 urlpatterns = [
 	url(r'^$', views.home, name='home'),
 	url(r'^baseball/$', views.baseball, name="baseball"),
-	url(r'^basketball/$', views.basketball, name="basketball"),
+	url(r'^lineups/$', views.lineups, name="lineups"),
+        url(r'^historicalLineups/$', views.historical, name="historical"),
+	url(r'^basketball2/$', views.BasketballView.as_view(), name="basketball2"),
 	url(r'^baseball/upload/$', views.uploadBaseball, name="uploadBaseball")
 ]

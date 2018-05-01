@@ -4,6 +4,7 @@ from django.http import Http404, HttpResponseRedirect
 from django.template import loader
 from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_exempt
+from django.views import generic
 import random
 import string
 import Optimizer 
@@ -21,11 +22,17 @@ def home(request):
 def baseball(request):
 	return render(request, 'data/baseball.html')
 
+def baskethome(request):
+	return render(request, 'data/basketballhome.html')
 def uploadBaseball(request):
 	return render(request, 'data/baseballupload.html')
 
 @csrf_exempt
-def basketball(request):
+
+def historical(request):
+        return render(request, 'data/historical.html')
+
+def lineups(request):
 
         def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
             return ''.join(random.choice(chars) for _ in range(size))
@@ -120,17 +127,7 @@ def basketball(request):
                 except:
                     pass
         except:
-            players = ["N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A"]
-            playersLe = ["N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A"]
-            playersZo = ["N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A"]
-            team = ["","","","","","","","",""]
-            teamLe = ["","","","","","","","",""]
-            teamZo = ["","","","","","","","",""]
-            pos = ["","","","","","","","",""]
-            posLe = ["","","","","","","","",""]
-            posZo = ["","","","","","","","",""]
-        
-        print request.method;
+            return render(request, 'data/basket.html', context={})       
 
 
 
@@ -163,6 +160,106 @@ def basketball(request):
             'name9_3':playersZo[8], 'team9_3':teamZo[8], 'pos9_3':posZo[8]})
            
 
+class BasketballView(generic.ListView):
+    template_name = 'data/basket2.html'
+    context_object_name = 'players_list'
 
-if __name__== "__main__":
-            basketball()
+    def get_queryset(self):
+
+        def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
+            return ''.join(random.choice(chars) for _ in range(size))
+
+        tz = pytz.timezone('US/Eastern')
+        now = datetime.datetime.now(tz)
+        day = 0
+        month = 0
+        year = 0
+
+                
+        print "day", type(day)
+        print "Month", month
+        print "Year", year
+        if day == 0:
+
+            day = now.day
+            month = now.month
+            year = now.year
+        day = int(day)
+        month = int(month)
+        year = int(year)
+
+        try:
+            lineups = Optimizer.automate(day, month, year)
+            lineupsle = Optimizer.automatele(day, month, year)
+            lineupszo = Optimizer.automatezo(day, month, year)
+
+            lineup  = []
+            for line in lineups:
+                    print "GO", line
+                    lineup.append(line)
+                
+            players = []
+            pos = []
+            team = []
+            real_lineups = []
+            for line in lineup:
+                real_lineups.append(line)
+
+            for line in str(real_lineups[0]).split("\n"):
+                try:
+                    players.append(str(line).split()[1] + " " + str(line).split()[2])
+                    pos.append(str(line).split()[3])
+                    team.append(str(line).split()[4])
+
+                except:
+                    pass
+            
+            lineup  = []
+            for line in lineupsle:
+                    print "GO", line
+                    lineup.append(line)
+                
+            playersLe = []
+            posLe = []
+            teamLe = []
+            real_lineups = []
+            for line in lineup:
+                real_lineups.append(line)
+
+            for line in str(real_lineups[0]).split("\n"):
+                try:
+                    playersLe.append(str(line).split()[1] + " " + str(line).split()[2])
+                    posLe.append(str(line).split()[3])
+                    teamLe.append(str(line).split()[4])
+
+                except:
+                    pass
+    
+            lineup  = []
+            for line in lineupszo:
+                    print "GO", line
+                    lineup.append(line)
+                
+            playersZo = []
+            posZo = []
+            teamZo = []
+            real_lineups = []
+            for line in lineup:
+                real_lineups.append(line)
+
+            for line in str(real_lineups[0]).split("\n"):
+                try:
+                    playersZo.append(str(line).split()[1] + " " + str(line).split()[2])
+                    posZo.append(str(line).split()[3])
+                    teamZo.append(str(line).split()[4])
+
+                except:
+                    pass
+
+            return players 
+        
+        except:
+            return []
+     
+    
+
