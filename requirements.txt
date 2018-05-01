@@ -83,10 +83,5 @@ subprocess32==3.2.7
 TTFQuery==1.0.5
 Unidecode==0.4.21
 urllib3==1.21.1
-vboxapi==1.0
 virtualenv==15.1.0
-virtualenv-clone==0.2.6
 VPython==6.11
-Werkzeug==0.12.2
-whitenoise==3.1
-xlrd==1.1.0
