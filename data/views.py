@@ -32,6 +32,26 @@ def uploadBaseball(request):
 def historical(request):
         return render(request, 'data/historical.html')
 
+def example_lineups(request):
+        class Player:
+            def __init__(self, name, team, pos, sal):
+                self.name = name
+                self.team = team
+                self.pos = pos
+                self.sal = sal 
+        
+        example_list = [Player("Russell Westbrook","OKC","PG","11600"), 
+                        Player("Dennis Schoder", "ATL", "PG", "6200"),
+                        Player("Devin Booker", "PHO", "SG", "7200"),
+                        Player("Damion Lee", "ATL", "SG", "3500"),
+                        Player("Paul George", "OKC", "SF", "8200"),
+                        Player("Trevor Ariza", "HOU", "SF", "5000"),
+                        Player("Blake Griffen", "DET", "PF", "8600"),
+                        Player("Carmelo Anthony", "OKC", "PF", "5400"),
+                        Player("Alex Len", "PHO", "C", "3900"),
+                        ]
+        return render(request, 'data/example.html', context={'example_list':example_list} )
+
 def lineups(request):
 
         def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
