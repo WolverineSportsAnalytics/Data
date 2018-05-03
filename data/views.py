@@ -1,6 +1,3 @@
-import matplotlib.pyplot as plt
-import matplotlib
-matplotlib.use('Agg')
 from django.shortcuts import HttpResponse, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseRedirect
@@ -34,18 +31,7 @@ def uploadBaseball(request):
 @csrf_exempt
 
 def trends(request):
-
-	t = numpy.arange(0.0, 2.0, 0.01)
-	s = 1 + numpy.sin(2*numpy.pi*t)
-	plt.plot(t, s)
-	
-	plt.xlabel('Time (Days)')
-	plt.ylabel('Winnings ($)')
-	plt.title('Going to get our Bands Up')
-	plt.grid(True)
-	plt.savefig("WSADataPortal/static/test.png")
 	return render(request, 'data/trends.html')
-
 def historical(request):
         return render(request, 'data/historical.html')
 
