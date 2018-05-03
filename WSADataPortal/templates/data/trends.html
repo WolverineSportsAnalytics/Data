@@ -35,7 +35,11 @@
         <script src="{% static 'js/main.js' %}"></script>
     </head>
     <body ng-app="WSAData">
-  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      {% load staticfiles %}
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -45,21 +49,19 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="/">Wolverine Sports Analytics</a>
-          <a href="{% url 'data:lineups' %}" style="margin-top:8px;"  class="btn btn-primary"> Lineups </a>  
-          <a href="{% url 'data:historical' %}" style="margin-top:8px;"  class="btn btn-primary"> Historical Data </a>  
-          <a href="{% url 'data:trends' %}" style="margin-top:8px;"  class="btn btn-primary"> Trends </a>  
+          <a href="{% url 'basketball' %}" style="margin-top:8px;"  class="btn btn-primary"> NBA </a> 
         </div>
       </div>
     </nav>
-    <div class="container" id="logo">
-
       
-      {% load staticfiles %}
-        <div>
-            <h1> This is Basketball's Home </h1>
+    <div class="container" id="logo">
+        <h1> We will put or MatplotLib here </h1>
+        <img class="img-responsive thumbnail" src="{% static "test.png" %}" alt="Jake"/>
+    </div>
+    
+    
+    <hr>
 
-        </div>
-        <hr>
       <footer style="width:77%; float: right;">
         <p>&copy; Wolverine Sports Analytics 2017</p>
         <p> Email <a href="mailto:admin@wolverinesportsanalytics.com">admin@wolverinesportsanalytics.com</a> for inquiries, problems, or anything else that's not spam </p>

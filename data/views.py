@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 from django.shortcuts import HttpResponse, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseRedirect
@@ -10,7 +11,8 @@ import string
 import Optimizer 
 import datetime
 import pytz
-
+import matplotlib 
+import numpy 
 
 # Create your views here.
 def index(request):
@@ -28,6 +30,19 @@ def uploadBaseball(request):
 	return render(request, 'data/baseballupload.html')
 
 @csrf_exempt
+
+def trends(request):
+
+	t = numpy.arange(0.0, 2.0, 0.01)
+	s = 1 + numpy.sin(2*numpy.pi*t)
+	plt.plot(t, s)
+	
+	plt.xlabel('Time (Days)')
+	plt.ylabel('Winnings ($)')
+	plt.title('Going to get our Bands Up')
+	plt.grid(True)
+	plt.savefig("WSADataPortal/static/test.png")
+	return render(request, 'data/trends.html')
 
 def historical(request):
         return render(request, 'data/historical.html')

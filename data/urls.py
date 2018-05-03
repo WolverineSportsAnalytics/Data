@@ -6,6 +6,7 @@ app_name = 'data'
 
 urlpatterns = [
 	url(r'^$', views.home, name='home'),
+	url(r'^trends', views.trends, name='trends'),
 	url(r'^baseball/$', views.baseball, name="baseball"),
 	url(r'^lineups/$', views.lineups, name="lineups"),
 	url(r'^lineups/example$', views.example_lineups, name="example"),
