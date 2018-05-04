@@ -1,3 +1,69 @@
-p {
-    color: Red;
+#lineups{
+    width:100%;
+}
+#simmDiv{
+    width: 33%;
+    float: left;
+}
+#zoDiv{
+    width: 33%;
+    float: left;
+}
+#leDiv{
+    width: 33%;
+    float: left;
+}
+#selections{
+    width: 100%;
+}
+#time_select{
+    padding-right: 10px;
+    float:left;
+}
+#date_select{
+    padding-left: 2px;
+}
+
+
+#table2{ 
+    display: none;
+}
+#table3{ 
+    display: none;
+}
+#table4{ 
+    display: none;
+}
+#table5{ 
+    display: none;
+}
+#zoTable1{ 
+    display: table;
+}
+#zoTable2{ 
+    display: none;
+}
+#zoTable3{ 
+    display: none;
+}
+#zoTable4{ 
+    display: none;
+}
+#zoTable5{ 
+    display: none;
+}
+#leTable1{ 
+    display: table;
+}
+#leTable2{ 
+    display: none;
+}
+#leTable3{ 
+    display: none;
+}
+#leTable4{ 
+    display: none;
+}
+#leTable5{ 
+    display: none;
 }

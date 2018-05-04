@@ -27,8 +27,10 @@
         <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}">
 
         <link rel="stylesheet" href="{% static 'css/main.css' %}">
+        <link rel="stylesheet" href="{% static 'css/basket.css' %}">
 
         <script src="{% static 'js/vendor/modernizr-2.8.3-respond-1.4.2.min.js' %}"></script>
+        <script src="{% static 'js/basket.js' %}"></script>
 
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.5.6/angular-sanitize.js"></script>
@@ -54,199 +56,128 @@
       </div>
     </nav>
     <div class="container" id="logo">
-        <!--
-        <form method="POST" action="">
-              Day    : <input type="text" name="day"><br>
-              Month: <input type="text" name="month"><br>
-              Year   : <input type="text" name="year"><br>
-          <input type="submit" value="Submit">
-        </form>-->
-        <form method="POST" action="">
-       <select name='time'>
-    		<option>7:00</option>
-    		<option>7:30</option>
-    		<option>8:30</option>
-    		<option>9:00</option>
-    		<option>9:30</option>
-    		<option>10:00</option>
-    		<option>10:30</option>
-		</select> 
-        <input type="submit" value="Submit">
-        </form>
-{% if context%}
-       <div id="lineup" >
+      <div id="selections">
+          <div id="time_select">
+            <form method="POST" action="">
+            {% csrf_token %}
+            <select name='time'>
+          	    <option>7:00</option>
+          	    <option>7:30</option>
+          	    <option>8:30</option>
+          	    <option>9:00</option>
+          	    <option>9:30</option>
+          	    <option>10:00</option>
+          	    <option>10:30</option>
+	        </select> 
+            <input type="submit" value="Submit">
+            </form>
+          </div>
+          <div id="date_select">
+            <form method="POST" action="">
+            {% csrf_token %}
+                Date:
+                <input type="date" name="day" value="{{dates}}">
+                  <input type="submit" value="Submit">
+            </form>
+          </div>
+       </div>
+       <div id="lineups"  >
+            {%if lineup_list %}                                                                                                 
+            
+            <h2>{{run_dates}} Lineups</h2>
 
-        <h2>Today's Lineups</h2>
-    
-    <table style="vertical-align: top; float : left; display: inline-block;padding: 20px;">
-        <caption>Simmons Model</caption>
-	  <tr>
-	    <th>Player</th>
-	    <th>Team</th> 
-	    <th>Pos</th>
-      </tr>
-      <tr>
-          <td>{{ name1_1 }}</td>
-          <td> {{ team1_1}}</td> 
-          <td>{{ pos1_1}} </td>
-	  </tr>
-      <tr>
-          <td>{{ name2_1 }}</td>
-          <td> {{ team2_1}}</td> 
-          <td>{{ pos2_1}} </td>
-	  </tr>
-      <tr>
-          <td>{{ name3_1 }}</td>
-          <td> {{ team3_1}}</td> 
-          <td>{{ pos3_1}} </td>
-	  </tr>
-      <tr>
-          <td>{{ name4_1 }}</td>
-          <td> {{ team4_1}}</td> 
-          <td>{{ pos4_1}} </td>
-	  </tr>
-      <tr>
-          <td>{{ name5_1 }}</td>
-          <td> {{ team5_1}}</td> 
-          <td>{{ pos5_1}} </td>
-	  </tr>
-      <tr>
-          <td>{{ name6_1 }}</td>
-          <td> {{ team6_1}}</td> 
-          <td>{{ pos6_1}} </td>
-	  </tr>
-      <tr>
-          <td>{{ name7_1 }}</td>
-          <td> {{ team7_1}}</td> 
-          <td>{{ pos7_1}} </td>
-	  </tr>
-      <tr>
-          <td>{{ name8_1 }}</td>
-          <td> {{ team8_1}}</td> 
-          <td>{{ pos8_1}} </td>
-	  </tr>
-      <tr>
-          <td>{{ name9_1 }}</td>
-          <td> {{ team9_1}}</td> 
-          <td>{{ pos9_1}} </td>
-	  </tr>
-      </table>
-    
-    <table style="vertical-align: top; float : left; display: inline-block;padding: 20px;">
-        <caption>Lebron Model</caption>
-        
-	  <tr>
-	    <th>Player</th>
-	    <th>Team</th> 
-	    <th>Pos</th>
-      </tr>
-      <tr>
-          <td>{{ name1_2 }}</td>
-          <td> {{ team1_2}}</td> 
-          <td>{{ pos1_2}} </td>
-	  </tr>
-      <tr>
-          <td>{{ name2_2 }}</td>
-          <td> {{ team2_2}}</td> 
-          <td>{{ pos2_2}} </td>
-	  </tr>
-      <tr>
-          <td>{{ name3_2 }}</td>
-          <td> {{ team3_2}}</td> 
-          <td>{{ pos3_2}} </td>
-	  </tr>
-      <tr>
-          <td>{{ name4_2 }}</td>
-          <td> {{ team4_2}}</td> 
-          <td>{{ pos4_2}} </td>
-	  </tr>
-      <tr>
-          <td>{{ name5_2 }}</td>
-          <td> {{ team5_2}}</td> 
-          <td>{{ pos5_2}} </td>
-	  </tr>
-      <tr>
-          <td>{{ name6_2 }}</td>
-          <td> {{ team6_2}}</td> 
-          <td>{{ pos6_2}} </td>
-	  </tr>
-      <tr>
-          <td>{{ name7_2 }}</td>
-          <td> {{ team7_2}}</td> 
-          <td>{{ pos7_2}} </td>
-	  </tr>
-      <tr>
-          <td>{{ name8_2 }}</td>
-          <td> {{ team8_2}}</td> 
-          <td>{{ pos8_2}} </td>
-	  </tr>
-      <tr>
-          <td>{{ name9_2 }}</td>
-          <td> {{ team9_2}}</td> 
-          <td>{{ pos9_2}} </td>
-	  </tr>
-    </table>
-    
-      
-    <table style="vertical-align: top; float : left; display: inline-block;padding: 20px;">
-        <caption>Lonzo Model</caption>
-	  <tr>
-	    <th>Player</th>
-	    <th>Team</th> 
-	    <th>Pos</th>
-      </tr>
-      <tr>
-          <td>{{ name1_3 }}</td>
-          <td> {{ team1_3}}</td> 
-          <td>{{ pos1_3}} </td>
-	  </tr>
-      <tr>
-          <td>{{ name2_3 }}</td>
-          <td> {{ team2_3}}</td> 
-          <td>{{ pos2_3}} </td>
-	  </tr>
-      <tr>
-          <td>{{ name3_3 }}</td>
-          <td> {{ team3_3}}</td> 
-          <td>{{ pos3_3}} </td>
-	  </tr>
-      <tr>
-          <td>{{ name4_3 }}</td>
-          <td> {{ team4_3}}</td> 
-          <td>{{ pos4_3}} </td>
-	  </tr>
-      <tr>
-          <td>{{ name5_3 }}</td>
-          <td> {{ team5_3}}</td> 
-          <td>{{ pos5_3}} </td>
-	  </tr>
-      <tr>
-          <td>{{ name6_3 }}</td>
-          <td> {{ team6_3}}</td> 
-          <td>{{ pos6_3}} </td>
-	  </tr>
-      <tr>
-          <td>{{ name7_3 }}</td>
-          <td> {{ team7_3}}</td> 
-          <td>{{ pos7_3}} </td>
-	  </tr>
-      <tr>
-          <td>{{ name8_3 }}</td>
-          <td> {{ team8_3}}</td> 
-          <td>{{ pos8_3}} </td>
-	  </tr>
-      <tr>
-          <td>{{ name9_3 }}</td>
-          <td> {{ team9_3}}</td> 
-          <td>{{ pos9_3}} </td>
-	  </tr>
-    </table>
+           <div id="simmDiv">
+            {% for lineup in lineup_list %}
 
-    </div>
-{%else%}
-    <h1> No Lineups For Today Sorry </h1>
-    <a href="{% url "data:example" %}"> Example Lineup </a>
-{%endif%}
+            <table style="vertical-align: top; padding: 20px;" id=table{{forloop.counter}}>
+            <caption>Simmons Model</caption>
+              <tr>
+                <th>Player</th>
+                <th>Pos</th>
+                <th>Team</th> 
+                <th>Salary</th>
+              </tr>
+    
+                {% for player in lineup%}                                                                                                         
+                <tr>   
+                    <td>{{player.name}}</td> 
+                    <td>{{player.pos}}</td>
+                    <td>{{player.team}}</td>
+                    <td>${{player.sal}}</td>
+                <tr>                                                                                                                                                                    
+                {% endfor %}                                                                                                                                                                 
+            </table>
+            {% endfor %}                                                                                                                                                                 
+               
+            {% for lineup in lineup_list %}
+            <input type="button" id="showTable{{forloop.counter}}" value="{{forloop.counter}}">
+            {% endfor %}                                                                                                                                                                 
+           </div>
+           <div id="zoDiv">
+             {% for lineup in zoLineup %}
+
+             <table style="vertical-align: top; padding: 20px;" id=zoTable{{forloop.counter}}>
+             <caption>Lonzo Model</caption>
+               <tr>
+                 <th>Player</th>
+                 <th>Pos</th>
+                 <th>Team</th> 
+                 <th>Salary</th>
+               </tr>
+    
+                 {% for player in lineup%}                                                                                                         
+                 <tr>   
+                     <td>{{player.name}}</td> 
+                     <td>{{player.pos}}</td>
+                     <td>{{player.team}}</td>
+                     <td>${{player.sal}}</td>
+                 <tr>                                                                                                                                                                    
+                 {% endfor %}                                                                                                                                                                 
+             </table>
+             {% endfor %}                                                                                                                                                                 
+                
+             {% for lineup in lineup_list %}
+             <input type="button" id="zoShowTable{{forloop.counter}}" value="{{forloop.counter}}">
+             {% endfor %}   
+
+           </div>
+           <div id="leDiv">
+             {% for lineup in leLineup %}
+
+             <table style="vertical-align: top; padding: 20px;" id=leTable{{forloop.counter}}>
+             <caption>LeBron Model</caption>
+               <tr>
+                 <th>Player</th>
+                 <th>Pos</th>
+                 <th>Team</th> 
+                 <th>Salary</th>
+               </tr>
+    
+                 {% for player in lineup%}                                                                                                         
+                 <tr>   
+                     <td>{{player.name}}</td> 
+                     <td>{{player.pos}}</td>
+                     <td>{{player.team}}</td>
+                     <td>${{player.sal}}</td>
+                 <tr>                                                                                                                                                                    
+                 {% endfor %}                                                                                                                                                                 
+             </table>
+             {% endfor %}                                                                                                                                                                 
+                
+             {% for lineup in lineup_list %}
+             <input type="button" id="leShowTable{{forloop.counter}}" value="{{forloop.counter}}">
+             {% endfor %}   
+
+
+             {%else%}  
+                 <h1> No Lineups For Today Sorry </h1>
+                 <a href="{% url "data:example" %}"> Example Lineup </a>
+             {%endif%}    
+           </div>
+
+      </div>
+
+
     </div>
 
       <hr>
