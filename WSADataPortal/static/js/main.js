@@ -25,7 +25,7 @@ app.controller("mainController", ['$scope', '$http', '$location', '$window', fun
 
 		submit.success(function(response){
 			console.log("Success: " + response.toString())
-			window.location.replace('/data/')
+			window.location.replace('/')
 		});
 		submit.error(function(response){
 			console.log("Error: ", + response.toString())

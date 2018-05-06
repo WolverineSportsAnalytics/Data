@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
@@ -29,4 +30,6 @@ def example_lineups(request):
                         ]
         return render(request, 'baseball/example.html', context={'example_list':example_list} )
 
-
+@login_required
+def special(request):
+    return render(request, 'baseball/special.html')
