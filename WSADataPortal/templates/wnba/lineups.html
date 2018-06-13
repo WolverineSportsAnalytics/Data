@@ -61,7 +61,7 @@
             {% for lineup in lineup_list %}
 
             <table style="vertical-align: top; padding: 20px;" id=table{{forloop.counter}}>
-            <caption>WSA Model</caption>
+		    <caption>WSA Model {{forloop.counter}}</caption>
               <tr>
                 <th>Player</th>
                 <th>Pos</th>
@@ -88,7 +88,7 @@
              {% for lineup in rotoLineup %}
 
              <table style="vertical-align: top; padding: 20px;" id=zoTable{{forloop.counter}}>
-             <caption>Rotowire Model</caption>
+		     <caption>Rotowire Model {{forloop.counter }}</caption>
                <tr>
                  <th>Player</th>
                  <th>Pos</th>
