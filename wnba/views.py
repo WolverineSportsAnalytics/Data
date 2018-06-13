@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from WNBA_Optimizer.Optimization import Optimizer
+import Optimizer
 import constants
 import mysql.connector
 import datetime
