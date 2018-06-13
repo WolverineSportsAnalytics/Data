@@ -60,29 +60,102 @@
     
          {%if example_list %}                                                                                                 
 
-        <table style="vertical-align: top; float : left; display: inline-block;padding: 20px;">
-        <caption>Griner Model</caption>
-    	  <tr>
-    	    <th>Player</th>
-    	    <th>Pos</th>
-    	    <th>Team</th> 
-    	    <th>Salary</th>
-          </tr>
-    
-            {% for player in example_list%}                                                                                                         
-            <tr>   
-                <td>{{player.name}}</td> 
-                <td>{{player.pos}}</td>
-                <td>{{player.team}}</td>
-                <td>${{player.sal}}</td>
-            <tr>                                                                                                                                                                    
-            {% endfor %}                                                                                                                                                                 
+      <div id="lineups"  >
+            {%if lineup_list %}                                                                                                 
+            
+            <h2>{{run_dates}} Lineups</h2>
 
-        </table>
-        {%else%}  
-        <p> Example Broke</p>
-        {%endif%}    
+           <div id="simmDiv">
+            {% for lineup in lineup_list %}
+
+            <table style="vertical-align: top; padding: 20px;" id=table{{forloop.counter}}>
+            <caption>Simmons Model</caption>
+              <tr>
+                <th>Player</th>
+                <th>Pos</th>
+                <th>Team</th> 
+                <th>Salary</th>
+              </tr>
+    
+                {% for player in lineup%}                                                                                                         
+                <tr>   
+                    <td>{{player.name}}</td> 
+                    <td>{{player.pos}}</td>
+                    <td>{{player.team}}</td>
+                    <td>${{player.sal}}</td>
+                <tr>                                                                                                                                                                    
+                {% endfor %}                                                                                                                                                                 
+            </table>
+            {% endfor %}                                                                                                                                                                 
+               
+            {% for lineup in lineup_list %}
+            <input type="button" id="showTable{{forloop.counter}}" value="{{forloop.counter}}">
+            {% endfor %}                                                                                                                                                                 
+           </div>
+           <div id="zoDiv">
+             {% for lineup in zoLineup %}
+
+             <table style="vertical-align: top; padding: 20px;" id=zoTable{{forloop.counter}}>
+             <caption>Lonzo Model</caption>
+               <tr>
+                 <th>Player</th>
+                 <th>Pos</th>
+                 <th>Team</th> 
+                 <th>Salary</th>
+               </tr>
+    
+                 {% for player in lineup%}                                                                                                         
+                 <tr>   
+                     <td>{{player.name}}</td> 
+                     <td>{{player.pos}}</td>
+                     <td>{{player.team}}</td>
+                     <td>${{player.sal}}</td>
+                 <tr>                                                                                                                                                                    
+                 {% endfor %}                                                                                                                                                                 
+             </table>
+             {% endfor %}                                                                                                                                                                 
+                
+             {% for lineup in lineup_list %}
+             <input type="button" id="zoShowTable{{forloop.counter}}" value="{{forloop.counter}}">
+             {% endfor %}   
+
+           </div>
+           <div id="leDiv">
+             {% for lineup in leLineup %}
+
+             <table style="vertical-align: top; padding: 20px;" id=leTable{{forloop.counter}}>
+             <caption>LeBron Model</caption>
+               <tr>
+                 <th>Player</th>
+                 <th>Pos</th>
+                 <th>Team</th> 
+                 <th>Salary</th>
+               </tr>
+    
+                 {% for player in lineup%}                                                                                                         
+                 <tr>   
+                     <td>{{player.name}}</td> 
+                     <td>{{player.pos}}</td>
+                     <td>{{player.team}}</td>
+                     <td>${{player.sal}}</td>
+                 <tr>                                                                                                                                                                    
+                 {% endfor %}                                                                                                                                                                 
+             </table>
+             {% endfor %}                                                                                                                                                                 
+                
+             {% for lineup in lineup_list %}
+             <input type="button" id="leShowTable{{forloop.counter}}" value="{{forloop.counter}}">
+             {% endfor %}   
+
+
+             {%else%}  
+                 <h1> No Lineups For Today Sorry </h1>
+                 <a href="{% url "data:example" %}"> Example Lineup </a>
+             {%endif%}    
+           </div>
+
       </div>
+
 
       <hr>
 
