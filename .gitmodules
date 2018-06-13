@@ -1,0 +1,3 @@
+[submodule "wnba/WNBA_Optimizer"]
+	path = wnba/WNBA_Optimizer
+	url = https://github.com/WolverineSportsAnalytics/WNBA
