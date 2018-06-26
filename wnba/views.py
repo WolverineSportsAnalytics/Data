@@ -42,8 +42,11 @@ def lineups(request):
                 print player.first_name
                 new_lineup.append(Player(player.first_name + player.last_name, player.team, player.positions[0], player.salary))
             example_list.append(new_lineup)
+        try:
+	    our_proj = Optimizer.optimize(now.day, now.month, now.year, cursor, "rotowireProj")
+        except:
+            print "Not up"
 
-	our_proj = Optimizer.optimize(now.day, now.month, now.year, cursor, "rotowireProj")
         rotowire_list = []
         for lineup in our_proj:
             new_lineup = []
