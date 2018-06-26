@@ -34,6 +34,7 @@ def lineups(request):
 
         example_list = []
         rotowire_list = []
+        our_proj = []
         for lineup in our_proj:
             new_lineup = []
             print ("__________")
