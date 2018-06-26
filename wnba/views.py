@@ -27,7 +27,11 @@ def lineups(request):
         now = datetime.datetime.now()
 
         print ("_______________________________________________________________________")
-	our_proj = Optimizer.optimize(now.day, now.month, now.year, cursor, "simmonsProj")
+        try:
+	    our_proj = Optimizer.optimize(now.day, now.month, now.year, cursor, "simmonsProj")
+        except:
+            print "Not up"
+
         example_list = []
         for lineup in our_proj:
             new_lineup = []
@@ -45,8 +49,6 @@ def lineups(request):
                 new_lineup.append(Player(player.first_name + player.last_name, player.team, player.positions[0], player.salary))
             rotowire_list.append(new_lineup)
         
-        
-            
         return render(request, 'wnba/lineups.html', context={'lineup_list':example_list, 'rotoLineup': rotowire_list} )
 
 def example_lineups(request):
