@@ -26,6 +26,7 @@ def lineups(request):
         
         now = datetime.datetime.now()
 
+        our_proj = []
         print ("_______________________________________________________________________")
         try:
 	    our_proj = Optimizer.optimize(now.day, now.month, now.year, cursor, "simmonsProj")
@@ -34,7 +35,6 @@ def lineups(request):
 
         example_list = []
         rotowire_list = []
-        our_proj = []
         for lineup in our_proj:
             new_lineup = []
             print ("__________")
