@@ -33,6 +33,7 @@ def lineups(request):
             print "Not up"
 
         example_list = []
+        rotowire_list = []
         for lineup in our_proj:
             new_lineup = []
             print ("__________")
