@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 import mlbOptimizer
+import RotoguruScraperMLB
 class Player:
     def __init__(self, name, team, pos, sal):
         self.name = name
@@ -14,16 +15,23 @@ def index(request):
     return render(request, 'baseball/baseball.html')
 
 def lineups(request):
-    example_list = []
+    rotowire_list = []
     our_proj = mlbOptimizer.predict()
     for lineup in our_proj:
         new_lineup = []
         for player in lineup:
             new_lineup.append(Player(player.first_name + " "+ player.last_name, player.team, player.positions[0], int(player.salary)))
-        example_list.append(new_lineup)
+        rotowire_list.append(new_lineup)
 
-
-    return render(request, 'baseball/lineups.html', context={'lineup_list':example_list} )
+    rotoguru_list = []
+    our_proj = RotoguruScraperMLB.predict()
+    for lineup in our_proj:
+        new_lineup = []
+        for player in lineup:
+            new_lineup.append(Player(player.first_name + " "+ player.last_name, player.team, player.positions[0], int(player.salary)))
+        rotoguru_list.append(new_lineup)
+    
+    return render(request, 'baseball/lineups.html', context={'lineup_list':rotowire_list, 'rotoLineup': rotoguru_list} )
 
 def example_lineups(request):
     example_list = [Player("Corey Kluber","CLE","P","11600"), 

@@ -57,7 +57,7 @@
             
             <h2>{{run_dates}} Lineups</h2>
 
-           <div id="wrightDiv">
+           <div id="simmDiv">
             {% for lineup in lineup_list %}
 
             <table style="vertical-align: top; padding: 20px;" id=table{{forloop.counter}}>
@@ -84,6 +84,34 @@
             <input type="button" id="showTable{{forloop.counter}}" value="{{forloop.counter}}">
             {% endfor %}                                                                                                                                                                 
            </div>
+           <div id="zoDiv">
+             {% for lineup in rotoLineup %}
+
+             <table style="vertical-align: top; padding: 20px;" id=zoTable{{forloop.counter}}>
+		     <caption>Rotoguru Model {{forloop.counter }}</caption>
+               <tr>
+                 <th>Player</th>
+                 <th>Pos</th>
+                 <th>Team</th> 
+                 <th>Salary</th>
+               </tr>
+    
+                 {% for player in lineup%}                                                                                                         
+                 <tr>   
+                     <td>{{player.name}}</td> 
+                     <td>{{player.pos}}</td>
+                     <td>{{player.team}}</td>
+                     <td>${{player.sal}}</td>
+                 <tr>                                                                                                                                                                    
+                 {% endfor %}                                                                                                                                                                 
+             </table>
+             {% endfor %}                                                                                                                                                                 
+                
+             {% for lineup in lineup_list %}
+             <input type="button" id="zoShowTable{{forloop.counter}}" value="{{forloop.counter}}">
+             {% endfor %}   
+
+ 
 
        {%else%}
             <p> There are no Lineups For Today </p>
