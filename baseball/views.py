@@ -19,7 +19,7 @@ def lineups(request):
     for lineup in our_proj:
         new_lineup = []
         for player in lineup:
-            new_lineup.append(Player(player.first_name + player.last_name, player.team, player.positions[0], int(player.salary)))
+            new_lineup.append(Player(player.first_name + " "+ player.last_name, player.team, player.positions[0], int(player.salary)))
         example_list.append(new_lineup)
 
 
