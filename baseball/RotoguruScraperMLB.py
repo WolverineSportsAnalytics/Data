@@ -2,6 +2,8 @@ import requests
 import csv
 from bs4 import BeautifulSoup, Comment
 from pydfs_lineup_optimizer import * # version >= 2.0.1
+import datetime
+from pytz import timezone
 
 '''
 Fanduel Scraper that scrapes rotogur for predicitions and optimizes lineups in place
