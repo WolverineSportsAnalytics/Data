@@ -1,7 +1,7 @@
 import requests
 import csv
 from bs4 import BeautifulSoup, Comment
-from pydfs_lineup_optimizer import * # version >= 2.0.1
+from local_pydfs_lineup_optimizer import * # version >= 2.0.1
 import datetime
 from pytz import timezone
 
@@ -74,4 +74,5 @@ def predict():
 
 if __name__ == "__main__":
 
-    predict()
+    for lineup in predict():
+        print lineup

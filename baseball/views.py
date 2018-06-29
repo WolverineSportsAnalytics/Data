@@ -20,7 +20,7 @@ def lineups(request):
     for lineup in our_proj:
         new_lineup = []
         for player in lineup:
-            new_lineup.append(Player(player.first_name + " "+ player.last_name, player.team, player.positions[0], int(player.salary)))
+            new_lineup.append(Player(player.first_name + " "+ player.last_name, player.team, "/".join(player.positions), int(player.salary)))
         rotowire_list.append(new_lineup)
 
     rotoguru_list = []
@@ -28,7 +28,7 @@ def lineups(request):
     for lineup in our_proj:
         new_lineup = []
         for player in lineup:
-            new_lineup.append(Player(player.first_name + " "+ player.last_name, player.team, player.positions[0], int(player.salary)))
+            new_lineup.append(Player(player.first_name + " "+ player.last_name, player.team, "/".join(player.positions), int(player.salary)))
         rotoguru_list.append(new_lineup)
     
     return render(request, 'baseball/lineups.html', context={'lineup_list':rotowire_list, 'rotoLineup': rotoguru_list} )
