@@ -24,6 +24,17 @@ def lineups(request):
         rotowire_list.append(new_lineup)
 
     rotoguru_list = []
+    # our_proj = RotoguruScraperMLB.predict()
+    for lineup in our_proj:
+        new_lineup = []
+        for player in lineup:
+            new_lineup.append(Player(player.first_name + " "+ player.last_name, player.team, "/".join(player.positions), int(player.salary)))
+        rotoguru_list.append(new_lineup)
+    
+    return render(request, 'baseball/lineups.html', context={'lineup_list':rotowire_list} )
+
+def lineupsGuru(request):
+    rotoguru_list = []
     our_proj = RotoguruScraperMLB.predict()
     for lineup in our_proj:
         new_lineup = []
@@ -31,7 +42,9 @@ def lineups(request):
             new_lineup.append(Player(player.first_name + " "+ player.last_name, player.team, "/".join(player.positions), int(player.salary)))
         rotoguru_list.append(new_lineup)
     
-    return render(request, 'baseball/lineups.html', context={'lineup_list':rotowire_list, 'rotoLineup': rotoguru_list} )
+    return render(request, 'baseball/lineups.html', context={'lineup_list':rotoguru_list} )
+
+
 
 def example_lineups(request):
     example_list = [Player("Corey Kluber","CLE","P","11600"), 
@@ -49,3 +62,6 @@ def example_lineups(request):
 @login_required
 def special(request):
     return render(request, 'baseball/special.html')
+
+if __name__ == "__main__":
+    lineups([])
