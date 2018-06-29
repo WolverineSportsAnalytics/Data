@@ -46,6 +46,8 @@ def predict():
             sal = sal[1:]
             sals = sal.split(",")
             sal = sals[0] + sals[1]
+            if int(sal)==0:
+                continue
             rotoProj = i.find_all('td')[7].find('input')['value']
 
 

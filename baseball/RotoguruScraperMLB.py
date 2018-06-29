@@ -39,6 +39,8 @@ def predict():
         if team in finished_games:
             continue
         sal = rows[1]
+        if int(sal)==0:
+            continue
         rotoProj = rows[7]
 
         player_list.append(Player(0, names[0], names[1], pos, team, float(sal), float(rotoProj), False))
@@ -59,6 +61,8 @@ def predict():
         if team in finished_games:
             continue
         sal = rows[1]
+        if int(sal)==0:
+            continue
         rotoProj = rows[7]
 
         player_list.append(Player(0, names[0], names[1], pos, team, float(sal), float(rotoProj), False))
