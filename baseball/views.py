@@ -1,8 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-import mlbOptimizer
-import RotoguruScraperMLB
+import sys, os
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/MLB")
+from MLB_Engine import WsaEngine
+import datetime
+import mysql.connector
+
 class Player:
     def __init__(self, name, team, pos, sal):
         self.name = name
@@ -16,35 +20,26 @@ def index(request):
 
 def lineups(request):
     rotowire_list = []
-    our_proj = mlbOptimizer.predict()
-    for lineup in our_proj:
-        new_lineup = []
-        for player in lineup:
-            new_lineup.append(Player(player.first_name + " "+ player.last_name, player.team, "/".join(player.positions), int(player.salary)))
-        rotowire_list.append(new_lineup)
 
-    rotoguru_list = []
-    # our_proj = RotoguruScraperMLB.predict()
-    for lineup in our_proj:
-        new_lineup = []
-        for player in lineup:
-            new_lineup.append(Player(player.first_name + " "+ player.last_name, player.team, "/".join(player.positions), int(player.salary)))
-        rotoguru_list.append(new_lineup)
+    cnx = mysql.connector.connect(user="wsa@wsabasketball",
+                host="wsabasketball.mysql.database.azure.com",
+                database="mlb",
+                password="LeBron>MJ!")
+    cursor = cnx.cursor()
     
-    return render(request, 'baseball/lineups.html', context={'lineup_list':rotowire_list} )
+    today = datetime.datetime.now().strftime('%Y-%m-%d')
+    time = datetime.datetime.now().strftime('%H:%M:%S')
 
-def lineupsGuru(request):
-    rotoguru_list = []
-    our_proj = RotoguruScraperMLB.predict()
-    for lineup in our_proj:
-        new_lineup = []
-        for player in lineup:
-            new_lineup.append(Player(player.first_name + " "+ player.last_name, player.team, "/".join(player.positions), int(player.salary)))
-        rotoguru_list.append(new_lineup)
-    
-    return render(request, 'baseball/lineups.html', context={'lineup_list':rotoguru_list} )
-
-
+    gen = WsaEngine.WsaEngine()
+    lineups = gen.getAllLineups(cursor, today)
+    slates = []
+    op_types = []
+    for line in lineups:
+    	slates.append(line.slate)
+    	op_types.append(line.op_type)
+    	
+  
+    return render(request, 'baseball/lineups.html', context={'lineup_list':lineups, 'slates':set(slates), "op_types": set(op_types)} )
 
 def example_lineups(request):
     example_list = [Player("Corey Kluber","CLE","P","11600"), 
