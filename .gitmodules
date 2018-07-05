@@ -1,0 +1,3 @@
+[submodule "baseball/MLB"]
+	path = baseball/MLB
+	url = https://github.com/WolverineSportsAnalytics/MLB.git
