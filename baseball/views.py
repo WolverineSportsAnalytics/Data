@@ -2,10 +2,12 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 import sys, os
-from MLB_Engine import WsaEngine, WsaLineups
+from MLB_Engine import WsaEngine
 import datetime
 import mysql.connector
 from django.core.cache import cache
+sys.path.append( os.path.dirname(os.path.realpath(__file__)) + "/MLB_Engine")
+import WsaLineups
 
 class Player:
     def __init__(self, name, team, pos, sal):
@@ -19,7 +21,6 @@ def index(request):
     return render(request, 'baseball/baseball.html')
 
 def lineups(request):
-
 
     cnx = mysql.connector.connect(user="wsa@wsabasketball",
                 host="wsabasketball.mysql.database.azure.com",
