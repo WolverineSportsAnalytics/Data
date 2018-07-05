@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 import sys, os
-from MLB_Engine import WsaEngine
+from MLB_Engine import WsaEngine, WsaLineups
 import datetime
 import mysql.connector
 from django.core.cache import cache
