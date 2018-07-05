@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 import sys, os
-sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/MLB")
 from MLB_Engine import WsaEngine
 import datetime
 import mysql.connector
