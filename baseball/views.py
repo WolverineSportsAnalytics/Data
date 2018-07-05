@@ -5,6 +5,7 @@ import sys, os
 from MLB_Engine import WsaEngine
 import datetime
 import mysql.connector
+from django.core.cache import cache
 
 class Player:
     def __init__(self, name, team, pos, sal):
@@ -18,7 +19,7 @@ def index(request):
     return render(request, 'baseball/baseball.html')
 
 def lineups(request):
-    rotowire_list = []
+
 
     cnx = mysql.connector.connect(user="wsa@wsabasketball",
                 host="wsabasketball.mysql.database.azure.com",
@@ -30,14 +31,18 @@ def lineups(request):
     time = datetime.datetime.now().strftime('%H:%M:%S')
 
     gen = WsaEngine.WsaEngine()
-    lineups = gen.getAllLineups(cursor, today)
+    lineups = cache.get('MlbLineups')
+    if not lineups:
+        print "Query"
+        lineups = gen.getAllLineups(cursor, today)
+        cache.set('MlbLineups', lineups, (6*60*60))  # cache for 6 hours TODO Have WsaEngine job update Memcache when runs 
+
     slates = []
     op_types = []
     for line in lineups:
     	slates.append(line.slate)
     	op_types.append(line.op_type)
     	
-  
     return render(request, 'baseball/lineups.html', context={'lineup_list':lineups, 'slates':set(slates), "op_types": set(op_types)} )
 
 def example_lineups(request):
