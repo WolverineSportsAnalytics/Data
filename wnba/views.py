@@ -4,57 +4,40 @@ import Optimizer
 import constants
 import mysql.connector
 import datetime
- 
+import sys, os
+from django.core.cache import cache
+sys.path.append( os.path.dirname(os.path.realpath(__file__)) + "/WnbaEngine")
+import WsaLineups, WnbaEngine
 
 # Create your views here.
 def index(request):
     return render(request, 'wnba/index.html')
 
 def lineups(request):
-        class Player:
-            def __init__(self, name, team, pos, sal):
-                self.name = name
-                self.team = team
-                self.pos = pos
-                self.sal = sal 
 
-    	cnx = mysql.connector.connect(user=constants.testUser,
-                                  host=constants.testHost,
-                                  database=constants.testName,
-                                  password=constants.testPassword)
-    	cursor = cnx.cursor()
-        
-        now = datetime.datetime.now()
+    cnx = mysql.connector.connect(user="wsa@wsabasketball",
+                host="wsabasketball.mysql.database.azure.com",
+                database="mlb",
+                password="LeBron>MJ!")
+    cursor = cnx.cursor()
+    
+    today = datetime.datetime.now().strftime('%Y-%m-%d')
+    time = datetime.datetime.now().strftime('%H:%M:%S')
 
-        our_proj = []
-        print ("_______________________________________________________________________")
-        try:
-	    our_proj = Optimizer.optimize(now.day, now.month, now.year, cursor, "simmonsProj")
-        except:
-            print "Not up"
+    gen = WnbaEngine.WsaEngine()
+    lineups = cache.get('WnbaLineups')
+    if not lineups:
+        print "Query"
+        lineups = gen.getAllLineups(cursor, today)
+        cache.set('WnbaLineups', lineups, (6*60*60))  # cache for 6 hours TODO Have WsaEngine job update Memcache when runs 
 
-        example_list = []
-        rotowire_list = []
-        for lineup in our_proj:
-            new_lineup = []
-            print ("__________")
-            for player in lineup:
-                print player.first_name
-                new_lineup.append(Player(player.first_name + player.last_name, player.team, player.positions[0], player.salary))
-            example_list.append(new_lineup)
-        try:
-	    our_proj = Optimizer.optimize(now.day, now.month, now.year, cursor, "rotowireProj")
-        except:
-            print "Not up"
-
-        rotowire_list = []
-        for lineup in our_proj:
-            new_lineup = []
-            for player in lineup:
-                new_lineup.append(Player(player.first_name + player.last_name, player.team, player.positions[0], player.salary))
-            rotowire_list.append(new_lineup)
-        
-        return render(request, 'wnba/lineups.html', context={'lineup_list':example_list, 'rotoLineup': rotowire_list} )
+    slates = []
+    op_types = []
+    for line in lineups:
+    	slates.append(line.slate)
+    	op_types.append(line.op_type)
+    	
+    return render(request, 'wnba/lineups.html', context={'lineup_list':lineups, 'slates':set(slates), "op_types": set(op_types)} )
 
 def example_lineups(request):
         class Player:

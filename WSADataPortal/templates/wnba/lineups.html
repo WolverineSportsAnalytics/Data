@@ -28,13 +28,14 @@
 
         <link rel="stylesheet" href="{% static 'css/main.css' %}">
         <link rel="stylesheet" href="{% static 'css/wnba.css' %}">
+        <link rel="stylesheet" href="{% static 'css/mlb.css' %}">
 
         <script src="{% static 'js/vendor/modernizr-2.8.3-respond-1.4.2.min.js' %}"></script>
 
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.5.6/angular-sanitize.js"></script>
         <script src="{% static 'js/main.js' %}"></script>
-        <script src="{% static 'js/basket.js' %}"></script>
+        <script src="{% static 'js/mlb.js' %}"></script>
     </head>
     <body ng-app="WSAData">
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -52,72 +53,81 @@
       </div>
     </nav>
     <div class="container" id="logo">
-       <div id="lineups"  >
+	<div class="custom-select" style="width:300px;">
+
+	  <select id="sel1" onchange="displayTable()">
+
+            {%if slates %}                                                                                                 
+            {% for slate in slates %}
+    	    <option value="{{slate}}">{{slate}}</option>
+            {% endfor %}
+	    {% endif  %}
+		
+	  </select>
+	</div>
+	<div class="custom-select" style="width:300px;">
+	  <select id="sel2" onchange="displayTable()">
+
+            {%if op_types %}                                                                                                 
+            {% for op in op_types%}
+	    <option value="{{op}}">{{op}}</option>
+            {% endfor %}
+	    {% endif  %}
+		
+	  </select>
+	</div>
+
+
+       	<div id="lineups"  >
             {%if lineup_list %}                                                                                                 
-            
             <h2>{{run_dates}} Lineups</h2>
 
-           <div id="simmDiv">
+           <div id="Tables">
             {% for lineup in lineup_list %}
 
-            <table style="vertical-align: top; padding: 20px;" id=table{{forloop.counter}}>
-		    <caption>WSA Model {{forloop.counter}}</caption>
+            <table class="myTable" style="vertical-align: top; padding: 20px;" id="{{lineup.slate}}/{{lineup.op_type}}">
+		<caption>Model Points {{lineup.points}}</caption>
               <tr>
                 <th>Player</th>
                 <th>Pos</th>
-                <th>Team</th> 
-                <th>Salary</th>
               </tr>
     
-                {% for player in lineup%}                                                                                                         
-                <tr>   
-                    <td>{{player.name}}</td> 
-                    <td>{{player.pos}}</td>
-                    <td>{{player.team}}</td>
-                    <td>${{player.sal}}</td>
-                <tr>                                                                                                                                                                    
-                {% endfor %}                                                                                                                                                                 
+                <tr>
+                    <td>{{lineup.g1}}</td> 
+                    <td>G</td> 
+                <tr>
+		<tr>
+                    <td>{{lineup.g2}}</td> 
+                    <td>G</td> 
+ 		<tr>
+		<tr>
+                    <td>{{lineup.g3}}</td> 
+                    <td>G</td> 
+                <tr>
+		<tr>
+                    <td>{{lineup.f1}}</td> 
+                    <td>F</td> 
+                <tr>
+		<tr>
+                    <td>{{lineup.f2}}</td> 
+                    <td>F</td> 
+                <tr>
+		<tr>
+                    <td>{{lineup.f3}}</td> 
+                    <td>F</td> 
+ 		<tr>
+		<tr>
+                    <td>{{lineup.f4}}</td> 
+                    <td>F</td> 
+                <tr>
+
             </table>
-            {% endfor %}                                                                                                                                                                 
-               
-            {% for lineup in lineup_list %}
-            <input type="button" id="showTable{{forloop.counter}}" value="{{forloop.counter}}">
-            {% endfor %}                                                                                                                                                                 
+            {% endfor %}
            </div>
-           <div id="zoDiv">
-             {% for lineup in rotoLineup %}
-
-             <table style="vertical-align: top; padding: 20px;" id=zoTable{{forloop.counter}}>
-		     <caption>Rotowire Model {{forloop.counter }}</caption>
-               <tr>
-                 <th>Player</th>
-                 <th>Pos</th>
-                 <th>Team</th> 
-                 <th>Salary</th>
-               </tr>
-    
-                 {% for player in lineup%}                                                                                                         
-                 <tr>   
-                     <td>{{player.name}}</td> 
-                     <td>{{player.pos}}</td>
-                     <td>{{player.team}}</td>
-                     <td>${{player.sal}}</td>
-                 <tr>                                                                                                                                                                    
-                 {% endfor %}                                                                                                                                                                 
-             </table>
-             {% endfor %}                                                                                                                                                                 
-                
-             {% for lineup in lineup_list %}
-             <input type="button" id="zoShowTable{{forloop.counter}}" value="{{forloop.counter}}">
-             {% endfor %}   
-
-           </div>
-                
-           
-             {%else%}  
+             {%else%}
                  <h1> No Lineups For Today Sorry </h1>
                  <a href="{% url "data:example" %}"> Example Lineup </a>
-             {%endif%}    
+             {%endif%}
            </div>
 
       </div>
