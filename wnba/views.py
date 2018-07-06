@@ -32,11 +32,13 @@ def lineups(request):
 
     slates = []
     op_types = []
+    number_lineups = []
     for line in lineups:
     	slates.append(line.slate)
     	op_types.append(line.op_type)
+        number_lineups.append(line.number)
     	
-    return render(request, 'wnba/lineups.html', context={'lineup_list':lineups, 'slates':set(slates), "op_types": set(op_types)} )
+    return render(request, 'wnba/lineups.html', context={'lineup_list':lineups, 'slates':set(slates), "op_types": set(op_types), "num_lineups": set(number_lineups)} )
 
 def example_lineups(request):
         class Player:

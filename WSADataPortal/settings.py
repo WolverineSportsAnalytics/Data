@@ -133,9 +133,9 @@ STATICFILES_DIRS = [
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
-os.environ['MEMCACHE_SERVERS'] = os.environ.get('MEMCACHIER_SERVERS', '').replace(',', ';')
-os.environ['MEMCACHE_USERNAME'] = os.environ.get('MEMCACHIER_USERNAME', '')
-os.environ['MEMCACHE_PASSWORD'] = os.environ.get('MEMCACHIER_PASSWORD', '')
+os.environ['MEMCACHE_SERVERS'] = "mc2.dev.ec2.memcachier.com:11211"
+os.environ['MEMCACHE_USERNAME'] = "C28EAA"
+os.environ['MEMCACHE_PASSWORD'] = "2C9E10BE353DC19A30812C5F7299C753"
 
 CACHES = {
     'default': {

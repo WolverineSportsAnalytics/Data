@@ -35,7 +35,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.5.6/angular-sanitize.js"></script>
         <script src="{% static 'js/main.js' %}"></script>
-        <script src="{% static 'js/mlb.js' %}"></script>
+        <script src="{% static 'js/wnba.js' %}"></script>
     </head>
     <body ng-app="WSAData">
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -76,6 +76,18 @@
 		
 	  </select>
 	</div>
+	<div class="custom-select" style="width:300px;">
+	  <select id="sel3" onchange="displayTable()">
+
+            {%if num_lineups %}                                                                                                 
+            {% for num in num_lineups%}
+	    <option value="{{num}}">{{num}}</option>
+            {% endfor %}
+	    {% endif  %}
+		
+	  </select>
+	</div>
+
 
 
        	<div id="lineups"  >
@@ -85,7 +97,7 @@
            <div id="Tables">
             {% for lineup in lineup_list %}
 
-            <table class="myTable" style="vertical-align: top; padding: 20px;" id="{{lineup.slate}}/{{lineup.op_type}}">
+	    <table class="myTable" style="vertical-align: top; padding: 20px;" id="{{lineup.slate}}/{{lineup.op_type}}/{{lineup.number}}">
 		<caption>Model Points {{lineup.points}}</caption>
               <tr>
                 <th>Player</th>
