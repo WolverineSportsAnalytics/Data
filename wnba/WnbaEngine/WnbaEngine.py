@@ -74,7 +74,7 @@ class WsaEngine():
         fetchedLineups = cursor.fetchall()
         lineups = []
         for line in fetchedLineups:
-            lineups.append(WsaLineups.WsaLineup(line[2:9], line[1], line[9], line[10], line[11]))
+            lineups.append(WsaLineups.WsaLineup(line[2:9], line[1], line[9], line[10], line[11], line[0]))
         return lineups
 
 def getWsaLineups():

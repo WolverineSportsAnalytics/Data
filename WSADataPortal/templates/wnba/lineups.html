@@ -53,6 +53,7 @@
       </div>
     </nav>
     <div class="container" id="logo">
+        {%if lineup_list %}                                                                                                 
 	<div class="custom-select" style="width:300px;">
 
 	  <select id="sel1" onchange="displayTable()">
@@ -91,7 +92,6 @@
 
 
        	<div id="lineups"  >
-            {%if lineup_list %}                                                                                                 
             <h2>{{run_dates}} Lineups</h2>
 
            <div id="Tables">
@@ -136,11 +136,12 @@
             </table>
             {% endfor %}
            </div>
-             {%else%}
+           {%else%}
+	   <div>
                  <h1> No Lineups For Today Sorry </h1>
                  <a href="{% url "data:example" %}"> Example Lineup </a>
-             {%endif%}
            </div>
+           {%endif%}
 
       </div>
 

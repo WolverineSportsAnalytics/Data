@@ -17,7 +17,7 @@ def lineups(request):
 
     cnx = mysql.connector.connect(user="wsa@wsabasketball",
                 host="wsabasketball.mysql.database.azure.com",
-                database="mlb",
+                database="wnba",
                 password="LeBron>MJ!")
     cursor = cnx.cursor()
     
