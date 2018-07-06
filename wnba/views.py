@@ -2,11 +2,12 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import constants
 import mysql.connector
+from WnbaEngine import WnbaEngine as wnba
 import datetime
 import sys, os
 from django.core.cache import cache
 sys.path.append( os.path.dirname(os.path.realpath(__file__)) + "/WnbaEngine")
-import WsaLineups, WnbaEngine
+import WsaLineups
 
 # Create your views here.
 def index(request):
@@ -23,7 +24,7 @@ def lineups(request):
     today = datetime.datetime.now().strftime('%Y-%m-%d')
     time = datetime.datetime.now().strftime('%H:%M:%S')
 
-    gen = WnbaEngine.WsaEngine()
+    gen = wnba.WsaEngine()
     lineups = cache.get('WnbaLineups')
     if not lineups:
         print "Query"
