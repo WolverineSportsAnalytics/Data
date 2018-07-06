@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-import Optimizer
 import constants
 import mysql.connector
 import datetime
@@ -47,8 +46,6 @@ def example_lineups(request):
                 self.pos = pos
                 self.sal = sal 
 
-        Optimizer.optimize(cusror, cnx, "simmonsProj")
-        
         example_list = [Player("Alex Jones","MIN","G","3100"), 
                         Player("Shekinna Stricklen", "CON", "G", "4400"),
                         Player("Brittney Sykes", "ATL", "G", "6400"),
