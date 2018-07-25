@@ -10,7 +10,6 @@ import string
 import Optimizer 
 import datetime
 import pytz
-import matplotlib 
 import numpy 
 
 # Create your views here.

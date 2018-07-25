@@ -3,6 +3,8 @@ from django.contrib import admin
 from data import views as basketballViews
 from baseball import views as baseballViews
 from wnba import views as wnbaViews
+from django.contrib.auth import views as auth_views
+
 
 urlpatterns = [
     # Examples:
@@ -18,4 +20,5 @@ urlpatterns = [
     url(r'^data/', include('data.urls')),
     url(r'^baseball/', include('baseball.urls')),
     url(r'^wnba/', include('wnba.urls')),
+    url(r'^login/$', auth_views.login, name='login'),
 ]

@@ -8,11 +8,13 @@ import sys, os
 from django.core.cache import cache
 sys.path.append( os.path.dirname(os.path.realpath(__file__)) + "/WnbaEngine")
 import WsaLineups
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
     return render(request, 'wnba/index.html')
 
+@login_required(login_url="/login/")
 def lineups(request):
 
     cnx = mysql.connector.connect(user="wsa@wsabasketball",
