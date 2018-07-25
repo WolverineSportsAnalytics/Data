@@ -43,7 +43,7 @@
 	      {% if user.is_authenticated %}
 		   <li> <a href="/">
                         <span class="glyphicon glyphicon-user"></span> 
-                        <strong>{{user.username | upper}}</strong>
+                        <strong>{{user.first_name | upper}}</strong>
                     </a></li>
 	      <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 	      {% else %}
