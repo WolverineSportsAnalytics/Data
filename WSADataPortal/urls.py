@@ -1,4 +1,5 @@
 from django.conf.urls import include, url
+from django.conf import settings
 from django.contrib import admin
 from data import views as basketballViews
 from baseball import views as baseballViews
@@ -21,5 +22,5 @@ urlpatterns = [
     url(r'^baseball/', include('baseball.urls')),
     url(r'^wnba/', include('wnba.urls')),
     url(r'^login/$', auth_views.login, name='login'),
-    url(r'^logout/$', auth_views.logout, name='logout'),
+    url(r'^logout/$', auth_views.logout,{'next_page':settings.LOGOUT_REDIRECT_URL}, name='logout'),
 ]
