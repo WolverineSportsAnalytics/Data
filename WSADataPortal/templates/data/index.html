@@ -1,80 +1,12 @@
-<!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
-    <head>
-        {% load staticfiles %}
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.png' %}">
+{% extends 'base.html' %}
 
-        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+{% block title %}Home{% endblock %}
 
-        <style>
-            body {
-                padding-top: 50px;
-                padding-bottom: 20px;
-            }
-        </style>
-        <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}">
+{% block content %}
+{% load staticfiles %}
 
-        <link rel="stylesheet" href="{% static 'css/main.css' %}">
-
-        <script src="{% static 'js/vendor/modernizr-2.8.3-respond-1.4.2.min.js' %}"></script>
-
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.5.6/angular-sanitize.js"></script>
-
-        <script src="{% static 'js/main.js' %}"></script>
-    </head>
-    <body ng-app="WSAData">
-      {% load staticfiles %}
-        <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-    <div ng-controller="mainController as wsa">
-      <nav class="navbar navbar-inverse topnav navbar-fixed-top" role="navigation">
-          <div class="container topnav">
-                <!-- Brand and toggle get grouped for better mobile display -->
-              <div class="navbar-header">
-          	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-          	</button>
-          	<a class="navbar-brand" href="/">Wolverine Sports Analytics</a>
-                <a href="{% url 'basketball' %}" style="margin-top:8px;"  class="btn btn-primary"> NBA </a>
-                <a href="{% url 'baseball' %}" style="margin-top:8px;"  class="btn btn-primary"> MLB </a>
-                <a href="{% url 'wnba' %}" style="margin-top:8px;"  class="btn btn-primary"> WNBA </a>
-                <a href="{% url 'data:home' %}" style="margin-top:8px;"  class="btn btn-primary"> Legacy </a>
-              </div>
-	  </div>
-        </nav>
-
-	<!-- 
-              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                </ul>
-                <form class = "navbar-form navbar-right">
-                    <div class="form-group">
-                        <label class="sr-only" for="exampleInputEmail3">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Enter email" ng-model="wsa.loginEmail">
-                    <div class="form-group">
-                        <label class="sr-only" for="exampleInputPassword3">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword3" placeholder="Password" ng-model="wsa.loginPassword">
-                    </div>
-                    <button type="submit" class="btn btn-default" ng-click="wsa.validate(wsa.loginEmail, wsa.loginPassword)">Login</button>
-                </form>
-              </div> -->
-	
-
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="container" class="headerImage">
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<div class="container" class="headerImage">
       <div class="row">
         <a href="http://www.wolverinesportsanalytics.com/">
             <img src="{% static "img/wsa_home.jpg" %}" class="img-responsive img-rounded center-block" id="logo" alt="Wolverine Sports Analytics">
@@ -199,80 +131,6 @@
               </a>
          </div>
         <hr>
-      <footer>
-        <p>&copy; Wolverine Sports Analytics 2018</p>
-      </footer>
-
-    <div> 
-    </div>
-    </div> <!-- /container -->
-        <div class="modal fade" id="SignUpModal" tavindex="-1" role="dialog" aria-labelledby="SignUpLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="SignUpLabel">Sign Up for Wolverine Sports Analytics Data</h4>
-                    </div>
-                    <form class="form-horizontal" role="form" name="user.signUpForm">
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" for="signUpFirstName">First Name</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="signUpFirstName" ng-model="wsa.firstName" placeholder="First Name">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" for="signUpLastName">Last Name</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="signUpLastName" ng-model="wsa.lastName" placeholder="Last Name">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" for="signUpEmail">Email</label>
-                                <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="signUpEmail" ng-model="wsa.email" placeholder="Email"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" for="signUpPassword">Password</label>
-                                <div class="col-sm-10">
-                                    <input type="password" class="form-control" id="signUpPassword" ng-model="wsa.password" placeholder="Password"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" for="signUpConfirmPassword">Confirm Password</label>
-                                <div class="col-sm-10">
-                                    <input type="password" class="form-control" id="signUpConfirmPassword" ng-model="wsa.confirmPassword" placeholder=" Confirm Password"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-5"></div>
-                                <div class="col-sm-2 text-center">
-                                    <button type="submit" class="btn btn-success" ng-click="wsa.signUp(wsa.firstName, wsa.lastName, wsa.email, wsa.password, wsa.confirmPassword)">Sign Up</button>
-                                </div>
-                                <div class="col-sm-5"></div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="{% static 'js/vendor/jquery-1.11.2.min.js' %}"><\/script>')</script>
-
-        <script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
-
-        <script src="{% static 'js/main.js' %}"></script>
-
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-        <script>
-            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-            e.src='//www.google-analytics.com/analytics.js';
-            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','UA-XXXXX-X','auto');ga('send','pageview');
-        </script>       
-    </body>
-</html>
+   </div>
+   
+{% endblock %}
