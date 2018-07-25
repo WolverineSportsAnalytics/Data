@@ -20,6 +20,7 @@ class Player:
 def index(request):
     return render(request, 'baseball/baseball.html')
 
+@login_required(login_url="/login/")
 def lineups(request):
 
     cnx = mysql.connector.connect(user="wsa@wsabasketball",
@@ -59,7 +60,7 @@ def example_lineups(request):
                         ]
     return render(request, 'baseball/example.html', context={'example_list':example_list} )
 
-@login_required
+@login_required(login_url="/login/")
 def special(request):
     return render(request, 'baseball/special.html')
 

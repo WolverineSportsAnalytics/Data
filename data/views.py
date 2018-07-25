@@ -5,6 +5,8 @@ from django.template import loader
 from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.views import generic
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 import random
 import string
 import Optimizer 
@@ -56,6 +58,7 @@ def example_lineups(request):
 class LineupsView(generic.TemplateView):
     template_name = "data/basket.html"
 
+    @method_decorator(login_required(login_url="/login/"))
     def get(self, request):
 
         tz = pytz.timezone('US/Eastern')
