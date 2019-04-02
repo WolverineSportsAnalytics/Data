@@ -73,7 +73,7 @@ class LineupsView(generic.TemplateView):
         lelineups = []
         try:
             lineups = Optimizer.automate(day, month, year,"ridge", None)
-            zolineups = Optimizer.automate(day, month, year,"zo", None)
+            zolineups = Optimizer.automate(day, month, year,"mlp", None)
             lelineups = Optimizer.automate(day, month, year,"le", None)
         except:
             pass
