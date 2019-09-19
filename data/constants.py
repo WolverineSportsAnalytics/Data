@@ -1,7 +1,7 @@
 # database data
 
-databaseHost='wsabasketball.mysql.database.azure.com'
-databaseUser='wsa@wsabasketball'
+databaseHost='34.68.250.121'
+databaseUser='wsa'
 databaseName='basketball'
 databasePassword='LeBron>MJ!'
 
