@@ -62,9 +62,10 @@
       
       {% load staticfiles %}
         <div>
-            <h1> NCAA Loss Tree Rankings </h1>
+            <h1> NCAA Football Loss Tree Rankings </h1>
+	    Rank | Team | Losses in Tree <br>
 		    {% for rank, team, losses in rankings %}
-		    {{rank}}. {{team}}<br>
+		    {{rank}}. {{team}} {{losses}} <br>
             {% endfor %}
 
         </div>
