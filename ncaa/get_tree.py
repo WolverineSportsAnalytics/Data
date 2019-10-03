@@ -6,6 +6,7 @@ class Tree():
         self.losses = []
         self.tree = {}
         self.total = []
+        self.team = team
 
     def add_loss(self, team):
         self.losses.append(team)
@@ -21,6 +22,10 @@ class Tree():
     def get_subtree(self, team, team_losses):
         ''' Return a subtree of losses '''
         sub_tree = {}
+        if team not in team_losses:
+            return sub_tree # this is FCS
+        if team == self.team:
+            return sub_tree # cant lose to yourself
         for loss_team in team_losses[team]:
             if loss_team not in self.total:
                 self.total.append(loss_team)
