@@ -9,7 +9,7 @@ django-heroku-memcacheify==1.0.0
 django-pylibmc==0.6.1 
 dj-database-url==0.4.1
 Django==1.9.6
-djangorestframework==3.3.3
+djangorestframework==3.11.2
 gunicorn==19.5.0
 idna==2.7
 matplotlib==2.1.0
